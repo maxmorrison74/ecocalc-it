@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://ecocalc.it/sitemap.xml
+Disallow: /
