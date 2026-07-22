@@ -1,22 +1,22 @@
 {
-  "name": "EcoCalc.it - CAF Online & Utility Hub",
+  "name": "EcoCalc.it - Hub Finanziario e Fiscale",
   "short_name": "EcoCalc",
   "description": "Calcola Stipendio Netto, TFR, NASpI, Polizze Assicurative Casa/Vita/Auto/Moto, Auto Elettrica e Fotovoltaico.",
   "start_url": "/?source=pwa",
   "display": "standalone",
-  "background_color": "#090d14",
-  "theme_color": "#090d14",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>",
+      "src": "icon-512x512.png",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/png"
     },
     {
-      "src": "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>",
+      "src": "icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png"
     }
   ]
 }
