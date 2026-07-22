@@ -55,6 +55,22 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  position: relative;
+  z-index: 0;
+}
+
+/* Watermark in background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background-image: url('logo.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 800px;
+  opacity: 0.03; /* Super subtle watermark */
+  z-index: -1;
+  pointer-events: none;
 }
 
 a {
