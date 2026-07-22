@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoCalc.it | Calcolatori Efficienza Energetica, Fotovoltaico e Auto Elettrica</title>
+  <meta name="description" content="Calcola gratis su EcoCalc.it il risparmio economico tra Auto Elettrica e Carburante, il ROI di un Impianto Fotovoltaico con accumulo e l'importo del Bollo Auto.">
+  <meta name="keywords" content="ecocalc, calcolo auto elettrica vs benzina, calcolo fotovoltaico roi, calcolo bollo auto, risparmio energetico, bolletta luce">
+  <link rel="canonical" href="https://ecocalc.it/">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="EcoCalc.it - Calcolatori Efficienza Energetica & Auto">
+  <meta property="og:description" content="Calcola subito quanto puoi risparmiare con un'auto elettrica, il fotovoltaico e controlla i costi della tua auto su EcoCalc.it.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ecocalc.it/">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Glow FX -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <div class="logo-text">
+          <span class="logo-title">EcoCalc<span class="highlight">.it</span></span>
+          <span class="logo-subtitle">Calcolatori Energetici & Automotive</span>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="ev-calc" role="tab" aria-selected="true">
+          <span class="tab-icon">⚡</span> Auto Elettrica vs Carburante
+        </button>
+        <button class="tab-btn" data-tab="solar-calc" role="tab" aria-selected="false">
+          <span class="tab-icon">☀️</span> Fotovoltaico & ROI
+        </button>
+        <button class="tab-btn" data-tab="bollo-calc" role="tab" aria-selected="false">
+          <span class="tab-icon">🚗</span> Bollo Auto & TCO
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Top Ad Banner Placeholder -->
+  <div class="container ad-wrapper top-ad-margin">
+    <div class="ad-slot ad-leaderboard">
+      <span class="ad-badge">Sponsor / Inserzione</span>
+      <div class="ad-content">
+        <div class="ad-promo">
+          <span class="ad-icon">💡</span>
+          <div>
+            <strong>Offerta Luce & Gas 100% Green:</strong> Blocca il prezzo dell'energia per 24 mesi e risparmia fino al 25% in bolletta.
+          </div>
+        </div>
+        <a href="#affiliate-energy" class="btn btn-sm btn-outline">Scopri l'offerta &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="container main-content">
+
+    <!-- ==================== CALCULATOR 1: EV vs GAS ==================== -->
+    <section id="ev-calc" class="tab-content active">
+      <div class="section-header">
+        <h2>⚡ Auto Elettrica (EV) vs Carburante (Benzina/Diesel)</h2>
+        <p>Inserisci la tua percorrenza e scopri l'esatto risparmio economico mensile e annuale, con confronto dei costi di ricarica.</p>
+      </div>
+
+      <div class="grid-layout">
+        <!-- Input Form -->
+        <div class="card glass-card">
+          <h3 class="card-title">⚙️ Parametri di Calcolo</h3>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="ev-km">Percorrenza Annua (Km):</label>
+              <span class="input-val" id="val-ev-km">15.000 km</span>
+            </div>
+            <input type="range" id="ev-km" min="2000" max="60000" step="1000" value="15000">
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="gas-consumption">Consumo Carburante (L/100km):</label>
+              <input type="number" id="gas-consumption" value="6.5" step="0.1" min="2" max="20" class="num-input">
+              <small class="form-hint">Es. 6.5 L/100km ≈ 15.3 km/L</small>
+            </div>
+
+            <div class="form-group">
+              <label for="gas-price">Prezzo Carburante (€/L):</label>
+              <input type="number" id="gas-price" value="1.82" step="0.01" min="1.0" max="3.0" class="num-input">
+              <small class="form-hint">Media Benzina / Diesel attuale</small>
+            </div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="ev-consumption">Consumo EV (kWh/100km):</label>
+              <input type="number" id="ev-consumption" value="15.5" step="0.1" min="8" max="35" class="num-input">
+              <small class="form-hint">Media auto elettrica media</small>
+            </div>
+
+            <div class="form-group">
+              <label for="ev-home-cost">Prezzo Ricarica Casa (€/kWh):</label>
+              <input type="number" id="ev-home-cost" value="0.22" step="0.01" min="0.05" max="0.80" class="num-input">
+              <small class="form-hint">Costo medio bolletta domestica</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="ev-home-pct">% Ricarica a Casa vs Colonnina Pubblica:</label>
+              <span class="input-val" id="val-ev-home-pct">80% Casa / 20% Colonnina</span>
+            </div>
+            <input type="range" id="ev-home-pct" min="0" max="100" step="5" value="80">
+          </div>
+
+          <div class="form-group">
+            <label for="ev-public-cost">Prezzo Colonnina Pubblica (€/kWh):</label>
+            <input type="number" id="ev-public-cost" value="0.55" step="0.01" min="0.30" max="1.20" class="num-input">
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="results-column">
+          <div class="card glass-card accent-card">
+            <h3 class="card-title">💰 Il Tuo Risparmio Stimato</h3>
+
+            <div class="hero-stat-box">
+              <span class="stat-label">Risparmio Netto Annuo</span>
+              <span class="stat-value highlight-green" id="res-ev-annual-savings">1.185 €</span>
+              <span class="stat-badge" id="res-ev-pct-saved">-64% sui costi di pieno</span>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="item-label">Costo Annuo Carburante</span>
+                <span class="item-value text-red" id="res-gas-annual">1.774 €</span>
+                <small id="res-gas-100km">11,83 € / 100 km</small>
+              </div>
+
+              <div class="stat-item">
+                <span class="item-label">Costo Annuo Elettrico</span>
+                <span class="item-value text-green" id="res-ev-annual">589 €</span>
+                <small id="res-ev-100km">3,93 € / 100 km</small>
+              </div>
+            </div>
+
+            <!-- Cumulative Savings Bar Chart -->
+            <div class="chart-container">
+              <h4 class="chart-title">Risparmio Cumulato nel Tempo</h4>
+              <div class="bars-wrapper">
+                <div class="bar-group">
+                  <div class="bar-track"><div class="bar-fill" id="bar-1y" style="height: 20%;"></div></div>
+                  <span class="bar-val" id="bar-val-1y">1.185€</span>
+                  <span class="bar-label">1 Anno</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar-track"><div class="bar-fill" id="bar-5y" style="height: 65%;"></div></div>
+                  <span class="bar-val" id="bar-val-5y">5.925€</span>
+                  <span class="bar-label">5 Anni</span>
+                </div>
+                <div class="bar-group">
+                  <div class="bar-track"><div class="bar-fill highlight-bar" id="bar-10y" style="height: 100%;"></div></div>
+                  <span class="bar-val" id="bar-val-10y">11.850€</span>
+                  <span class="bar-label">10 Anni</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ecological Stat -->
+            <div class="eco-box">
+              <span class="eco-icon">🌱</span>
+              <div>
+                <strong>Impatto Ambientale:</strong> Eviterai l'emissione di circa <span id="res-co2-saved">2,4 tonnellate</span> di CO₂ all'anno!
+              </div>
+            </div>
+          </div>
+
+          <!-- Affiliate High-Conversion Widget -->
+          <div class="card affiliate-card" id="affiliate-energy">
+            <span class="affiliate-badge">⚡ Offerta Partner Consigliata</span>
+            <h4>Vuoi ridurre ulteriormente il costo di ricarica a casa?</h4>
+            <p>Con le tariffe luce dedicate alla ricarica notturna puoi ricaricare l'auto a meno di <strong>0,12 €/kWh</strong>.</p>
+            <ul class="check-list">
+              <li>✓ Prezzo materia prima bloccato</li>
+              <li>✓ Energy app con monitoraggio consumi</li>
+              <li>✓ Bonus di benvenuto 60€ in bolletta</li>
+            </ul>
+            <button class="btn btn-primary btn-block" onclick="alert('Redirezione verso l\'offerta partner di energia in affiliazione...')">
+              Confronta Tariffe Luce Ricarica EV &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CALCULATOR 2: FOTOVOLTAICO ==================== -->
+    <section id="solar-calc" class="tab-content">
+      <div class="section-header">
+        <h2>☀️ Calcolatore Fotovoltaico, Batteria Accumulo & ROI</h2>
+        <p>Dimensiona l'impianto solare ideale per la tua abitazione e calcola in quanti anni rientri dell'investimento.</p>
+      </div>
+
+      <div class="grid-layout">
+        <!-- Input Form -->
+        <div class="card glass-card">
+          <h3 class="card-title">🏠 I Tuoi Consumi Energetici</h3>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="solar-bill">Spesa Media Bolletta Luce Mensile (€):</label>
+              <span class="input-val" id="val-solar-bill">120 €/mese</span>
+            </div>
+            <input type="range" id="solar-bill" min="40" max="600" step="10" value="120">
+          </div>
+
+          <div class="form-group">
+            <label for="solar-zone">Zona Geografica (Insolazione Media):</label>
+            <select id="solar-zone" class="select-input">
+              <option value="1200">Nord Italia (~1.200 kWh/kWp all'anno)</option>
+              <option value="1400" selected>Centro Italia (~1.400 kWh/kWp all'anno)</option>
+              <option value="1600">Sud Italia & Isole (~1.600 kWh/kWp all'anno)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="solar-battery">Batteria di Accumulo consigliata?</label>
+            <select id="solar-battery" class="select-input">
+              <option value="yes" selected>Sì - Con Accumulo (Aumenta l'autoconsumo al 75-80%)</option>
+              <option value="no">No - Solo Pannelli (Autoconsumo ~35-40%)</option>
+            </select>
+          </div>
+
+          <hr class="divider">
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="solar-cost">Costo Impianto Stimato (€):</label>
+              <input type="number" id="solar-cost" value="7500" step="250" min="2000" max="30000" class="num-input">
+              <small class="form-hint">Prezzo medio chiavi in mano</small>
+            </div>
+
+            <div class="form-group">
+              <label for="solar-tax-credit">Detrazione Fiscale (%):</label>
+              <input type="number" id="solar-tax-credit" value="50" step="5" min="0" max="100" class="num-input">
+              <small class="form-hint">Bonus Casa 50% in 10 anni</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="results-column">
+          <div class="card glass-card accent-card">
+            <h3 class="card-title">📊 Dimensionamento & Rientro Economico</h3>
+
+            <div class="hero-stat-box">
+              <span class="stat-label">Tempo di Rientro (ROI)</span>
+              <span class="stat-value highlight-cyan" id="res-solar-payback">4,8 Anni</span>
+              <span class="stat-badge">Dopodiché è tutto guadagno netto!</span>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="item-label">Potenza Consigliata</span>
+                <span class="item-value" id="res-solar-kwp">3,5 kWp</span>
+                <small id="res-solar-battery-size">+ Accumulo 5 kWh</small>
+              </div>
+
+              <div class="stat-item">
+                <span class="item-label">Risparmio Annuo Bolletta</span>
+                <span class="item-value text-green" id="res-solar-annual-savings">1.080 €</span>
+                <small id="res-solar-autoconsump">Autoconsumo stimato 75%</small>
+              </div>
+            </div>
+
+            <div class="roi-timeline">
+              <h4>Rientro Economico a 20 Anni</h4>
+              <div class="roi-metrics">
+                <div class="roi-metric">
+                  <span class="roi-title">Costo Netto (con Detrazione)</span>
+                  <span class="roi-val text-yellow" id="res-solar-net-cost">3.750 €</span>
+                </div>
+                <div class="roi-metric">
+                  <span class="roi-title">Risparmio Totale 20 Anni</span>
+                  <span class="roi-val text-green" id="res-solar-20y-savings">21.600 €</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Affiliate Solar Quote Widget -->
+          <div class="card affiliate-card yellow-border">
+            <span class="affiliate-badge badge-solar">☀️ Richiedi Preventivi Gratuiti</span>
+            <h4>Confronta fino a 3 preventivi Fotovoltaico nella tua zona</h4>
+            <p>Trova gli installatori certificati più vicini a te con le migliori garanzie sui pannelli (25 anni).</p>
+            <button class="btn btn-warning btn-block" onclick="alert('Modulo di richiesta preventivo gratuito fotovoltaico...')">
+              Calcola Preventivi Gratis &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CALCULATOR 3: BOLLO AUTO ==================== -->
+    <section id="bollo-calc" class="tab-content">
+      <div class="section-header">
+        <h2>🚗 Calcolatore Bollo Auto & Costo Totale di Possesso (TCO)</h2>
+        <p>Calcola il bollo auto esatto in base alla potenza e verifica quanto ti costa realmente mantenere la tua auto ogni anno.</p>
+      </div>
+
+      <div class="grid-layout">
+        <!-- Input Form -->
+        <div class="card glass-card">
+          <h3 class="card-title">📋 Dati del Veicolo</h3>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="car-power-type">Unità di Potenza:</label>
+              <select id="car-power-type" class="select-input">
+                <option value="kw" selected>Chilowatt (kW)</option>
+                <option value="cv">Cavalli Vapore (CV)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="car-power-val">Potenza Veicolo:</label>
+              <input type="number" id="car-power-val" value="110" step="1" min="10" max="1000" class="num-input">
+              <small class="form-hint" id="power-converted">≈ 150 CV</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="car-fuel-type">Alimentazione & Tecnologia:</label>
+            <select id="car-fuel-type" class="select-input">
+              <option value="gasoline">Benzina / Diesel</option>
+              <option value="gpl">GPL / Metano</option>
+              <option value="hybrid">Ibrida (HEV / PHEV)</option>
+              <option value="electric">100% Elettrica (Esenzione 5 anni)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="car-euro">Classe Ambientale Euro:</label>
+            <select id="car-euro" class="select-input">
+              <option value="euro6" selected>Euro 6</option>
+              <option value="euro5">Euro 5</option>
+              <option value="euro4">Euro 4</option>
+              <option value="euro3">Euro 3</option>
+              <option value="euro0-2">Euro 0 - Euro 2</option>
+            </select>
+          </div>
+
+          <hr class="divider">
+          <h4>Costi di Gestione Aggiuntivi (Stima TCO)</h4>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="car-insurance">Assicurazione R.C.A. (€/anno):</label>
+              <input type="number" id="car-insurance" value="450" step="10" min="100" max="3000" class="num-input">
+            </div>
+
+            <div class="form-group">
+              <label for="car-maintenance">Tagliando & Manutenzione (€/anno):</label>
+              <input type="number" id="car-maintenance" value="350" step="10" min="50" max="2000" class="num-input">
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="results-column">
+          <div class="card glass-card accent-card">
+            <h3 class="card-title">🧾 Risultato Bollo & Costo Annuo</h3>
+
+            <div class="hero-stat-box">
+              <span class="stat-label">Importo Bollo Annuo Stimato</span>
+              <span class="stat-value highlight-yellow" id="res-bollo-amount">283 €</span>
+              <span class="stat-badge" id="res-superbollo-badge">Superbollo non dovuto (&le; 185 kW)</span>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="item-label">Costo Totale Mantenimento (TCO)</span>
+                <span class="item-value text-red" id="res-tco-total">1.083 € / anno</span>
+                <small>Bollo + Assicurazione + Manutenzione</small>
+              </div>
+
+              <div class="stat-item">
+                <span class="item-label">Costo Fisso Mensile</span>
+                <span class="item-value" id="res-tco-monthly">90,25 € / mese</span>
+                <small>Esclusi i costi di carburante</small>
+              </div>
+            </div>
+
+            <div class="info-note" id="bollo-note">
+              💡 <strong>Nota Regionale:</strong> In molte regioni le auto ibride ed elettriche godono di esenzione totale dal bollo per 3-5 anni e riduzioni del 75% successive.
+            </div>
+          </div>
+
+          <!-- Affiliate Insurance Widget -->
+          <div class="card affiliate-card blue-border">
+            <span class="affiliate-badge badge-blue">🚗 Assicurazione Auto</span>
+            <h4>Stai pagando troppo per l'assicurazione?</h4>
+            <p>Confronta le migliori compagnie online in 3 minuti e risparmia fino a <strong>500€/anno</strong> sulla RCA.</p>
+            <button class="btn btn-info btn-block" onclick="alert('Confronta i preventivi per l\'assicurazione auto...')">
+              Confronta Preventivi Assicurazione &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-Content Ad Banner Placeholder -->
+    <div class="ad-wrapper bottom-ad-margin">
+      <div class="ad-slot ad-rectangle">
+        <span class="ad-badge">Sponsor / Inserzione</span>
+        <div class="ad-content">
+          <p><strong>Spazio Pubblicitario Riservato (Google AdSense / Banner Diretti)</strong></p>
+          <small>Gli annunci contestuali ad alto CPM compariranno in questa posizione senza disturbare la navigazione.</small>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-col">
+        <div class="logo">
+          <span class="logo-icon">⚡</span>
+          <span class="logo-title">EcoCalc<span class="highlight">.it</span></span>
+        </div>
+        <p class="footer-desc">I migliori strumenti gratuiti di calcolo su EcoCalc.it per risparmiare sull'energia domestica e la mobilità sostenibile.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Calcolatori</h4>
+        <ul>
+          <li><a href="#" onclick="switchTab('ev-calc'); return false;">Auto Elettrica vs Benzina</a></li>
+          <li><a href="#" onclick="switchTab('solar-calc'); return false;">Fotovoltaico & Accumulo</a></li>
+          <li><a href="#" onclick="switchTab('bollo-calc'); return false;">Bollo Auto & TCO</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Info & Note Legali</h4>
+        <p class="disclaimer-text">I calcoli forniti su EcoCalc.it sono stime basate su medie nazionali e parametri dell'utente. I valori reali possono variare in base a specifiche tariffe contrattuali e normative regionali.</p>
+        <p class="copyright">&copy; 2026 EcoCalc.it - Tutti i diritti riservati.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="app.js"></script>
+</body>
+</html>
