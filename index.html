@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>EcoCalc.it | Calcolatori Efficienza Energetica, Fotovoltaico e Auto Elettrica</title>
-  <meta name="description" content="Calcola gratis su EcoCalc.it il risparmio economico tra Auto Elettrica e Carburante, il ROI di un Impianto Fotovoltaico con accumulo e l'importo del Bollo Auto.">
-  <meta name="keywords" content="ecocalc, calcolo auto elettrica vs benzina, calcolo fotovoltaico roi, calcolo bollo auto, risparmio energetico, bolletta luce">
+  <meta name="description" content="Calcola gratis su EcoCalc.it il risparmio economico tra Auto Elettrica e Carburante, il ROI di un Impianto Fotovoltaico con accumulo e l'importo del Bollo Auto per regione.">
+  <meta name="keywords" content="ecocalc, calcolo auto elettrica vs benzina, calcolo fotovoltaico roi, calcolo bollo auto regione, risparmio energetico, bolletta luce">
   <link rel="canonical" href="https://ecocalc.it/">
   
   <!-- Favicon -->
@@ -76,8 +76,8 @@
     <!-- ==================== CALCULATOR 1: EV vs GAS ==================== -->
     <section id="ev-calc" class="tab-content active">
       <div class="section-header">
-        <h2>⚡ Auto Elettrica (EV) vs Carburante (Benzina/Diesel)</h2>
-        <p>Inserisci la tua percorrenza e scopri l'esatto risparmio economico mensile e annuale, con confronto dei costi di ricarica.</p>
+        <h2>⚡ Auto Elettrica (EV) vs Carburante (Benzina/Diesel/GPL)</h2>
+        <p>Confronto professionale e dettagliato: risparmio sul pieno, costi di ricarica domestica vs colonnina e risparmio sulla manutenzione ordinaria.</p>
       </div>
 
       <div class="grid-layout">
@@ -93,17 +93,26 @@
             <input type="range" id="ev-km" min="2000" max="60000" step="1000" value="15000">
           </div>
 
+          <div class="form-group">
+            <label for="gas-fuel-type">Tipo di Carburante Attuale:</label>
+            <select id="gas-fuel-type" class="select-input">
+              <option value="1.82" selected>Benzina (1.82 €/L)</option>
+              <option value="1.72">Diesel (1.72 €/L)</option>
+              <option value="0.72">GPL (0.72 €/L)</option>
+              <option value="1.35">Metano (1.35 €/kg)</option>
+            </select>
+          </div>
+
           <div class="form-grid-2">
             <div class="form-group">
               <label for="gas-consumption">Consumo Carburante (L/100km):</label>
               <input type="number" id="gas-consumption" value="6.5" step="0.1" min="2" max="20" class="num-input">
-              <small class="form-hint">Es. 6.5 L/100km ≈ 15.3 km/L</small>
+              <small class="form-hint" id="gas-km-l-hint">≈ 15.4 km/L</small>
             </div>
 
             <div class="form-group">
               <label for="gas-price">Prezzo Carburante (€/L):</label>
-              <input type="number" id="gas-price" value="1.82" step="0.01" min="1.0" max="3.0" class="num-input">
-              <small class="form-hint">Media Benzina / Diesel attuale</small>
+              <input type="number" id="gas-price" value="1.82" step="0.01" min="0.5" max="3.0" class="num-input">
             </div>
           </div>
 
@@ -113,19 +122,19 @@
             <div class="form-group">
               <label for="ev-consumption">Consumo EV (kWh/100km):</label>
               <input type="number" id="ev-consumption" value="15.5" step="0.1" min="8" max="35" class="num-input">
-              <small class="form-hint">Media auto elettrica media</small>
+              <small class="form-hint">Media auto elettrica: 15.5 kWh/100km</small>
             </div>
 
             <div class="form-group">
               <label for="ev-home-cost">Prezzo Ricarica Casa (€/kWh):</label>
-              <input type="number" id="ev-home-cost" value="0.22" step="0.01" min="0.05" max="0.80" class="num-input">
-              <small class="form-hint">Costo medio bolletta domestica</small>
+              <input type="number" id="ev-home-cost" value="0.22" step="0.01" min="0.00" max="0.80" class="num-input">
+              <small class="form-hint">0.00€ se usi Solare / 0.22€ medio</small>
             </div>
           </div>
 
           <div class="form-group">
             <div class="label-row">
-              <label for="ev-home-pct">% Ricarica a Casa vs Colonnina Pubblica:</label>
+              <label for="ev-home-pct">% Ricarica Casa vs Colonnina Pubblica:</label>
               <span class="input-val" id="val-ev-home-pct">80% Casa / 20% Colonnina</span>
             </div>
             <input type="range" id="ev-home-pct" min="0" max="100" step="5" value="80">
@@ -135,6 +144,12 @@
             <label for="ev-public-cost">Prezzo Colonnina Pubblica (€/kWh):</label>
             <input type="number" id="ev-public-cost" value="0.55" step="0.01" min="0.30" max="1.20" class="num-input">
           </div>
+
+          <div class="form-group">
+            <label for="ev-maint-savings">Risparmio Manutenzione Stimato (€/anno):</label>
+            <input type="number" id="ev-maint-savings" value="350" step="50" min="0" max="1000" class="num-input">
+            <small class="form-hint">Niente cambio olio, filtri, minor usura freni</small>
+          </div>
         </div>
 
         <!-- Results Card -->
@@ -143,9 +158,9 @@
             <h3 class="card-title">💰 Il Tuo Risparmio Stimato</h3>
 
             <div class="hero-stat-box">
-              <span class="stat-label">Risparmio Netto Annuo</span>
-              <span class="stat-value highlight-green" id="res-ev-annual-savings">1.185 €</span>
-              <span class="stat-badge" id="res-ev-pct-saved">-64% sui costi di pieno</span>
+              <span class="stat-label">Risparmio Netto Annuo Complessivo</span>
+              <span class="stat-value highlight-green" id="res-ev-annual-savings">1.535 €</span>
+              <span class="stat-badge" id="res-ev-pct-saved">Pieno + Manutenzione inclusa</span>
             </div>
 
             <div class="stats-grid">
@@ -168,45 +183,65 @@
               <div class="bars-wrapper">
                 <div class="bar-group">
                   <div class="bar-track"><div class="bar-fill" id="bar-1y" style="height: 20%;"></div></div>
-                  <span class="bar-val" id="bar-val-1y">1.185€</span>
+                  <span class="bar-val" id="bar-val-1y">1.535€</span>
                   <span class="bar-label">1 Anno</span>
                 </div>
                 <div class="bar-group">
                   <div class="bar-track"><div class="bar-fill" id="bar-5y" style="height: 65%;"></div></div>
-                  <span class="bar-val" id="bar-val-5y">5.925€</span>
+                  <span class="bar-val" id="bar-val-5y">7.675€</span>
                   <span class="bar-label">5 Anni</span>
                 </div>
                 <div class="bar-group">
                   <div class="bar-track"><div class="bar-fill highlight-bar" id="bar-10y" style="height: 100%;"></div></div>
-                  <span class="bar-val" id="bar-val-10y">11.850€</span>
+                  <span class="bar-val" id="bar-val-10y">15.350€</span>
                   <span class="bar-label">10 Anni</span>
                 </div>
               </div>
             </div>
 
-            <!-- Ecological Stat -->
+            <!-- Ecological Stat & Share -->
             <div class="eco-box">
               <span class="eco-icon">🌱</span>
               <div>
-                <strong>Impatto Ambientale:</strong> Eviterai l'emissione di circa <span id="res-co2-saved">2,4 tonnellate</span> di CO₂ all'anno!
+                <strong>Impatto Ambientale:</strong> Eviterai l'emissione di circa <span id="res-co2-saved">2,2 tonnellate</span> di CO₂ all'anno!
               </div>
+            </div>
+
+            <div class="share-actions">
+              <button class="btn btn-sm btn-outline" onclick="copyCalculationReport()">📋 Copia Risultati</button>
+              <button class="btn btn-sm btn-outline" onclick="window.print()">🖨️ Stampa Report</button>
             </div>
           </div>
 
           <!-- Affiliate High-Conversion Widget -->
           <div class="card affiliate-card" id="affiliate-energy">
             <span class="affiliate-badge">⚡ Offerta Partner Consigliata</span>
-            <h4>Vuoi ridurre ulteriormente il costo di ricarica a casa?</h4>
-            <p>Con le tariffe luce dedicate alla ricarica notturna puoi ricaricare l'auto a meno di <strong>0,12 €/kWh</strong>.</p>
-            <ul class="check-list">
-              <li>✓ Prezzo materia prima bloccato</li>
-              <li>✓ Energy app con monitoraggio consumi</li>
-              <li>✓ Bonus di benvenuto 60€ in bolletta</li>
-            </ul>
-            <button class="btn btn-primary btn-block" onclick="alert('Redirezione verso l\'offerta partner di energia in affiliazione...')">
-              Confronta Tariffe Luce Ricarica EV &rarr;
+            <h4>Vuoi ricaricare gratis da marzo ad ottobre?</h4>
+            <p>Abbinando una Wallbox intelligente ad un impianto Fotovoltaico con accumulo puoi azzerare del tutto il costo di ricarica.</p>
+            <button class="btn btn-primary btn-block" onclick="alert('Richiesta informazioni per pacchetto Solare + Wallbox...')">
+              Confronta Offerte Wallbox & Solar &rarr;
             </button>
           </div>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion (SEO Optimized) -->
+      <div class="card glass-card faq-section">
+        <h3 class="card-title">❓ Domande Frequenti su Auto Elettrica vs Carburante</h3>
+        <div class="accordion">
+          <details class="faq-item">
+            <summary class="faq-question">Quanto costa ricaricare un'auto elettrica a casa in Italia?</summary>
+            <div class="faq-answer">
+              <p>Il costo medio della materia prima e degli oneri in bolletta casalinga varia tra <strong>0,18 € e 0,26 € per kWh</strong>. Per un'auto elettrica media con batteria da 50 kWh, una ricarica completa a casa costa circa 9-12€ e permette di percorrere tra i 300 e i 400 km.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">Quanto si risparmia in manutenzione con un'auto elettrica?</summary>
+            <div class="faq-answer">
+              <p>I veicoli elettrici non hanno frizione, olio motore, cinghie di distribuzione o candele. La manutenzione ordinaria costa in media il <strong>40-50% in meno</strong> rispetto a un motore termico, limitandosi a filtro abitacolo, liquido freni e pneumatici.</p>
+            </div>
+          </details>
         </div>
       </div>
     </section>
@@ -215,7 +250,7 @@
     <section id="solar-calc" class="tab-content">
       <div class="section-header">
         <h2>☀️ Calcolatore Fotovoltaico, Batteria Accumulo & ROI</h2>
-        <p>Dimensiona l'impianto solare ideale per la tua abitazione e calcola in quanti anni rientri dell'investimento.</p>
+        <p>Dimensiona l'impianto solare ideale per la tua abitazione, calcola l'autoconsumo e la vendita dell'energia in rete (Ritiro Dedicato).</p>
       </div>
 
       <div class="grid-layout">
@@ -241,10 +276,19 @@
           </div>
 
           <div class="form-group">
+            <label for="solar-day-profile">Profilo dei Consumi:</label>
+            <select id="solar-day-profile" class="select-input">
+              <option value="balanced" selected>Bilanciato (Casa vissuta giorno e sera)</option>
+              <option value="daytime">Prevalenza Diurna (Lavoro da casa)</option>
+              <option value="evening">Prevalenza Serale (Rientro a cena)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
             <label for="solar-battery">Batteria di Accumulo consigliata?</label>
             <select id="solar-battery" class="select-input">
-              <option value="yes" selected>Sì - Con Accumulo (Aumenta l'autoconsumo al 75-80%)</option>
-              <option value="no">No - Solo Pannelli (Autoconsumo ~35-40%)</option>
+              <option value="yes" selected>Sì - Con Accumulo (Aumenta l'autoconsumo all'80%)</option>
+              <option value="no">No - Solo Pannelli (Autoconsumo ~40%)</option>
             </select>
           </div>
 
@@ -271,7 +315,7 @@
             <h3 class="card-title">📊 Dimensionamento & Rientro Economico</h3>
 
             <div class="hero-stat-box">
-              <span class="stat-label">Tempo di Rientro (ROI)</span>
+              <span class="stat-label">Tempo di Rientro dall'Investimento (ROI)</span>
               <span class="stat-value highlight-cyan" id="res-solar-payback">4,8 Anni</span>
               <span class="stat-badge">Dopodiché è tutto guadagno netto!</span>
             </div>
@@ -286,7 +330,7 @@
               <div class="stat-item">
                 <span class="item-label">Risparmio Annuo Bolletta</span>
                 <span class="item-value text-green" id="res-solar-annual-savings">1.080 €</span>
-                <small id="res-solar-autoconsump">Autoconsumo stimato 75%</small>
+                <small id="res-solar-autoconsump">Autoconsumo stimato 80%</small>
               </div>
             </div>
 
@@ -316,19 +360,51 @@
           </div>
         </div>
       </div>
+
+      <!-- FAQ Section -->
+      <div class="card glass-card faq-section">
+        <h3 class="card-title">❓ Domande Frequenti su Impianti Fotovoltaici</h3>
+        <div class="accordion">
+          <details class="faq-item">
+            <summary class="faq-question">Conviene installare la batteria di accumulo?</summary>
+            <div class="faq-answer">
+              <p>Sì, se i consumi familiari si concentrano la sera. La batteria trattiene l'energia prodotta di giorno dal sole e la rende disponibile di notte, portando l'autoconsumo dal 35% a oltre l'80%.</p>
+            </div>
+          </details>
+
+          <details class="faq-item">
+            <summary class="faq-question">Come funziona la detrazione fiscale al 50%?</summary>
+            <div class="faq-answer">
+              <p>Il 50% della spesa sostenuta per l'impianto e l'accumulo viene restituito sotto forma di detrazione IRPEF in 10 quote annuali di pari importo nella dichiarazione dei redditi.</p>
+            </div>
+          </details>
+        </div>
+      </div>
     </section>
 
     <!-- ==================== CALCULATOR 3: BOLLO AUTO ==================== -->
     <section id="bollo-calc" class="tab-content">
       <div class="section-header">
-        <h2>🚗 Calcolatore Bollo Auto & Costo Totale di Possesso (TCO)</h2>
-        <p>Calcola il bollo auto esatto in base alla potenza e verifica quanto ti costa realmente mantenere la tua auto ogni anno.</p>
+        <h2>🚗 Calcolatore Bollo Auto Regionale & Costo Totale (TCO)</h2>
+        <p>Calcola l'importo esatto del bollo auto in base alla tua Regione di residenza, alla potenza e controlla le esenzioni locali per ibride ed elettriche.</p>
       </div>
 
       <div class="grid-layout">
         <!-- Input Form -->
         <div class="card glass-card">
-          <h3 class="card-title">📋 Dati del Veicolo</h3>
+          <h3 class="card-title">📋 Dati del Veicolo & Residenza</h3>
+
+          <div class="form-group">
+            <label for="car-region">Regione di Residenza:</label>
+            <select id="car-region" class="select-input">
+              <option value="standard" selected>Lazio, Toscana, Emilia-Romagna, Sicilia, Sardegna, ecc. (Standard)</option>
+              <option value="lombardia">Lombardia (Esenzione 100% permanente per EV / Sconto 50% Ibride)</option>
+              <option value="piemonte">Piemonte (Esenzione 100% permanente per EV e Metano)</option>
+              <option value="campania">Campania (Esenzione 100% EV per 5 anni / Sconto Ibride)</option>
+              <option value="veneto">Veneto (Esenzione 100% EV 5 anni / Ibride 3 anni)</option>
+              <option value="puglia">Puglia (Esenzione 100% EV 5 anni / Ibride 5 anni)</option>
+            </select>
+          </div>
 
           <div class="form-grid-2">
             <div class="form-group">
@@ -352,7 +428,7 @@
               <option value="gasoline">Benzina / Diesel</option>
               <option value="gpl">GPL / Metano</option>
               <option value="hybrid">Ibrida (HEV / PHEV)</option>
-              <option value="electric">100% Elettrica (Esenzione 5 anni)</option>
+              <option value="electric">100% Elettrica</option>
             </select>
           </div>
 
@@ -409,7 +485,7 @@
             </div>
 
             <div class="info-note" id="bollo-note">
-              💡 <strong>Nota Regionale:</strong> In molte regioni le auto ibride ed elettriche godono di esenzione totale dal bollo per 3-5 anni e riduzioni del 75% successive.
+              💡 <strong>Regola Regionale Applicata:</strong> In molte regioni le auto ibride ed elettriche godono di esenzioni totali dal bollo per i primi 3-5 anni.
             </div>
           </div>
 
@@ -459,12 +535,59 @@
       </div>
 
       <div class="footer-col">
-        <h4>Info & Note Legali</h4>
-        <p class="disclaimer-text">I calcoli forniti su EcoCalc.it sono stime basate su medie nazionali e parametri dell'utente. I valori reali possono variare in base a specifiche tariffe contrattuali e normative regionali.</p>
+        <h4>Info & Legal GDPR</h4>
+        <ul>
+          <li><a href="#" onclick="openModal('privacy-modal'); return false;">Privacy Policy</a></li>
+          <li><a href="#" onclick="openModal('cookie-modal'); return false;">Cookie Policy</a></li>
+          <li><a href="#" onclick="resetCookieConsent(); return false;">Gestisci Consenso Cookie</a></li>
+        </ul>
+        <p class="disclaimer-text margin-top-sm">I calcoli forniti su EcoCalc.it sono stime basate su medie nazionali e parametri dell'utente.</p>
         <p class="copyright">&copy; 2026 EcoCalc.it - Tutti i diritti riservati.</p>
       </div>
     </div>
   </footer>
+
+  <!-- ==================== GDPR COOKIE CONSENT BANNER ==================== -->
+  <div id="cookie-banner" class="cookie-banner">
+    <div class="container cookie-inner">
+      <div class="cookie-text">
+        <span>🍪 <strong>Informativa sui Cookie & Privacy:</strong> Usiamo cookie tecnici essenziali e, previo tuo consenso, cookie analitici e pubblicitari (Google AdSense) per personalizzare gli annunci e misurare il traffico. Consulta la nostra <a href="#" onclick="openModal('privacy-modal'); return false;">Privacy Policy</a>.</span>
+      </div>
+      <div class="cookie-buttons">
+        <button class="btn btn-sm btn-outline" onclick="acceptCookies('necessary')">Solo Necessari</button>
+        <button class="btn btn-sm btn-primary" onclick="acceptCookies('all')">Accetta Tutti</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PRIVACY & COOKIE MODALS ==================== -->
+  <div id="privacy-modal" class="modal">
+    <div class="modal-content glass-card">
+      <span class="modal-close" onclick="closeModal('privacy-modal')">&times;</span>
+      <h3>🔒 Privacy Policy di EcoCalc.it</h3>
+      <div class="modal-body">
+        <p>In conformità al Regolamento Generale sulla Protezione dei Dati (GDPR - UE 2016/679), informiamo gli utenti che <strong>EcoCalc.it non raccoglie né memorizza dati personali identificativi</strong> nei propri server.</p>
+        <h4>1. Dati Inseriti nei Calcolatori</h4>
+        <p>Tutti i parametri inseriti nei form (es. chilometri percorsi, importo bolletta, potenza auto) vengono elaborati <strong>esclusivamente in locale nel browser dell'utente</strong> tramite JavaScript e non vengono trasmessi a server esterni.</p>
+        <h4>2. Cookie di Terze Parti & Pubblicità</h4>
+        <p>Il sito può utilizzare servizi di terze parti come Google AdSense ed Ezoic per erogare annunci pubblicitari. Tali fornitori possono utilizzare cookie per mostrare annunci basati sulle visite precedenti degli utenti a questo o ad altri siti web.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="cookie-modal" class="modal">
+    <div class="modal-content glass-card">
+      <span class="modal-close" onclick="closeModal('cookie-modal')">&times;</span>
+      <h3>🍪 Cookie Policy di EcoCalc.it</h3>
+      <div class="modal-body">
+        <p>Questo sito utilizza le seguenti tipologie di cookie:</p>
+        <ul>
+          <li><strong>Cookie Tecnici (Essenziali):</strong> Necessari per memorizzare le preferenze di navigazione (es. scelta dei cookie e calcoli locali).</li>
+          <li><strong>Cookie Analitici & Pubblicitari:</strong> Forniti da Google AdSense o partner per analizzare il traffico ed erogare inserzioni pubblicitarie pertinenti.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <!-- JS -->
   <script src="app.js"></script>

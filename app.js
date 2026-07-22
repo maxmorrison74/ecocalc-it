@@ -1,5 +1,5 @@
 /* ==========================================================================
-   EcoCalc Hub - Logic & Interactive Calculations
+   EcoCalc Hub - Logic, Advanced Calculations & GDPR Management
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,6 +7,48 @@ document.addEventListener('DOMContentLoaded', () => {
   initEVCalc();
   initSolarCalc();
   initBolloCalc();
+  initGDPRCookies();
+});
+
+/* --------------------------------------------------------------------------
+   GDPR Cookie & Modal Handler
+   -------------------------------------------------------------------------- */
+function initGDPRCookies() {
+  const consent = localStorage.getItem('ecocalc_cookie_consent');
+  const banner = document.getElementById('cookie-banner');
+
+  if (!consent && banner) {
+    banner.style.display = 'block';
+  }
+}
+
+function acceptCookies(type) {
+  localStorage.setItem('ecocalc_cookie_consent', type);
+  const banner = document.getElementById('cookie-banner');
+  if (banner) banner.style.display = 'none';
+}
+
+function resetCookieConsent() {
+  localStorage.removeItem('ecocalc_cookie_consent');
+  const banner = document.getElementById('cookie-banner');
+  if (banner) banner.style.display = 'block';
+}
+
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) modal.style.display = 'none';
+}
+
+// Close modal on background click
+window.addEventListener('click', (e) => {
+  if (e.target.classList.contains('modal')) {
+    e.target.style.display = 'none';
+  }
 });
 
 /* --------------------------------------------------------------------------
@@ -39,19 +81,28 @@ function switchTab(tabId) {
 }
 
 /* --------------------------------------------------------------------------
-   Calculator 1: EV vs Gas
+   Calculator 1: EV vs Gas (Enhanced)
    -------------------------------------------------------------------------- */
 function initEVCalc() {
   const kmInput = document.getElementById('ev-km');
+  const fuelTypeSelect = document.getElementById('gas-fuel-type');
   const gasConsInput = document.getElementById('gas-consumption');
   const gasPriceInput = document.getElementById('gas-price');
   const evConsInput = document.getElementById('ev-consumption');
   const evHomeCostInput = document.getElementById('ev-home-cost');
   const evHomePctInput = document.getElementById('ev-home-pct');
   const evPublicCostInput = document.getElementById('ev-public-cost');
+  const evMaintSavingsInput = document.getElementById('ev-maint-savings');
 
   const valKmSpan = document.getElementById('val-ev-km');
   const valHomePctSpan = document.getElementById('val-ev-home-pct');
+  const kmLHint = document.getElementById('gas-km-l-hint');
+
+  // Auto-update price when fuel type changes
+  fuelTypeSelect.addEventListener('change', () => {
+    gasPriceInput.value = fuelTypeSelect.value;
+    calculateEV();
+  });
 
   function calculateEV() {
     const km = parseFloat(kmInput.value) || 15000;
@@ -61,10 +112,16 @@ function initEVCalc() {
     const evHomeCost = parseFloat(evHomeCostInput.value) || 0.22;
     const evHomePct = parseFloat(evHomePctInput.value) || 80;
     const evPublicCost = parseFloat(evPublicCostInput.value) || 0.55;
+    const maintSavings = parseFloat(evMaintSavingsInput.value) || 350;
 
     // Format slider labels
     valKmSpan.textContent = `${km.toLocaleString('it-IT')} km`;
     valHomePctSpan.textContent = `${evHomePct}% Casa / ${100 - evHomePct}% Colonnina`;
+
+    if (gasCons > 0) {
+      const kmPerL = (100 / gasCons).toFixed(1);
+      kmLHint.textContent = `≈ ${kmPerL} km/L`;
+    }
 
     // Gas calculations
     const gasTotalLiters = (km / 100) * gasCons;
@@ -77,14 +134,13 @@ function initEVCalc() {
     const evAnnualCost = evTotalKwh * weightedEvCostPerKwh;
     const evCostPer100km = evCons * weightedEvCostPerKwh;
 
-    // Savings
-    const netAnnualSavings = Math.max(0, gasAnnualCost - evAnnualCost);
-    const pctSaved = gasAnnualCost > 0 ? Math.round((netAnnualSavings / gasAnnualCost) * 100) : 0;
+    // Overall Net Savings including Maintenance
+    const fuelSavings = Math.max(0, gasAnnualCost - evAnnualCost);
+    const netAnnualSavings = fuelSavings + maintSavings;
     const co2SavedTons = ((km * 0.145) / 1000).toFixed(1);
 
     // Update DOM
     document.getElementById('res-ev-annual-savings').textContent = `${Math.round(netAnnualSavings).toLocaleString('it-IT')} €`;
-    document.getElementById('res-ev-pct-saved').textContent = `-${pctSaved}% sui costi di pieno`;
 
     document.getElementById('res-gas-annual').textContent = `${Math.round(gasAnnualCost).toLocaleString('it-IT')} €`;
     document.getElementById('res-gas-100km').textContent = `${gasCostPer100km.toFixed(2).replace('.', ',')} € / 100 km`;
@@ -109,19 +165,34 @@ function initEVCalc() {
     document.getElementById('bar-10y').style.height = `100%`;
   }
 
-  [kmInput, gasConsInput, gasPriceInput, evConsInput, evHomeCostInput, evHomePctInput, evPublicCostInput].forEach(elem => {
+  [kmInput, gasConsInput, gasPriceInput, evConsInput, evHomeCostInput, evHomePctInput, evPublicCostInput, evMaintSavingsInput].forEach(elem => {
     elem.addEventListener('input', calculateEV);
   });
 
   calculateEV();
 }
 
+function copyCalculationReport() {
+  const savings = document.getElementById('res-ev-annual-savings').textContent;
+  const gasCost = document.getElementById('res-gas-annual').textContent;
+  const evCost = document.getElementById('res-ev-annual').textContent;
+
+  const textToCopy = `⚡ Report Calcolo EcoCalc.it:\nRisparmio Annuo stimato passando a un'Auto Elettrica: ${savings}\n(Costo Carburante: ${gasCost} vs Costo Elettrico: ${evCost})\nCalcola il tuo risparmio su https://ecocalc.it`;
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    alert('✅ Risultati copiati negli appunti!');
+  }).catch(() => {
+    alert(textToCopy);
+  });
+}
+
 /* --------------------------------------------------------------------------
-   Calculator 2: Solar & Battery ROI
+   Calculator 2: Solar & Battery ROI (Enhanced)
    -------------------------------------------------------------------------- */
 function initSolarCalc() {
   const billInput = document.getElementById('solar-bill');
   const zoneSelect = document.getElementById('solar-zone');
+  const profileSelect = document.getElementById('solar-day-profile');
   const batterySelect = document.getElementById('solar-battery');
   const costInput = document.getElementById('solar-cost');
   const taxCreditInput = document.getElementById('solar-tax-credit');
@@ -131,6 +202,7 @@ function initSolarCalc() {
   function calculateSolar() {
     const monthlyBill = parseFloat(billInput.value) || 120;
     const insolationZone = parseFloat(zoneSelect.value) || 1400;
+    const dayProfile = profileSelect.value;
     const hasBattery = batterySelect.value === 'yes';
     const totalCost = parseFloat(costInput.value) || 7500;
     const taxCreditPct = parseFloat(taxCreditInput.value) || 50;
@@ -139,39 +211,48 @@ function initSolarCalc() {
 
     const annualBill = monthlyBill * 12;
 
-    // Estimate autoconsumption %
-    const autoconsumptionRate = hasBattery ? 0.75 : 0.40;
+    // Autoconsumption calculation
+    let baseAutoconsumption = 0.35;
+    if (dayProfile === 'daytime') baseAutoconsumption = 0.50;
+    if (dayProfile === 'evening') baseAutoconsumption = 0.25;
 
-    // Estimate required kWp: (annual kWh needed = annualBill / 0.28€ per kWh) / insolationZone
+    const autoconsumptionRate = hasBattery ? Math.min(0.85, baseAutoconsumption + 0.45) : baseAutoconsumption;
+
+    // kWp needed
     const annualKwhNeeded = annualBill / 0.27;
     let kwpRecommended = (annualKwhNeeded / insolationZone);
-    kwpRecommended = Math.max(2.0, Math.min(15.0, Math.round(kwpRecommended * 2) / 2)); // Round to nearest 0.5 kWp
+    kwpRecommended = Math.max(2.0, Math.min(15.0, Math.round(kwpRecommended * 2) / 2));
 
     const batterySizeKwh = hasBattery ? Math.round(kwpRecommended * 1.5) : 0;
 
-    // Annual savings in bill
-    const annualSavings = annualBill * autoconsumptionRate;
+    // Savings + Grid feed-in (Ritiro Dedicato ~0.08€/kWh for exported energy)
+    const selfConsumedKwh = (annualKwhNeeded * autoconsumptionRate);
+    const exportedKwh = Math.max(0, (kwpRecommended * insolationZone) - selfConsumedKwh);
+    const gridRevenue = exportedKwh * 0.08;
+
+    const annualBillSavings = annualBill * autoconsumptionRate;
+    const totalAnnualBenefit = annualBillSavings + gridRevenue;
 
     // Net cost after tax deduction
     const netCost = totalCost * (1 - (taxCreditPct / 100));
 
     // ROI Payback
-    const paybackYears = annualSavings > 0 ? (netCost / annualSavings).toFixed(1) : 0;
-    const savings20y = Math.round((annualSavings * 20) - netCost);
+    const paybackYears = totalAnnualBenefit > 0 ? (netCost / totalAnnualBenefit).toFixed(1) : 0;
+    const savings20y = Math.round((totalAnnualBenefit * 20) - netCost);
 
     // Update DOM
     document.getElementById('res-solar-payback').textContent = `${paybackYears.replace('.', ',')} Anni`;
     document.getElementById('res-solar-kwp').textContent = `${kwpRecommended.toFixed(1).replace('.', ',')} kWp`;
     document.getElementById('res-solar-battery-size').textContent = hasBattery ? `+ Accumulo ${batterySizeKwh} kWh` : 'Senza Accumulo';
     
-    document.getElementById('res-solar-annual-savings').textContent = `${Math.round(annualSavings).toLocaleString('it-IT')} €`;
+    document.getElementById('res-solar-annual-savings').textContent = `${Math.round(totalAnnualBenefit).toLocaleString('it-IT')} €`;
     document.getElementById('res-solar-autoconsump').textContent = `Autoconsumo stimato ${Math.round(autoconsumptionRate * 100)}%`;
 
     document.getElementById('res-solar-net-cost').textContent = `${Math.round(netCost).toLocaleString('it-IT')} €`;
     document.getElementById('res-solar-20y-savings').textContent = `${Math.max(0, savings20y).toLocaleString('it-IT')} €`;
   }
 
-  [billInput, zoneSelect, batterySelect, costInput, taxCreditInput].forEach(elem => {
+  [billInput, zoneSelect, profileSelect, batterySelect, costInput, taxCreditInput].forEach(elem => {
     elem.addEventListener('input', calculateSolar);
   });
 
@@ -179,9 +260,10 @@ function initSolarCalc() {
 }
 
 /* --------------------------------------------------------------------------
-   Calculator 3: Bollo Auto & TCO
+   Calculator 3: Bollo Auto & TCO (Regional Enhanced)
    -------------------------------------------------------------------------- */
 function initBolloCalc() {
+  const regionSelect = document.getElementById('car-region');
   const powerTypeSelect = document.getElementById('car-power-type');
   const powerValInput = document.getElementById('car-power-val');
   const fuelTypeSelect = document.getElementById('car-fuel-type');
@@ -190,8 +272,10 @@ function initBolloCalc() {
   const maintInput = document.getElementById('car-maintenance');
 
   const convertedSpan = document.getElementById('power-converted');
+  const bolloNote = document.getElementById('bollo-note');
 
   function calculateBollo() {
+    const region = regionSelect.value;
     const pType = powerTypeSelect.value;
     let powerVal = parseFloat(powerValInput.value) || 100;
     const fuel = fuelTypeSelect.value;
@@ -224,17 +308,33 @@ function initBolloCalc() {
     let bolloAmount = 0;
     let superbollo = 0;
 
+    const baseKw = Math.min(kw, 100);
+    const extraKw = Math.max(0, kw - 100);
+    const standardCost = (baseKw * baseRateKwp100) + (extraKw * extraRateKwpOver100);
+
+    // Apply Regional Rules
     if (fuel === 'electric') {
-      bolloAmount = 0; // Esenzione 5 anni
+      if (region === 'lombardia' || region === 'piemonte') {
+        bolloAmount = 0; // Esenzione 100% per sempre
+        bolloNote.innerHTML = `💡 <strong>Regione ${region.toUpperCase()}:</strong> Esenzione dal bollo auto 100% permanente per veicoli elettrici.`;
+      } else {
+        bolloAmount = 0; // Primi 5 anni 0€, poi -75%
+        bolloNote.innerHTML = `💡 <strong>Esenzione Elettrica:</strong> Bollo gratuito per i primi 5 anni, poi sconto del 75%.`;
+      }
     } else if (fuel === 'hybrid') {
-      // 50% discount in many regions
-      const baseKw = Math.min(kw, 100);
-      const extraKw = Math.max(0, kw - 100);
-      bolloAmount = ((baseKw * baseRateKwp100) + (extraKw * extraRateKwpOver100)) * 0.5;
+      if (region === 'lombardia') {
+        bolloAmount = standardCost * 0.50;
+        bolloNote.innerHTML = `💡 <strong>Regione Lombardia:</strong> Sconto del 50% sul bollo per auto ibride.`;
+      } else if (region === 'veneto' || region === 'puglia' || region === 'campania') {
+        bolloAmount = 0; // Esenzione primi 3-5 anni
+        bolloNote.innerHTML = `💡 <strong>Regione ${region.toUpperCase()}:</strong> Esenzione totale nei primi anni di immatricolazione.`;
+      } else {
+        bolloAmount = standardCost * 0.75;
+        bolloNote.innerHTML = `💡 <strong>Auto Ibrida:</strong> Agevolazione media del 25% sul bollo auto.`;
+      }
     } else {
-      const baseKw = Math.min(kw, 100);
-      const extraKw = Math.max(0, kw - 100);
-      bolloAmount = (baseKw * baseRateKwp100) + (extraKw * extraRateKwpOver100);
+      bolloAmount = standardCost;
+      bolloNote.innerHTML = `💡 <strong>Tariffa Ordinaria:</strong> Calcolata sulla classe Euro e kW del veicolo.`;
     }
 
     // Superbollo (> 185 kW)
@@ -255,7 +355,7 @@ function initBolloCalc() {
       superBadge.style.background = 'rgba(239, 68, 68, 0.2)';
       superBadge.style.color = 'var(--accent-red)';
     } else if (fuel === 'electric') {
-      superBadge.textContent = `Esenzione 100% Bollo (Primi 5 Anni)`;
+      superBadge.textContent = `Esenzione Bollo Auto Elettrica`;
       superBadge.style.background = 'rgba(16, 185, 129, 0.2)';
       superBadge.style.color = 'var(--accent-green)';
     } else {
@@ -268,7 +368,7 @@ function initBolloCalc() {
     document.getElementById('res-tco-monthly').textContent = `${tcoMonthly.replace('.', ',')} € / mese`;
   }
 
-  [powerTypeSelect, powerValInput, fuelTypeSelect, euroSelect, insuranceInput, maintInput].forEach(elem => {
+  [regionSelect, powerTypeSelect, powerValInput, fuelTypeSelect, euroSelect, insuranceInput, maintInput].forEach(elem => {
     elem.addEventListener('input', calculateBollo);
   });
 
