@@ -1,11 +1,12 @@
 /* ==========================================================================
-   EcoCalc Hub - CAF Online, Financial & Energy Calculators
+   EcoCalc Hub - CAF Online, Insurance Hub & Energy Calculators
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initStipendioCalc();
   initTFRNASpICalc();
+  initInsuranceCalc();
   initEVCalc();
   initSolarCalc();
   initBolloCalc();
@@ -54,7 +55,6 @@ function closeModal(modalId) {
   if (modal) modal.style.display = 'none';
 }
 
-// Close modal on background click
 window.addEventListener('click', (e) => {
   if (e.target.classList.contains('modal')) {
     e.target.style.display = 'none';
@@ -120,14 +120,11 @@ function initStipendioCalc() {
 
     valRalSpan.textContent = `${ral.toLocaleString('it-IT')} €`;
 
-    // INPS Rate: 9.19% standard, 5.84% apprendistato
     const inpsRate = tipoContratto === 'apprendistato' ? 0.0584 : 0.0919;
     const inpsAnnuo = ral * inpsRate;
 
-    // Imponibile IRPEF
     const imponibileIrpef = ral - inpsAnnuo;
 
-    // IRPEF Lorda Aliquote 2026 (23% fino a 28k, 35% 28k-50k, 43% oltre 50k)
     let irpefLorda = 0;
     if (imponibileIrpef <= 28000) {
       irpefLorda = imponibileIrpef * 0.23;
@@ -137,7 +134,6 @@ function initStipendioCalc() {
       irpefLorda = (28000 * 0.23) + ((50000 - 28000) * 0.35) + ((imponibileIrpef - 50000) * 0.43);
     }
 
-    // Detrazioni Lavoro Dipendente
     let detrazioneLavoro = 0;
     if (imponibileIrpef <= 15000) {
       detrazioneLavoro = 1955;
@@ -149,19 +145,16 @@ function initStipendioCalc() {
 
     const irpefNetta = Math.max(0, irpefLorda - detrazioneLavoro);
 
-    // Addizionali Regionali (~1.73% a 2.03%)
     let addizionaleRate = 0.0173;
     if (regione === 'piemonte' || regione === 'campania') addizionaleRate = 0.0203;
     const addizionaliRegionali = imponibileIrpef * addizionaleRate;
 
-    // Netto Annuo & Mensile
     const nettoAnnuo = Math.max(0, ral - inpsAnnuo - irpefNetta - addizionaliRegionali);
     const nettoMensile = nettoAnnuo / mensilita;
 
     const aliquotaMedia = ral > 0 ? ((irpefNetta + addizionaliRegionali) / ral * 100).toFixed(1) : 0;
     const quotaNettaPct = ral > 0 ? (nettoAnnuo / ral * 100).toFixed(1) : 0;
 
-    // Update DOM
     document.getElementById('res-netto-mensile').textContent = `${Math.round(nettoMensile).toLocaleString('it-IT')} €`;
     document.getElementById('res-mensilita-badge').textContent = `Su ${mensilita} mensilità ordinarie`;
 
@@ -217,14 +210,10 @@ function initTFRNASpICalc() {
     const mesiLavorati = Math.round(settimaneLavorate / 4.33);
     valNaspiSettimaneSpan.textContent = `${settimaneLavorate} Settimane (~${mesiLavorati} Mesi)`;
 
-    // TFR Calculation
-    // Yearly TFR Accrual = (Stipendio Lordo * 13.5) / 13.5 ≈ 1 Month Salary per year minus 0.5% INPS
     const tfrAnnoLordo = (stipendioLordo * 13.5) / 13.5;
     const tfrLordoTotale = tfrAnnoLordo * anniServizio;
-    const tfrNettoTotale = tfrLordoTotale * 0.77; // Tassazione separata media 23%
+    const tfrNettoTotale = tfrLordoTotale * 0.77;
 
-    // NASpI Calculation
-    // Threshold 2026 ≈ 1.425€
     const sogliaNaspi = 1425;
     let primoMeseNaspi = 0;
     if (stipendioLordo <= sogliaNaspi) {
@@ -232,12 +221,11 @@ function initTFRNASpICalc() {
     } else {
       primoMeseNaspi = (sogliaNaspi * 0.75) + ((stipendioLordo - sogliaNaspi) * 0.25);
     }
-    primoMeseNaspi = Math.min(1550, primoMeseNaspi); // Max cap
+    primoMeseNaspi = Math.min(1550, primoMeseNaspi);
 
     const durataNaspiSettimane = Math.min(104, Math.round(settimaneLavorate / 2));
     const durataNaspiMesi = Math.round(durataNaspiSettimane / 4.33);
 
-    // Update DOM
     document.getElementById('res-tfr-netto').textContent = `${Math.round(tfrNettoTotale).toLocaleString('it-IT')} €`;
     document.getElementById('res-tfr-lordo-badge').textContent = `TFR Lordo Accantonato ~${Math.round(tfrLordoTotale).toLocaleString('it-IT')}€`;
 
@@ -253,6 +241,221 @@ function initTFRNASpICalc() {
 }
 
 /* --------------------------------------------------------------------------
+   Calculator 3: Insurance Hub (Auto, Moto, Casa, Vita, Pet)
+   -------------------------------------------------------------------------- */
+let currentInsCategory = 'auto';
+
+function switchInsuranceCategory(category) {
+  currentInsCategory = category;
+  document.querySelectorAll('#insurance-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
+  if (event && event.target) event.target.classList.add('active');
+
+  renderInsuranceFields();
+  calculateInsurance();
+}
+
+function initInsuranceCalc() {
+  renderInsuranceFields();
+  calculateInsurance();
+}
+
+function renderInsuranceFields() {
+  const container = document.getElementById('ins-fields-container');
+  const titleElem = document.getElementById('ins-form-title');
+  if (!container) return;
+
+  if (currentInsCategory === 'auto') {
+    titleElem.textContent = '🚗 Calcolo Polizza Auto RCA';
+    container.innerHTML = `
+      <div class="form-group">
+        <label for="ins-auto-cu">Classe di Merito CU (1 - 14):</label>
+        <select id="ins-auto-cu" class="select-input">
+          <option value="1" selected>Classe CU 1 (Massimo sconto / Legge Bersani)</option>
+          <option value="4">Classe CU 4 (Guidatore esperto)</option>
+          <option value="9">Classe CU 9 (Media)</option>
+          <option value="14">Classe CU 14 (Prima assicurazione / Neopatentato)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ins-auto-garanzie">Garanzie Aggiuntive Desiderate:</label>
+        <select id="ins-auto-garanzie" class="select-input">
+          <option value="rca" selected>Solo RCA Base + Assistenza Stradale</option>
+          <option value="theft">RCA + Furto e Incendio</option>
+          <option value="full">Kasko Completa + Cristalli + Infortuni</option>
+        </select>
+      </div>
+    `;
+  } else if (currentInsCategory === 'moto') {
+    titleElem.textContent = '🏍️ Calcolo Polizza Moto & Scooter';
+    container.innerHTML = `
+      <div class="form-group">
+        <label for="ins-moto-cc">Cilindrata Veicolo (cc):</label>
+        <select id="ins-moto-cc" class="select-input">
+          <option value="125" selected>Scooter 125 cc - 150 cc</option>
+          <option value="300">Maxi Scooter 300 cc - 500 cc</option>
+          <option value="600">Moto 600 cc - 1000 cc</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ins-moto-suspension">Sospensione Invernale Gratuita?</label>
+        <select id="ins-moto-suspension" class="select-input">
+          <option value="yes" selected>Sì - Sospendibile (Sconto nei mesi freddi)</option>
+          <option value="no">No - Guida 12 mesi all'anno</option>
+        </select>
+      </div>
+    `;
+  } else if (currentInsCategory === 'casa') {
+    titleElem.textContent = '🏠 Calcolo Polizza Casa & Capofamiglia';
+    container.innerHTML = `
+      <div class="form-group">
+        <label for="ins-casa-type">Tipo di Immobile:</label>
+        <select id="ins-casa-type" class="select-input">
+          <option value="apt" selected>Appartamento in Condominio (~90 mq)</option>
+          <option value="house">Villetta Indipendente (~150 mq)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ins-casa-cover">Livello di Copertura:</label>
+        <select id="ins-casa-cover" class="select-input">
+          <option value="rc" selected>RC Capofamiglia & Danni Terzi (da 60€/anno)</option>
+          <option value="full">RC Casa + Incendio + Furto + Calamità Naturali</option>
+        </select>
+      </div>
+    `;
+  } else if (currentInsCategory === 'vita') {
+    titleElem.textContent = '❤️ Calcolo Polizza Vita & Protezione Famiglia';
+    container.innerHTML = `
+      <div class="form-group">
+        <label for="ins-vita-capital">Capitale Assicurato per la Famiglia (€):</label>
+        <select id="ins-vita-capital" class="select-input">
+          <option value="100000" selected>100.000 € (Protezione Base / Mutuo)</option>
+          <option value="200000">200.000 € (Protezione Completa)</option>
+          <option value="300000">300.000 € (Copertura Elevata)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ins-vita-age">Età dell'Assicurato:</label>
+        <input type="number" id="ins-vita-age" value="35" min="18" max="70" class="num-input">
+      </div>
+    `;
+  } else if (currentInsCategory === 'pet') {
+    titleElem.textContent = '🐾 Calcolo Polizza Animali Domestici (Cane / Gatto)';
+    container.innerHTML = `
+      <div class="form-group">
+        <label for="ins-pet-type">Tipo di Animale Domestico:</label>
+        <select id="ins-pet-type" class="select-input">
+          <option value="dog" selected>Cane (Qualsiasi Razza/Taglia)</option>
+          <option value="cat">Gatto</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ins-pet-cover">Copertura Sanitaria & RC:</label>
+        <select id="ins-pet-cover" class="select-input">
+          <option value="basic" selected>Spese Chirurgiche + RC Danni a Terzi</option>
+          <option value="full">Spese Veterinarie Complete + Esami + RC</option>
+        </select>
+      </div>
+    `;
+  }
+
+  // Attach event listeners to new elements
+  container.querySelectorAll('input, select').forEach(elem => {
+    elem.addEventListener('input', calculateInsurance);
+  });
+}
+
+function calculateInsurance() {
+  const labelElem = document.getElementById('ins-res-label');
+  const premiumElem = document.getElementById('res-ins-premium');
+  const monthlyElem = document.getElementById('res-ins-monthly');
+  const coverageElem = document.getElementById('res-ins-coverage');
+  const detailElem = document.getElementById('res-ins-detail');
+  const savingsElem = document.getElementById('res-ins-savings');
+
+  if (!premiumElem) return;
+
+  let annualPremium = 340;
+  let coverageText = 'Base RCA + Assistenza';
+  let detailText = 'Copertura Standard';
+  let savingsText = '-180 €';
+
+  if (currentInsCategory === 'auto') {
+    labelElem.textContent = 'Premio Annuo Polizza Auto';
+    const cu = document.getElementById('ins-auto-cu')?.value || '1';
+    const garanzie = document.getElementById('ins-auto-garanzie')?.value || 'rca';
+
+    let baseCost = 280;
+    if (cu === '4') baseCost = 380;
+    if (cu === '9') baseCost = 520;
+    if (cu === '14') baseCost = 790;
+
+    if (garanzie === 'theft') baseCost += 120;
+    if (garanzie === 'full') baseCost += 290;
+
+    annualPremium = baseCost;
+    coverageText = garanzie === 'full' ? 'Kasko + Furto + Cristalli' : (garanzie === 'theft' ? 'RCA + Furto/Incendio' : 'RCA Base + Assistenza');
+    detailText = `Classe CU ${cu}`;
+  } else if (currentInsCategory === 'moto') {
+    labelElem.textContent = 'Premio Annuo Polizza Moto';
+    const cc = document.getElementById('ins-moto-cc')?.value || '125';
+    const susp = document.getElementById('ins-moto-suspension')?.value || 'yes';
+
+    let baseCost = 210;
+    if (cc === '300') baseCost = 290;
+    if (cc === '600') baseCost = 390;
+
+    if (susp === 'yes') baseCost = Math.round(baseCost * 0.75);
+
+    annualPremium = baseCost;
+    coverageText = 'RCA Moto + Sospendibile';
+    detailText = `Cilindrata ${cc} cc`;
+    savingsText = '-120 €';
+  } else if (currentInsCategory === 'casa') {
+    labelElem.textContent = 'Premio Annuo Polizza Casa';
+    const type = document.getElementById('ins-casa-type')?.value || 'apt';
+    const cover = document.getElementById('ins-casa-cover')?.value || 'rc';
+
+    let baseCost = cover === 'full' ? 160 : 75;
+    if (type === 'house') baseCost = Math.round(baseCost * 1.3);
+
+    annualPremium = baseCost;
+    coverageText = cover === 'full' ? 'Casa Multi-Rischio' : 'RC Capofamiglia';
+    detailText = type === 'apt' ? 'Appartamento' : 'Villetta';
+    savingsText = '-60 €';
+  } else if (currentInsCategory === 'vita') {
+    labelElem.textContent = 'Premio Annuo Polizza Vita (TCM)';
+    const capital = parseFloat(document.getElementById('ins-vita-capital')?.value || 100000);
+    const age = parseInt(document.getElementById('ins-vita-age')?.value || 35);
+
+    let baseCost = (capital / 100000) * 120;
+    if (age > 45) baseCost *= 1.5;
+
+    annualPremium = Math.round(baseCost);
+    coverageText = `Capitale ${capital.toLocaleString('it-IT')} €`;
+    detailText = `Età assicurato: ${age} anni`;
+    savingsText = '-90 €';
+  } else if (currentInsCategory === 'pet') {
+    labelElem.textContent = 'Premio Annuo Polizza Pet';
+    const petType = document.getElementById('ins-pet-type')?.value || 'dog';
+    const cover = document.getElementById('ins-pet-cover')?.value || 'basic';
+
+    let baseCost = cover === 'full' ? 150 : 85;
+    if (petType === 'cat') baseCost = Math.round(baseCost * 0.85);
+
+    annualPremium = baseCost;
+    coverageText = cover === 'full' ? 'Veterinaria + Chirurgia + RC' : 'Chirurgia + RC Danni';
+    detailText = petType === 'dog' ? 'Cane' : 'Gatto';
+    savingsText = '-45 €';
+  }
+
+  premiumElem.textContent = `${annualPremium.toLocaleString('it-IT')} €`;
+  monthlyElem.textContent = `≈ ${(annualPremium / 12).toFixed(2).replace('.', ',')} € / mese`;
+  coverageElem.textContent = coverageText;
+  detailElem.textContent = detailText;
+  savingsElem.textContent = savingsText;
+}
+
+/* --------------------------------------------------------------------------
    EV Presets & Calculator
    -------------------------------------------------------------------------- */
 function applyEVPreset(type) {
@@ -261,7 +464,7 @@ function applyEVPreset(type) {
   const evConsInput = document.getElementById('ev-consumption');
 
   document.querySelectorAll('#ev-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  if (event && event.target) event.target.classList.add('active');
 
   if (type === 'city') {
     kmInput.value = 10000;
@@ -382,7 +585,7 @@ function copyCalculationReport() {
 function applySolarPreset(type) {
   const billInput = document.getElementById('solar-bill');
   document.querySelectorAll('#solar-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
+  if (event && event.target) event.target.classList.add('active');
 
   if (type === 'small') {
     billInput.value = 80;
