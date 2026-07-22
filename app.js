@@ -1,9 +1,11 @@
 /* ==========================================================================
-   EcoCalc Hub - Logic, Advanced Calculations & GDPR Management
+   EcoCalc Hub - CAF Online, Financial & Energy Calculators
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
+  initStipendioCalc();
+  initTFRNASpICalc();
   initEVCalc();
   initSolarCalc();
   initBolloCalc();
@@ -89,7 +91,169 @@ function switchTab(tabId) {
 }
 
 /* --------------------------------------------------------------------------
-   EV Presets
+   CAF Calculator 1: Stipendio Netto RAL (IRPEF 2026)
+   -------------------------------------------------------------------------- */
+function applyRALPreset(ralValue) {
+  const ralInput = document.getElementById('ral-val');
+  document.querySelectorAll('#stipendio-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  ralInput.value = ralValue;
+  ralInput.dispatchEvent(new Event('input'));
+}
+
+function initStipendioCalc() {
+  const ralInput = document.getElementById('ral-val');
+  const mensilitaSelect = document.getElementById('ral-mensilita');
+  const regioneSelect = document.getElementById('ral-regione');
+  const figliInput = document.getElementById('ral-figli');
+  const contrattoSelect = document.getElementById('ral-tipo-contratto');
+
+  const valRalSpan = document.getElementById('val-ral-display');
+
+  function calculateStipendio() {
+    const ral = parseFloat(ralInput.value) || 28000;
+    const mensilita = parseInt(mensilitaSelect.value) || 13;
+    const regione = regioneSelect.value;
+    const figli = parseInt(figliInput.value) || 0;
+    const tipoContratto = contrattoSelect.value;
+
+    valRalSpan.textContent = `${ral.toLocaleString('it-IT')} €`;
+
+    // INPS Rate: 9.19% standard, 5.84% apprendistato
+    const inpsRate = tipoContratto === 'apprendistato' ? 0.0584 : 0.0919;
+    const inpsAnnuo = ral * inpsRate;
+
+    // Imponibile IRPEF
+    const imponibileIrpef = ral - inpsAnnuo;
+
+    // IRPEF Lorda Aliquote 2026 (23% fino a 28k, 35% 28k-50k, 43% oltre 50k)
+    let irpefLorda = 0;
+    if (imponibileIrpef <= 28000) {
+      irpefLorda = imponibileIrpef * 0.23;
+    } else if (imponibileIrpef <= 50000) {
+      irpefLorda = (28000 * 0.23) + ((imponibileIrpef - 28000) * 0.35);
+    } else {
+      irpefLorda = (28000 * 0.23) + ((50000 - 28000) * 0.35) + ((imponibileIrpef - 50000) * 0.43);
+    }
+
+    // Detrazioni Lavoro Dipendente
+    let detrazioneLavoro = 0;
+    if (imponibileIrpef <= 15000) {
+      detrazioneLavoro = 1955;
+    } else if (imponibileIrpef <= 28000) {
+      detrazioneLavoro = 1955 + (700 * (28000 - imponibileIrpef) / 13000);
+    } else if (imponibileIrpef <= 50000) {
+      detrazioneLavoro = 1910 * ((50000 - imponibileIrpef) / 22000);
+    }
+
+    const irpefNetta = Math.max(0, irpefLorda - detrazioneLavoro);
+
+    // Addizionali Regionali (~1.73% a 2.03%)
+    let addizionaleRate = 0.0173;
+    if (regione === 'piemonte' || regione === 'campania') addizionaleRate = 0.0203;
+    const addizionaliRegionali = imponibileIrpef * addizionaleRate;
+
+    // Netto Annuo & Mensile
+    const nettoAnnuo = Math.max(0, ral - inpsAnnuo - irpefNetta - addizionaliRegionali);
+    const nettoMensile = nettoAnnuo / mensilita;
+
+    const aliquotaMedia = ral > 0 ? ((irpefNetta + addizionaliRegionali) / ral * 100).toFixed(1) : 0;
+    const quotaNettaPct = ral > 0 ? (nettoAnnuo / ral * 100).toFixed(1) : 0;
+
+    // Update DOM
+    document.getElementById('res-netto-mensile').textContent = `${Math.round(nettoMensile).toLocaleString('it-IT')} €`;
+    document.getElementById('res-mensilita-badge').textContent = `Su ${mensilita} mensilità ordinarie`;
+
+    document.getElementById('res-netto-annuo').textContent = `${Math.round(nettoAnnuo).toLocaleString('it-IT')} €`;
+    document.getElementById('res-inps-annuo').textContent = `${Math.round(inpsAnnuo).toLocaleString('it-IT')} €`;
+    document.getElementById('res-inps-pct').textContent = `Aliquota INPS ${(inpsRate * 100).toFixed(2)}%`;
+
+    document.getElementById('res-irpef-annua').textContent = `${Math.round(irpefNetta + addizionaliRegionali).toLocaleString('it-IT')} €`;
+    document.getElementById('res-aliquota-media').textContent = `Aliquota Effettiva ~${aliquotaMedia}%`;
+
+    document.getElementById('res-quota-netta-pct').textContent = `${quotaNettaPct.replace('.', ',')}%`;
+  }
+
+  [ralInput, mensilitaSelect, regioneSelect, figliInput, contrattoSelect].forEach(elem => {
+    elem.addEventListener('input', calculateStipendio);
+  });
+
+  calculateStipendio();
+}
+
+function copyStipendioReport() {
+  const mensile = document.getElementById('res-netto-mensile').textContent;
+  const annuo = document.getElementById('res-netto-annuo').textContent;
+  const textToCopy = `💼 Report Calcolo Stipendio Netto EcoCalc.it:\nNetto Mensile: ${mensile}\nNetto Annuo: ${annuo}\nCalcola il tuo stipendio su https://ecocalc.it`;
+
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    alert('✅ Risultati Busta Paga copiati negli appunti!');
+  }).catch(() => {
+    alert(textToCopy);
+  });
+}
+
+/* --------------------------------------------------------------------------
+   CAF Calculator 2: TFR & NASpI Disoccupazione
+   -------------------------------------------------------------------------- */
+function initTFRNASpICalc() {
+  const tfrStipendioInput = document.getElementById('tfr-stipendio-lordo');
+  const tfrAnniInput = document.getElementById('tfr-anni-servizio');
+  const naspiSettimaneInput = document.getElementById('naspi-settimane');
+
+  const valTfrStipendSpan = document.getElementById('val-tfr-stipendio');
+  const valTfrAnniSpan = document.getElementById('val-tfr-anni');
+  const valNaspiSettimaneSpan = document.getElementById('val-naspi-settimane');
+
+  function calculateTFRNASpI() {
+    const stipendioLordo = parseFloat(tfrStipendioInput.value) || 2150;
+    const anniServizio = parseInt(tfrAnniInput.value) || 5;
+    const settimaneLavorate = parseInt(naspiSettimaneInput.value) || 104;
+
+    valTfrStipendSpan.textContent = `${stipendioLordo.toLocaleString('it-IT')} €/mese`;
+    valTfrAnniSpan.textContent = `${anniServizio} Anni`;
+
+    const mesiLavorati = Math.round(settimaneLavorate / 4.33);
+    valNaspiSettimaneSpan.textContent = `${settimaneLavorate} Settimane (~${mesiLavorati} Mesi)`;
+
+    // TFR Calculation
+    // Yearly TFR Accrual = (Stipendio Lordo * 13.5) / 13.5 ≈ 1 Month Salary per year minus 0.5% INPS
+    const tfrAnnoLordo = (stipendioLordo * 13.5) / 13.5;
+    const tfrLordoTotale = tfrAnnoLordo * anniServizio;
+    const tfrNettoTotale = tfrLordoTotale * 0.77; // Tassazione separata media 23%
+
+    // NASpI Calculation
+    // Threshold 2026 ≈ 1.425€
+    const sogliaNaspi = 1425;
+    let primoMeseNaspi = 0;
+    if (stipendioLordo <= sogliaNaspi) {
+      primoMeseNaspi = stipendioLordo * 0.75;
+    } else {
+      primoMeseNaspi = (sogliaNaspi * 0.75) + ((stipendioLordo - sogliaNaspi) * 0.25);
+    }
+    primoMeseNaspi = Math.min(1550, primoMeseNaspi); // Max cap
+
+    const durataNaspiSettimane = Math.min(104, Math.round(settimaneLavorate / 2));
+    const durataNaspiMesi = Math.round(durataNaspiSettimane / 4.33);
+
+    // Update DOM
+    document.getElementById('res-tfr-netto').textContent = `${Math.round(tfrNettoTotale).toLocaleString('it-IT')} €`;
+    document.getElementById('res-tfr-lordo-badge').textContent = `TFR Lordo Accantonato ~${Math.round(tfrLordoTotale).toLocaleString('it-IT')}€`;
+
+    document.getElementById('res-naspi-primo-mese').textContent = `${Math.round(primoMeseNaspi).toLocaleString('it-IT')} €`;
+    document.getElementById('res-naspi-durata').textContent = `${durataNaspiSettimane} Settimane (~${durataNaspiMesi} Mesi)`;
+  }
+
+  [tfrStipendioInput, tfrAnniInput, naspiSettimaneInput].forEach(elem => {
+    elem.addEventListener('input', calculateTFRNASpI);
+  });
+
+  calculateTFRNASpI();
+}
+
+/* --------------------------------------------------------------------------
+   EV Presets & Calculator
    -------------------------------------------------------------------------- */
 function applyEVPreset(type) {
   const kmInput = document.getElementById('ev-km');
@@ -113,33 +277,9 @@ function applyEVPreset(type) {
     evConsInput.value = 17.5;
   }
 
-  // Trigger input event to recalculate
   kmInput.dispatchEvent(new Event('input'));
 }
 
-/* --------------------------------------------------------------------------
-   Solar Presets
-   -------------------------------------------------------------------------- */
-function applySolarPreset(type) {
-  const billInput = document.getElementById('solar-bill');
-
-  document.querySelectorAll('#solar-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
-
-  if (type === 'small') {
-    billInput.value = 80;
-  } else if (type === 'medium') {
-    billInput.value = 150;
-  } else if (type === 'large') {
-    billInput.value = 280;
-  }
-
-  billInput.dispatchEvent(new Event('input'));
-}
-
-/* --------------------------------------------------------------------------
-   Calculator 1: EV vs Gas (Enhanced)
-   -------------------------------------------------------------------------- */
 function initEVCalc() {
   const kmInput = document.getElementById('ev-km');
   const fuelTypeSelect = document.getElementById('gas-fuel-type');
@@ -155,7 +295,6 @@ function initEVCalc() {
   const valHomePctSpan = document.getElementById('val-ev-home-pct');
   const kmLHint = document.getElementById('gas-km-l-hint');
 
-  // Auto-update price when fuel type changes
   fuelTypeSelect.addEventListener('change', () => {
     gasPriceInput.value = fuelTypeSelect.value;
     calculateEV();
@@ -171,7 +310,6 @@ function initEVCalc() {
     const evPublicCost = parseFloat(evPublicCostInput.value) || 0.55;
     const maintSavings = parseFloat(evMaintSavingsInput.value) || 350;
 
-    // Format slider labels
     valKmSpan.textContent = `${km.toLocaleString('it-IT')} km`;
     valHomePctSpan.textContent = `${evHomePct}% Casa / ${100 - evHomePct}% Colonnina`;
 
@@ -180,23 +318,19 @@ function initEVCalc() {
       kmLHint.textContent = `≈ ${kmPerL} km/L`;
     }
 
-    // Gas calculations
     const gasTotalLiters = (km / 100) * gasCons;
     const gasAnnualCost = gasTotalLiters * gasPrice;
     const gasCostPer100km = gasCons * gasPrice;
 
-    // EV calculations
     const weightedEvCostPerKwh = ((evHomePct / 100) * evHomeCost) + (((100 - evHomePct) / 100) * evPublicCost);
     const evTotalKwh = (km / 100) * evCons;
     const evAnnualCost = evTotalKwh * weightedEvCostPerKwh;
     const evCostPer100km = evCons * weightedEvCostPerKwh;
 
-    // Overall Net Savings including Maintenance
     const fuelSavings = Math.max(0, gasAnnualCost - evAnnualCost);
     const netAnnualSavings = fuelSavings + maintSavings;
     const co2SavedTons = ((km * 0.145) / 1000).toFixed(1);
 
-    // Update DOM
     document.getElementById('res-ev-annual-savings').textContent = `${Math.round(netAnnualSavings).toLocaleString('it-IT')} €`;
 
     document.getElementById('res-gas-annual').textContent = `${Math.round(gasAnnualCost).toLocaleString('it-IT')} €`;
@@ -207,7 +341,6 @@ function initEVCalc() {
 
     document.getElementById('res-co2-saved').textContent = `${co2SavedTons.replace('.', ',')} tonnellate`;
 
-    // Update Chart Bars
     const sav1y = Math.round(netAnnualSavings);
     const sav5y = Math.round(netAnnualSavings * 5);
     const sav10y = Math.round(netAnnualSavings * 10);
@@ -244,8 +377,24 @@ function copyCalculationReport() {
 }
 
 /* --------------------------------------------------------------------------
-   Calculator 2: Solar & Battery ROI (Enhanced)
+   Solar Presets & Calculator
    -------------------------------------------------------------------------- */
+function applySolarPreset(type) {
+  const billInput = document.getElementById('solar-bill');
+  document.querySelectorAll('#solar-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (type === 'small') {
+    billInput.value = 80;
+  } else if (type === 'medium') {
+    billInput.value = 150;
+  } else if (type === 'large') {
+    billInput.value = 280;
+  }
+
+  billInput.dispatchEvent(new Event('input'));
+}
+
 function initSolarCalc() {
   const billInput = document.getElementById('solar-bill');
   const zoneSelect = document.getElementById('solar-zone');
@@ -268,21 +417,18 @@ function initSolarCalc() {
 
     const annualBill = monthlyBill * 12;
 
-    // Autoconsumption calculation
     let baseAutoconsumption = 0.35;
     if (dayProfile === 'daytime') baseAutoconsumption = 0.50;
     if (dayProfile === 'evening') baseAutoconsumption = 0.25;
 
     const autoconsumptionRate = hasBattery ? Math.min(0.85, baseAutoconsumption + 0.45) : baseAutoconsumption;
 
-    // kWp needed
     const annualKwhNeeded = annualBill / 0.27;
     let kwpRecommended = (annualKwhNeeded / insolationZone);
     kwpRecommended = Math.max(2.0, Math.min(15.0, Math.round(kwpRecommended * 2) / 2));
 
     const batterySizeKwh = hasBattery ? Math.round(kwpRecommended * 1.5) : 0;
 
-    // Savings + Grid feed-in (Ritiro Dedicato ~0.08€/kWh for exported energy)
     const selfConsumedKwh = (annualKwhNeeded * autoconsumptionRate);
     const exportedKwh = Math.max(0, (kwpRecommended * insolationZone) - selfConsumedKwh);
     const gridRevenue = exportedKwh * 0.08;
@@ -290,14 +436,11 @@ function initSolarCalc() {
     const annualBillSavings = annualBill * autoconsumptionRate;
     const totalAnnualBenefit = annualBillSavings + gridRevenue;
 
-    // Net cost after tax deduction
     const netCost = totalCost * (1 - (taxCreditPct / 100));
 
-    // ROI Payback
     const paybackYears = totalAnnualBenefit > 0 ? (netCost / totalAnnualBenefit).toFixed(1) : 0;
     const savings20y = Math.round((totalAnnualBenefit * 20) - netCost);
 
-    // Update DOM
     document.getElementById('res-solar-payback').textContent = `${paybackYears.replace('.', ',')} Anni`;
     document.getElementById('res-solar-kwp').textContent = `${kwpRecommended.toFixed(1).replace('.', ',')} kWp`;
     document.getElementById('res-solar-battery-size').textContent = hasBattery ? `+ Accumulo ${batterySizeKwh} kWh` : 'Senza Accumulo';
@@ -317,7 +460,7 @@ function initSolarCalc() {
 }
 
 /* --------------------------------------------------------------------------
-   Calculator 3: Bollo Auto & TCO (Regional Enhanced)
+   Bollo Auto Calculator
    -------------------------------------------------------------------------- */
 function initBolloCalc() {
   const regionSelect = document.getElementById('car-region');
@@ -369,13 +512,12 @@ function initBolloCalc() {
     const extraKw = Math.max(0, kw - 100);
     const standardCost = (baseKw * baseRateKwp100) + (extraKw * extraRateKwpOver100);
 
-    // Apply Regional Rules
     if (fuel === 'electric') {
       if (region === 'lombardia' || region === 'piemonte') {
-        bolloAmount = 0; // Esenzione 100% per sempre
+        bolloAmount = 0;
         bolloNote.innerHTML = `💡 <strong>Regione ${region.toUpperCase()}:</strong> Esenzione dal bollo auto 100% permanente per veicoli elettrici.`;
       } else {
-        bolloAmount = 0; // Primi 5 anni 0€, poi -75%
+        bolloAmount = 0;
         bolloNote.innerHTML = `💡 <strong>Esenzione Elettrica:</strong> Bollo gratuito per i primi 5 anni, poi sconto del 75%.`;
       }
     } else if (fuel === 'hybrid') {
@@ -383,7 +525,7 @@ function initBolloCalc() {
         bolloAmount = standardCost * 0.50;
         bolloNote.innerHTML = `💡 <strong>Regione Lombardia:</strong> Sconto del 50% sul bollo per auto ibride.`;
       } else if (region === 'veneto' || region === 'puglia' || region === 'campania') {
-        bolloAmount = 0; // Esenzione primi 3-5 anni
+        bolloAmount = 0;
         bolloNote.innerHTML = `💡 <strong>Regione ${region.toUpperCase()}:</strong> Esenzione totale nei primi anni di immatricolazione.`;
       } else {
         bolloAmount = standardCost * 0.75;
@@ -394,7 +536,6 @@ function initBolloCalc() {
       bolloNote.innerHTML = `💡 <strong>Tariffa Ordinaria:</strong> Calcolata sulla classe Euro e kW del veicolo.`;
     }
 
-    // Superbollo (> 185 kW)
     if (kw > 185 && fuel !== 'electric') {
       superbollo = (kw - 185) * 20;
     }
@@ -403,7 +544,6 @@ function initBolloCalc() {
     const tcoTotal = totalBolloPlusSuper + insurance + maint;
     const tcoMonthly = (tcoTotal / 12).toFixed(2);
 
-    // Update DOM
     document.getElementById('res-bollo-amount').textContent = `${totalBolloPlusSuper.toLocaleString('it-IT')} €`;
 
     const superBadge = document.getElementById('res-superbollo-badge');
