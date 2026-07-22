@@ -62,11 +62,17 @@
         <button class="tab-btn active" data-tab="stipendio-calc" role="tab" aria-selected="true">
           <span class="tab-icon">💼</span> Stipendio Netto
         </button>
+        <button class="tab-btn" data-tab="piva-calc" role="tab" aria-selected="false">
+          <span class="tab-icon">👨‍💻</span> Partita IVA
+        </button>
         <button class="tab-btn" data-tab="tfr-naspi-calc" role="tab" aria-selected="false">
           <span class="tab-icon">📑</span> TFR & NASpI
         </button>
         <button class="tab-btn" data-tab="insurance-calc" role="tab" aria-selected="false">
           <span class="tab-icon">🛡️</span> Polizze & Assicurazioni
+        </button>
+        <button class="tab-btn" data-tab="mutui-calc" role="tab" aria-selected="false">
+          <span class="tab-icon">🏦</span> Mutui & Prestiti
         </button>
         <button class="tab-btn" data-tab="ev-calc" role="tab" aria-selected="false">
           <span class="tab-icon">⚡</span> Auto Elettrica
@@ -225,6 +231,186 @@
             <p>Affidati a un Caf Digitale certificato: invio 730, calcolo ISEE e controllo detrazioni senza muoverti da casa.</p>
             <button class="btn btn-info btn-block" onclick="alert('Richiesta assistenza 730 / CAF Online...')">
               Richiedi Servizio 730 Online &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CALCULATOR: PARTITA IVA ==================== -->
+    <section id="piva-calc" class="tab-content">
+      <div class="section-header">
+        <div class="section-tag">FREELANCE & PROFESSIONISTI</div>
+        <h2>👨‍💻 Calcolatore Netto Partita IVA (Regime Forfettario 2026)</h2>
+        <p>Calcola le tasse (Imposta Sostitutiva 5% o 15%), i contributi INPS e scopri quanto ti resta in tasca del tuo fatturato annuo.</p>
+      </div>
+
+      <div class="presets-wrapper">
+        <span class="presets-label">👨‍💻 Esempi Freelance:</span>
+        <button class="preset-btn active" onclick="applyPIVAPreset(30000)">💻 Sviluppatore / Consulente (30.000€)</button>
+        <button class="preset-btn" onclick="applyPIVAPreset(50000)">🎨 Designer / Creativo (50.000€)</button>
+        <button class="preset-btn" onclick="applyPIVAPreset(80000)">📈 Top Freelance (80.000€)</button>
+      </div>
+
+      <div class="grid-layout">
+        <div class="card glass-card">
+          <h3 class="card-title">⚙️ Dati Fatturato e Inquadramento</h3>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="piva-fatturato">Fatturato Annuo Lordo (€):</label>
+              <span class="input-val highlight-badge" id="val-piva-fatturato">30.000 €</span>
+            </div>
+            <input type="range" id="piva-fatturato" min="5000" max="85000" step="1000" value="30000" class="custom-range">
+            <small class="form-hint">Il limite del Regime Forfettario è 85.000€</small>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="piva-coeff">Coefficiente di Redditività (ATECO):</label>
+              <select id="piva-coeff" class="select-input">
+                <option value="0.78" selected>Professionisti / Consulenti IT (78%)</option>
+                <option value="0.67">Artigiani / Altre attività (67%)</option>
+                <option value="0.40">Commercio / E-commerce (40%)</option>
+                <option value="0.86">Immobiliari / Assicurazioni (86%)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="piva-imposta">Imposta Sostitutiva:</label>
+              <select id="piva-imposta" class="select-input">
+                <option value="0.05" selected>5% (Startup - Primi 5 anni)</option>
+                <option value="0.15">15% (Standard)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="piva-cassa">Cassa Previdenziale (INPS o Altro):</label>
+            <select id="piva-cassa" class="select-input">
+              <option value="gestione_separata" selected>INPS Gestione Separata (~26,07%)</option>
+              <option value="artigiani_commercianti">INPS Artigiani/Commercianti (Fisso ~4.500€ + eccedenza)</option>
+              <option value="cassa_privata">Cassa Privata Ordini (es. Inarcassa 15%)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="results-column">
+          <div class="card glass-card accent-card glow-card">
+            <h3 class="card-title">💵 Netto Reale In Tasca</h3>
+
+            <div class="hero-stat-box">
+              <span class="stat-label">Utile Netto Annuo</span>
+              <span class="stat-value highlight-green pulse-text" id="res-piva-netto-annuo">23.250 €</span>
+              <span class="stat-badge" id="res-piva-netto-mensile">≈ 1.937 € / mese netti</span>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="item-label">Tasse (Imposta Sostitutiva)</span>
+                <span class="item-value text-yellow" id="res-piva-tasse">1.170 €</span>
+                <small>Calcolate sull'imponibile</small>
+              </div>
+
+              <div class="stat-item">
+                <span class="item-label">Contributi Previdenziali</span>
+                <span class="item-value text-red" id="res-piva-inps">6.100 €</span>
+                <small id="res-piva-inps-tipo">INPS Gestione Separata</small>
+              </div>
+            </div>
+
+            <div class="info-note">
+              💡 <strong>Regime Forfettario:</strong> Non applichi l'IVA in fattura e i costi scaricabili sono dedotti a forfeit in base al tuo codice ATECO.
+            </div>
+          </div>
+          
+          <div class="card affiliate-card yellow-border">
+            <span class="affiliate-badge badge-solar">👨‍💻 Offerta Contabilità Online</span>
+            <h4>Risparmia sul Commercialista</h4>
+            <p>Gestisci la tua Partita IVA Forfettaria online a partire da <strong>299€/anno</strong> inclusa dichiarazione dei redditi e fatturazione elettronica.</p>
+            <button class="btn btn-warning btn-block" onclick="alert('Confronta Fiscozen, FlexTax, ecc...')">
+              Scopri le Offerte per Freelance &rarr;
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CALCULATOR: MUTUI & PRESTITI ==================== -->
+    <section id="mutui-calc" class="tab-content">
+      <div class="section-header">
+        <div class="section-tag">CASA & FINANZIAMENTI</div>
+        <h2>🏦 Calcolatore Rata Mutuo & Prestiti</h2>
+        <p>Calcola l'importo della rata mensile, il totale degli interessi da pagare e il costo complessivo del finanziamento (Piano di Ammortamento alla Francese).</p>
+      </div>
+
+      <div class="grid-layout">
+        <div class="card glass-card">
+          <h3 class="card-title">⚙️ Parametri Finanziamento</h3>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="mutuo-importo">Importo Richiesto (€):</label>
+              <span class="input-val highlight-badge" id="val-mutuo-importo">150.000 €</span>
+            </div>
+            <input type="range" id="mutuo-importo" min="5000" max="500000" step="5000" value="150000" class="custom-range">
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="mutuo-durata">Durata del Finanziamento (Anni):</label>
+              <span class="input-val" id="val-mutuo-durata">20 Anni</span>
+            </div>
+            <input type="range" id="mutuo-durata" min="1" max="40" step="1" value="20" class="custom-range">
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="mutuo-tasso">Tasso di Interesse Annuo (TAN %):</label>
+              <span class="input-val text-red" id="val-mutuo-tasso">3.5 %</span>
+            </div>
+            <input type="range" id="mutuo-tasso" min="0.5" max="15.0" step="0.1" value="3.5" class="custom-range">
+          </div>
+        </div>
+
+        <div class="results-column">
+          <div class="card glass-card accent-card glow-card">
+            <h3 class="card-title">🏦 Risultato Finanziamento</h3>
+
+            <div class="hero-stat-box">
+              <span class="stat-label">Rata Mensile da Pagare</span>
+              <span class="stat-value highlight-cyan pulse-text" id="res-mutuo-rata">869 €</span>
+              <span class="stat-badge">Per tutta la durata del prestito</span>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-item">
+                <span class="item-label">Capitale Richiesto</span>
+                <span class="item-value text-green" id="res-mutuo-capitale">150.000 €</span>
+              </div>
+
+              <div class="stat-item">
+                <span class="item-label">Totale Interessi (Costo)</span>
+                <span class="item-value text-red" id="res-mutuo-interessi">58.785 €</span>
+              </div>
+            </div>
+            
+            <div class="roi-timeline">
+              <div class="roi-metrics">
+                <div class="roi-metric">
+                  <span class="roi-title">Importo Totale Restituito</span>
+                  <span class="roi-val text-yellow" id="res-mutuo-totale">208.785 €</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card affiliate-card blue-border">
+            <span class="affiliate-badge badge-blue">🏦 Surroga & Risparmio</span>
+            <h4>Hai già un Mutuo o un Prestito?</h4>
+            <p>I tassi sono scesi! Puoi richiedere la surroga gratuita del tuo mutuo per abbassare la rata o accorpare i tuoi prestiti in un'unica rata più leggera.</p>
+            <button class="btn btn-info btn-block" onclick="alert('Confronta i migliori mutui su MutuiOnline / Facile.it...')">
+              Calcola Risparmio Surroga Mutuo &rarr;
             </button>
           </div>
         </div>
@@ -822,7 +1008,9 @@
         <h4>Calcolatori & Polizze</h4>
         <ul>
           <li><a href="#" onclick="switchTab('stipendio-calc'); return false;">Stipendio Netto RAL</a></li>
+          <li><a href="#" onclick="switchTab('piva-calc'); return false;">Netto Partita IVA (Forfettario)</a></li>
           <li><a href="#" onclick="switchTab('tfr-naspi-calc'); return false;">TFR & NASpI Disoccupazione</a></li>
+          <li><a href="#" onclick="switchTab('mutui-calc'); return false;">Rata Mutuo & Prestiti</a></li>
           <li><a href="#" onclick="switchTab('insurance-calc'); return false;">Assicurazioni Casa/Vita/Pet/Auto/Moto</a></li>
           <li><a href="#" onclick="switchTab('ev-calc'); return false;">Auto Elettrica vs Benzina</a></li>
           <li><a href="#" onclick="switchTab('solar-calc'); return false;">Fotovoltaico & ROI</a></li>

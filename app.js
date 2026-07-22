@@ -5,6 +5,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initStipendioCalc();
+  initPartitaIvaCalc();
+  initMutuoCalc();
   initTFRNASpICalc();
   initInsuranceCalc();
   initEVCalc();
@@ -185,6 +187,121 @@ function copyStipendioReport() {
   }).catch(() => {
     alert(textToCopy);
   });
+}
+
+/* --------------------------------------------------------------------------
+   Calculator: Partita IVA Forfettaria
+   -------------------------------------------------------------------------- */
+function applyPIVAPreset(fatturato) {
+  const input = document.getElementById('piva-fatturato');
+  document.querySelectorAll('#piva-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
+  if (event && event.target) event.target.classList.add('active');
+
+  input.value = fatturato;
+  input.dispatchEvent(new Event('input'));
+}
+
+function initPartitaIvaCalc() {
+  const fatInput = document.getElementById('piva-fatturato');
+  const coeffSelect = document.getElementById('piva-coeff');
+  const impostaSelect = document.getElementById('piva-imposta');
+  const cassaSelect = document.getElementById('piva-cassa');
+  const valFatSpan = document.getElementById('val-piva-fatturato');
+
+  function calculatePIVA() {
+    const fatturato = parseFloat(fatInput.value) || 30000;
+    const coeff = parseFloat(coeffSelect.value) || 0.78;
+    const impostaRate = parseFloat(impostaSelect.value) || 0.05;
+    const cassa = cassaSelect.value;
+
+    valFatSpan.textContent = `${fatturato.toLocaleString('it-IT')} €`;
+
+    const imponibile = fatturato * coeff;
+
+    let inps = 0;
+    let inpsLabel = '';
+
+    if (cassa === 'gestione_separata') {
+      inps = imponibile * 0.2607;
+      inpsLabel = 'INPS Gestione Separata (26,07%)';
+    } else if (cassa === 'artigiani_commercianti') {
+      const minimale = 18415;
+      const fisso = 4515;
+      if (imponibile <= minimale) {
+        inps = fisso;
+      } else {
+        inps = fisso + ((imponibile - minimale) * 0.2448);
+      }
+      inpsLabel = 'INPS Artigiani/Commercianti';
+    } else {
+      inps = imponibile * 0.15;
+      inpsLabel = 'Cassa Professionale (es. 15%)';
+    }
+
+    const impostaSostitutiva = imponibile * impostaRate;
+    const nettoAnnuo = fatturato - inps - impostaSostitutiva;
+    const nettoMensile = nettoAnnuo / 12;
+
+    document.getElementById('res-piva-netto-annuo').textContent = `${Math.round(nettoAnnuo).toLocaleString('it-IT')} €`;
+    document.getElementById('res-piva-netto-mensile').textContent = `≈ ${Math.round(nettoMensile).toLocaleString('it-IT')} € / mese netti`;
+    
+    document.getElementById('res-piva-tasse').textContent = `${Math.round(impostaSostitutiva).toLocaleString('it-IT')} €`;
+    document.getElementById('res-piva-inps').textContent = `${Math.round(inps).toLocaleString('it-IT')} €`;
+    document.getElementById('res-piva-inps-tipo').textContent = inpsLabel;
+  }
+
+  [fatInput, coeffSelect, impostaSelect, cassaSelect].forEach(elem => {
+    elem.addEventListener('input', calculatePIVA);
+  });
+
+  calculatePIVA();
+}
+
+/* --------------------------------------------------------------------------
+   Calculator: Mutui & Prestiti
+   -------------------------------------------------------------------------- */
+function initMutuoCalc() {
+  const importoInput = document.getElementById('mutuo-importo');
+  const durataInput = document.getElementById('mutuo-durata');
+  const tassoInput = document.getElementById('mutuo-tasso');
+
+  const valImportoSpan = document.getElementById('val-mutuo-importo');
+  const valDurataSpan = document.getElementById('val-mutuo-durata');
+  const valTassoSpan = document.getElementById('val-mutuo-tasso');
+
+  function calculateMutuo() {
+    const importo = parseFloat(importoInput.value) || 150000;
+    const durataAnni = parseInt(durataInput.value) || 20;
+    const tassoAnnuo = parseFloat(tassoInput.value) || 3.5;
+
+    valImportoSpan.textContent = `${importo.toLocaleString('it-IT')} €`;
+    valDurataSpan.textContent = `${durataAnni} Anni`;
+    valTassoSpan.textContent = `${tassoAnnuo.toFixed(1).replace('.', ',')} %`;
+
+    const mesi = durataAnni * 12;
+    const tassoMensile = (tassoAnnuo / 100) / 12;
+
+    let rataMensile = 0;
+    if (tassoMensile > 0) {
+      rataMensile = importo * (tassoMensile * Math.pow(1 + tassoMensile, mesi)) / (Math.pow(1 + tassoMensile, mesi) - 1);
+    } else {
+      rataMensile = importo / mesi;
+    }
+
+    const totaleRestituito = rataMensile * mesi;
+    const totaleInteressi = totaleRestituito - importo;
+
+    document.getElementById('res-mutuo-rata').textContent = `${Math.round(rataMensile).toLocaleString('it-IT')} €`;
+    document.getElementById('res-mutuo-capitale').textContent = `${importo.toLocaleString('it-IT')} €`;
+    document.getElementById('res-mutuo-interessi').textContent = `${Math.round(totaleInteressi).toLocaleString('it-IT')} €`;
+    document.getElementById('res-mutuo-totale').textContent = `${Math.round(totaleRestituito).toLocaleString('it-IT')} €`;
+  }
+
+  [importoInput, durataInput, tassoInput].forEach(elem => {
+    elem.addEventListener('input', calculateMutuo);
+  });
+
+  calculateMutuo();
 }
 
 /* --------------------------------------------------------------------------
