@@ -1015,3 +1015,51 @@ input:checked + .slider:before {
   color: var(--text-primary);
   font-weight: 500;
 }
+
+/* ==========================================================================
+   Apple Style Dark Mode (Auto-Switch based on OS Preferences)
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #000000; /* Pure black for OLED / Mac Dark Mode */
+    --surface-color: #1c1c1e; /* Elevated surfaces */
+    --surface-secondary: #2c2c2e; /* Inputs & internal surfaces */
+    
+    --text-primary: #f5f5f7;
+    --text-secondary: #98989d;
+    --text-muted: #636366;
+    
+    --border-subtle: rgba(255, 255, 255, 0.15);
+    --border-strong: rgba(255, 255, 255, 0.25);
+    
+    --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.6);
+    --shadow-float: 0 20px 40px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Overrides for hardcoded semi-transparent light backgrounds */
+  .site-header {
+    background: rgba(28, 28, 30, 0.85);
+  }
+
+  .floating-cookie-card {
+    background: rgba(28, 28, 30, 0.95);
+  }
+
+  /* Slider thumb should be slightly darker or adapt border in dark mode */
+  .custom-range::-webkit-slider-thumb {
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+  
+  .custom-range::-moz-range-thumb {
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+  
+  /* Affiliates badges text colors for dark mode */
+  .badge-solar { 
+    background: var(--accent-yellow); 
+    color: #ffffff; /* Make text white inside yellow badge for contrast */
+  }
+}
