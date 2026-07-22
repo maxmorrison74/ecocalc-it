@@ -217,7 +217,7 @@
           <div class="card affiliate-card" id="affiliate-energy">
             <span class="affiliate-badge">⚡ Offerta Partner Consigliata</span>
             <h4>Vuoi ricaricare gratis da marzo ad ottobre?</h4>
-            <p>Abbinando una Wallbox intelligente ad un impianto Fotovoltaico con accumulo puoi azzerare del tutto il costo di ricarica.</p>
+            <p>Connessione tra Wallbox intelligente e impianto Fotovoltaico con accumulo per azzerare i costi di carica.</p>
             <button class="btn btn-primary btn-block" onclick="alert('Richiesta informazioni per pacchetto Solare + Wallbox...')">
               Confronta Offerte Wallbox & Solar &rarr;
             </button>
@@ -539,7 +539,7 @@
         <ul>
           <li><a href="#" onclick="openModal('privacy-modal'); return false;">Privacy Policy</a></li>
           <li><a href="#" onclick="openModal('cookie-modal'); return false;">Cookie Policy</a></li>
-          <li><a href="#" onclick="resetCookieConsent(); return false;">Gestisci Consenso Cookie</a></li>
+          <li><a href="#" onclick="openCookieBanner(); return false;">Gestisci Consenso Cookie</a></li>
         </ul>
         <p class="disclaimer-text margin-top-sm">I calcoli forniti su EcoCalc.it sono stime basate su medie nazionali e parametri dell'utente.</p>
         <p class="copyright">&copy; 2026 EcoCalc.it - Tutti i diritti riservati.</p>
@@ -547,18 +547,54 @@
     </div>
   </footer>
 
-  <!-- ==================== GDPR COOKIE CONSENT BANNER ==================== -->
-  <div id="cookie-banner" class="cookie-banner">
-    <div class="container cookie-inner">
-      <div class="cookie-text">
-        <span>🍪 <strong>Informativa sui Cookie & Privacy:</strong> Usiamo cookie tecnici essenziali e, previo tuo consenso, cookie analitici e pubblicitari (Google AdSense) per personalizzare gli annunci e misurare il traffico. Consulta la nostra <a href="#" onclick="openModal('privacy-modal'); return false;">Privacy Policy</a>.</span>
-      </div>
-      <div class="cookie-buttons">
-        <button class="btn btn-sm btn-outline" onclick="acceptCookies('necessary')">Solo Necessari</button>
-        <button class="btn btn-sm btn-primary" onclick="acceptCookies('all')">Accetta Tutti</button>
+  <!-- ==================== MODERN FLOATING GDPR COOKIE BANNER ==================== -->
+  <div id="cookie-banner" class="floating-cookie-card">
+    <div class="cookie-card-header">
+      <div class="cookie-title-row">
+        <span class="cookie-header-icon">🍪</span>
+        <div>
+          <h4>Impostazioni Cookie & Privacy</h4>
+          <span class="cookie-subtitle">EcoCalc.it rispetta la tua riservatezza</span>
+        </div>
       </div>
     </div>
+
+    <div class="cookie-card-body">
+      <p>Utilizziamo cookie tecnici per il funzionamento dei calcolatori e, previo tuo consenso, cookie analitici e pubblicitari (Google AdSense/Ezoic) per offrire inserzioni personalizzate. Consulta la nostra <a href="#" onclick="openModal('privacy-modal'); return false;">Privacy Policy</a>.</p>
+
+      <div class="cookie-toggles">
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <strong>Cookie Tecnici Essenziali</strong>
+            <small>Necessari per il calcolo ed il sito</small>
+          </div>
+          <span class="toggle-status status-active">Sempre Attivi</span>
+        </div>
+
+        <div class="toggle-item">
+          <div class="toggle-info">
+            <strong>Cookie Analitici & Pubblicitari</strong>
+            <small>Misurazione traffico e annunci AdSense</small>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="cookie-analytics-toggle" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="cookie-card-footer">
+      <button class="btn btn-sm btn-outline" onclick="acceptCookies('necessary')">Solo Essenziali</button>
+      <button class="btn btn-sm btn-primary" onclick="acceptCookies('custom')">Salva Selezione</button>
+      <button class="btn btn-sm btn-warning" onclick="acceptCookies('all')">Accetta Tutti</button>
+    </div>
   </div>
+
+  <!-- Floating Reopen Badge -->
+  <button class="floating-cookie-trigger" onclick="openCookieBanner()" title="Gestisci Preferenze Cookie">
+    🍪 Privacy
+  </button>
 
   <!-- ==================== PRIVACY & COOKIE MODALS ==================== -->
   <div id="privacy-modal" class="modal">

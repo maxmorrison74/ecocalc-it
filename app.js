@@ -19,19 +19,27 @@ function initGDPRCookies() {
 
   if (!consent && banner) {
     banner.style.display = 'block';
+  } else if (banner) {
+    banner.style.display = 'none';
   }
 }
 
-function acceptCookies(type) {
-  localStorage.setItem('ecocalc_cookie_consent', type);
-  const banner = document.getElementById('cookie-banner');
-  if (banner) banner.style.display = 'none';
-}
-
-function resetCookieConsent() {
-  localStorage.removeItem('ecocalc_cookie_consent');
+function openCookieBanner() {
   const banner = document.getElementById('cookie-banner');
   if (banner) banner.style.display = 'block';
+}
+
+function acceptCookies(type) {
+  let savedConsent = type;
+
+  if (type === 'custom') {
+    const analyticsChecked = document.getElementById('cookie-analytics-toggle')?.checked;
+    savedConsent = analyticsChecked ? 'all' : 'necessary';
+  }
+
+  localStorage.setItem('ecocalc_cookie_consent', savedConsent);
+  const banner = document.getElementById('cookie-banner');
+  if (banner) banner.style.display = 'none';
 }
 
 function openModal(modalId) {
