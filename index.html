@@ -20,24 +20,34 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Background Glow FX -->
+  <!-- Ambient Background Glow & Grid Overlay -->
+  <div class="bg-grid-overlay"></div>
   <div class="bg-glow bg-glow-1"></div>
   <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- Top Hero Banner / Ticker -->
+  <div class="live-ticker-bar">
+    <div class="container ticker-inner">
+      <span class="pulse-dot"></span>
+      <span class="ticker-text">🔥 <strong>Live Insight:</strong> Chi installa un impianto Fotovoltaico con Accumulo risparmia in media fino a <strong>1.450€ all'anno</strong> in bolletta!</span>
+    </div>
+  </div>
 
   <!-- Header -->
   <header class="site-header">
     <div class="container header-inner">
       <div class="logo">
-        <span class="logo-icon">⚡</span>
+        <div class="logo-badge-icon">⚡</div>
         <div class="logo-text">
           <span class="logo-title">EcoCalc<span class="highlight">.it</span></span>
-          <span class="logo-subtitle">Calcolatori Energetici & Automotive</span>
+          <span class="logo-subtitle">Intelligenza Energetica & Automotive</span>
         </div>
       </div>
 
@@ -76,21 +86,30 @@
     <!-- ==================== CALCULATOR 1: EV vs GAS ==================== -->
     <section id="ev-calc" class="tab-content active">
       <div class="section-header">
+        <div class="section-tag">PROFILO MOBILITÀ SOSTENIBILE</div>
         <h2>⚡ Auto Elettrica (EV) vs Carburante (Benzina/Diesel/GPL)</h2>
-        <p>Confronto professionale e dettagliato: risparmio sul pieno, costi di ricarica domestica vs colonnina e risparmio sulla manutenzione ordinaria.</p>
+        <p>Confronto professionale in tempo reale: risparmio sul pieno, ricarica solare/casalinga vs colonnina e manutenzione ordinaria azzerata.</p>
+      </div>
+
+      <!-- Quick Preset Selector Buttons -->
+      <div class="presets-wrapper">
+        <span class="presets-label">⚡ Profili Rapidi:</span>
+        <button class="preset-btn active" onclick="applyEVPreset('city')">🏙️ Pendolare Città (10.000 km)</button>
+        <button class="preset-btn" onclick="applyEVPreset('family')">🚗 Famiglia Media (18.000 km)</button>
+        <button class="preset-btn" onclick="applyEVPreset('traveler')">🏎️ Viaggiatore Autostrada (30.000 km)</button>
       </div>
 
       <div class="grid-layout">
-        <!-- Input Form -->
+        <!-- Input Form Card -->
         <div class="card glass-card">
           <h3 class="card-title">⚙️ Parametri di Calcolo</h3>
 
           <div class="form-group">
             <div class="label-row">
               <label for="ev-km">Percorrenza Annua (Km):</label>
-              <span class="input-val" id="val-ev-km">15.000 km</span>
+              <span class="input-val highlight-badge" id="val-ev-km">15.000 km</span>
             </div>
-            <input type="range" id="ev-km" min="2000" max="60000" step="1000" value="15000">
+            <input type="range" id="ev-km" min="2000" max="60000" step="1000" value="15000" class="custom-range">
           </div>
 
           <div class="form-group">
@@ -137,7 +156,7 @@
               <label for="ev-home-pct">% Ricarica Casa vs Colonnina Pubblica:</label>
               <span class="input-val" id="val-ev-home-pct">80% Casa / 20% Colonnina</span>
             </div>
-            <input type="range" id="ev-home-pct" min="0" max="100" step="5" value="80">
+            <input type="range" id="ev-home-pct" min="0" max="100" step="5" value="80" class="custom-range">
           </div>
 
           <div class="form-group">
@@ -152,27 +171,30 @@
           </div>
         </div>
 
-        <!-- Results Card -->
+        <!-- Results Column Card -->
         <div class="results-column">
-          <div class="card glass-card accent-card">
+          <div class="card glass-card accent-card glow-card" id="ev-hero-box">
             <h3 class="card-title">💰 Il Tuo Risparmio Stimato</h3>
 
             <div class="hero-stat-box">
               <span class="stat-label">Risparmio Netto Annuo Complessivo</span>
-              <span class="stat-value highlight-green" id="res-ev-annual-savings">1.535 €</span>
+              <span class="stat-value highlight-green pulse-text" id="res-ev-annual-savings">1.535 €</span>
               <span class="stat-badge" id="res-ev-pct-saved">Pieno + Manutenzione inclusa</span>
             </div>
 
-            <div class="stats-grid">
-              <div class="stat-item">
-                <span class="item-label">Costo Annuo Carburante</span>
-                <span class="item-value text-red" id="res-gas-annual">1.774 €</span>
+            <!-- Visual Before vs After Card -->
+            <div class="comparison-visual-box">
+              <div class="comp-col comp-red">
+                <span class="comp-title">⛽ Motore Termico</span>
+                <span class="comp-val" id="res-gas-annual">1.774 €</span>
                 <small id="res-gas-100km">11,83 € / 100 km</small>
               </div>
 
-              <div class="stat-item">
-                <span class="item-label">Costo Annuo Elettrico</span>
-                <span class="item-value text-green" id="res-ev-annual">589 €</span>
+              <div class="comp-vs">VS</div>
+
+              <div class="comp-col comp-green">
+                <span class="comp-title">⚡ Auto Elettrica</span>
+                <span class="comp-val" id="res-ev-annual">589 €</span>
                 <small id="res-ev-100km">3,93 € / 100 km</small>
               </div>
             </div>
@@ -249,8 +271,17 @@
     <!-- ==================== CALCULATOR 2: FOTOVOLTAICO ==================== -->
     <section id="solar-calc" class="tab-content">
       <div class="section-header">
+        <div class="section-tag">AUTONOMIA ENERGETICA DOMESTICA</div>
         <h2>☀️ Calcolatore Fotovoltaico, Batteria Accumulo & ROI</h2>
         <p>Dimensiona l'impianto solare ideale per la tua abitazione, calcola l'autoconsumo e la vendita dell'energia in rete (Ritiro Dedicato).</p>
+      </div>
+
+      <!-- Solar Presets -->
+      <div class="presets-wrapper">
+        <span class="presets-label">☀️ Taglie Casa Rapide:</span>
+        <button class="preset-btn active" onclick="applySolarPreset('small')">🏢 Appartamento (80 €/mese)</button>
+        <button class="preset-btn" onclick="applySolarPreset('medium')">🏡 Villetta a Schiera (150 €/mese)</button>
+        <button class="preset-btn" onclick="applySolarPreset('large')">🏰 Villa / Pompa di Calore (280 €/mese)</button>
       </div>
 
       <div class="grid-layout">
@@ -261,9 +292,9 @@
           <div class="form-group">
             <div class="label-row">
               <label for="solar-bill">Spesa Media Bolletta Luce Mensile (€):</label>
-              <span class="input-val" id="val-solar-bill">120 €/mese</span>
+              <span class="input-val highlight-badge" id="val-solar-bill">120 €/mese</span>
             </div>
-            <input type="range" id="solar-bill" min="40" max="600" step="10" value="120">
+            <input type="range" id="solar-bill" min="40" max="600" step="10" value="120" class="custom-range">
           </div>
 
           <div class="form-group">
@@ -311,12 +342,12 @@
 
         <!-- Results Card -->
         <div class="results-column">
-          <div class="card glass-card accent-card">
+          <div class="card glass-card accent-card glow-card" id="solar-hero-box">
             <h3 class="card-title">📊 Dimensionamento & Rientro Economico</h3>
 
             <div class="hero-stat-box">
               <span class="stat-label">Tempo di Rientro dall'Investimento (ROI)</span>
-              <span class="stat-value highlight-cyan" id="res-solar-payback">4,8 Anni</span>
+              <span class="stat-value highlight-cyan pulse-text" id="res-solar-payback">4,8 Anni</span>
               <span class="stat-badge">Dopodiché è tutto guadagno netto!</span>
             </div>
 
@@ -385,6 +416,7 @@
     <!-- ==================== CALCULATOR 3: BOLLO AUTO ==================== -->
     <section id="bollo-calc" class="tab-content">
       <div class="section-header">
+        <div class="section-tag">FISCALITÀ & MANTENIMENTO AUTO</div>
         <h2>🚗 Calcolatore Bollo Auto Regionale & Costo Totale (TCO)</h2>
         <p>Calcola l'importo esatto del bollo auto in base alla tua Regione di residenza, alla potenza e controlla le esenzioni locali per ibride ed elettriche.</p>
       </div>
@@ -461,12 +493,12 @@
 
         <!-- Results Card -->
         <div class="results-column">
-          <div class="card glass-card accent-card">
+          <div class="card glass-card accent-card glow-card" id="bollo-hero-box">
             <h3 class="card-title">🧾 Risultato Bollo & Costo Annuo</h3>
 
             <div class="hero-stat-box">
               <span class="stat-label">Importo Bollo Annuo Stimato</span>
-              <span class="stat-value highlight-yellow" id="res-bollo-amount">283 €</span>
+              <span class="stat-value highlight-yellow pulse-text" id="res-bollo-amount">283 €</span>
               <span class="stat-badge" id="res-superbollo-badge">Superbollo non dovuto (&le; 185 kW)</span>
             </div>
 
@@ -519,7 +551,7 @@
     <div class="container footer-inner">
       <div class="footer-col">
         <div class="logo">
-          <span class="logo-icon">⚡</span>
+          <div class="logo-badge-icon">⚡</div>
           <span class="logo-title">EcoCalc<span class="highlight">.it</span></span>
         </div>
         <p class="footer-desc">I migliori strumenti gratuiti di calcolo su EcoCalc.it per risparmiare sull'energia domestica e la mobilità sostenibile.</p>

@@ -89,6 +89,55 @@ function switchTab(tabId) {
 }
 
 /* --------------------------------------------------------------------------
+   EV Presets
+   -------------------------------------------------------------------------- */
+function applyEVPreset(type) {
+  const kmInput = document.getElementById('ev-km');
+  const gasConsInput = document.getElementById('gas-consumption');
+  const evConsInput = document.getElementById('ev-consumption');
+
+  document.querySelectorAll('#ev-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (type === 'city') {
+    kmInput.value = 10000;
+    gasConsInput.value = 7.2;
+    evConsInput.value = 14.0;
+  } else if (type === 'family') {
+    kmInput.value = 18000;
+    gasConsInput.value = 6.5;
+    evConsInput.value = 15.5;
+  } else if (type === 'traveler') {
+    kmInput.value = 30000;
+    gasConsInput.value = 5.8;
+    evConsInput.value = 17.5;
+  }
+
+  // Trigger input event to recalculate
+  kmInput.dispatchEvent(new Event('input'));
+}
+
+/* --------------------------------------------------------------------------
+   Solar Presets
+   -------------------------------------------------------------------------- */
+function applySolarPreset(type) {
+  const billInput = document.getElementById('solar-bill');
+
+  document.querySelectorAll('#solar-calc .preset-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (type === 'small') {
+    billInput.value = 80;
+  } else if (type === 'medium') {
+    billInput.value = 150;
+  } else if (type === 'large') {
+    billInput.value = 280;
+  }
+
+  billInput.dispatchEvent(new Event('input'));
+}
+
+/* --------------------------------------------------------------------------
    Calculator 1: EV vs Gas (Enhanced)
    -------------------------------------------------------------------------- */
 function initEVCalc() {
