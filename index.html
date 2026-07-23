@@ -223,48 +223,110 @@
             </div>
           </div>
 
-          <!-- Amazon Affiliate Widget -->
-          <div class="card affiliate-card" style="border: 2px solid #ff9900; background: #fff; padding: 20px; display: flex; flex-direction: column; gap: 15px;" id="affiliate-amazon">
-            <div style="display: flex; align-items: center; justify-content: space-between;">
-              <span style="background: #232f3e; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📚 Scelta Consigliata</span>
-              <span style="color: #007185; font-size: 12px; font-weight: bold;">Sponsorizzato</span>
-            </div>
+          <!-- Amazon Affiliate Widget (Multi-Product List) -->
+          <div style="max-height: 450px; overflow-y: auto; padding-right: 10px; display: flex; flex-direction: column; gap: 15px;">
             
-            <div style="display: flex; gap: 20px; align-items: center; margin-top: 5px;">
-              <!-- Book Cover Image -->
-              <div style="flex-shrink: 0; width: 100px; text-align: center;">
-                <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL._SY466_.jpg" alt="Padre Ricco Padre Povero" style="width: 100%; max-width: 90px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <!-- Book 1 -->
+            <div class="card affiliate-card" style="border: 2px solid #ff9900; background: #fff; padding: 15px; display: flex; flex-direction: column; gap: 10px; margin:0;" id="affiliate-amazon-1">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="background: #232f3e; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;">📚 Bestseller Assoluto</span>
+                <span style="color: #007185; font-size: 11px; font-weight: bold;">Sponsorizzato</span>
               </div>
-              
-              <!-- Product Details -->
-              <div style="flex-grow: 1;">
-                <h4 style="margin: 0 0 5px 0; font-size: 18px; color: #0f1111; line-height: 1.3;">Padre Ricco, Padre Povero. Quello che i ricchi insegnano ai figli sul denaro</h4>
-                <div style="font-size: 13px; color: #007185; margin-bottom: 8px;">di Robert T. Kiyosaki</div>
-                
-                <!-- Ratings -->
-                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 14px;">
-                  <span style="color: #ffa41c;">⭐⭐⭐⭐⭐</span>
-                  <span style="color: #007185; font-size: 13px;">(45.892)</span>
+              <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="flex-shrink: 0; width: 70px; text-align: center;">
+                  <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL._SY466_.jpg" alt="Padre Ricco Padre Povero" style="width: 100%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 </div>
-                
-                <!-- Price -->
-                <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 5px;">
-                  <span style="font-size: 24px; font-weight: bold; color: #b12704;">12,50€</span>
-                  <span style="font-size: 13px; color: #565959; text-decoration: line-through;">14,00€</span>
-                  <span style="background: #cc0c39; color: white; padding: 2px 6px; border-radius: 2px; font-size: 11px; font-weight: bold;">-11%</span>
-                </div>
-                
-                <!-- Prime Badge -->
-                <div style="display: flex; align-items: center; gap: 5px; font-size: 13px; color: #0f1111; margin-bottom: 15px;">
-                  Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
+                <div style="flex-grow: 1;">
+                  <h4 style="margin: 0 0 4px 0; font-size: 15px; color: #0f1111; line-height: 1.2;">Padre Ricco, Padre Povero</h4>
+                  <div style="font-size: 12px; color: #007185; margin-bottom: 4px;">di Robert T. Kiyosaki</div>
+                  <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px; font-size: 12px;">
+                    <span style="color: #ffa41c;">⭐⭐⭐⭐⭐</span> <span style="color: #007185;">(45.892)</span>
+                  </div>
+                  <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <span style="font-size: 18px; font-weight: bold; color: #b12704;">12,50€</span>
+                    <span style="font-size: 12px; color: #565959; text-decoration: line-through;">14,00€</span>
+                  </div>
+                  <div style="font-size: 12px; color: #0f1111; margin-top: 4px;">Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span></div>
                 </div>
               </div>
+              <a href="https://amzn.to/3RtDiUE" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 14px; padding: 10px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; transition: background 0.2s;">Acquista su Amazon &rarr;</a>
             </div>
-            
-            <!-- Call to Action -->
-            <a href="https://amzn.to/3RtDiUE" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 15px; padding: 12px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">
-              Acquista su Amazon &rarr;
-            </a>
+
+            <!-- Book 2 -->
+            <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 15px; display: flex; flex-direction: column; gap: 10px; margin:0;" id="affiliate-amazon-2">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="background: #007185; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;">📖 Il più Pratico</span>
+                <span style="color: #007185; font-size: 11px; font-weight: bold;">Sponsorizzato</span>
+              </div>
+              <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="flex-shrink: 0; width: 70px; text-align: center;">
+                  <img src="https://placehold.co/90x130/e84118/ffffff?text=Kakebo" alt="Kakebo" style="width: 100%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                </div>
+                <div style="flex-grow: 1;">
+                  <h4 style="margin: 0 0 4px 0; font-size: 15px; color: #0f1111; line-height: 1.2;">Kakebo: Il libro dei conti di casa</h4>
+                  <div style="font-size: 12px; color: #007185; margin-bottom: 4px;">Risparmia fino al 30%</div>
+                  <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px; font-size: 12px;">
+                    <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(12.430)</span>
+                  </div>
+                  <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <span style="font-size: 18px; font-weight: bold; color: #b12704;">15,20€</span>
+                  </div>
+                  <div style="font-size: 12px; color: #0f1111; margin-top: 4px;">Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span></div>
+                </div>
+              </div>
+              <a href="https://amzn.to/4fhtV3J" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 14px; padding: 10px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+            </div>
+
+            <!-- Book 3 -->
+            <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 15px; display: flex; flex-direction: column; gap: 10px; margin:0;" id="affiliate-amazon-3">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="background: #007185; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;">🧠 Mindset Finanziario</span>
+                <span style="color: #007185; font-size: 11px; font-weight: bold;">Sponsorizzato</span>
+              </div>
+              <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="flex-shrink: 0; width: 70px; text-align: center;">
+                  <img src="https://placehold.co/90x130/0097e6/ffffff?text=Psicologia+Soldi" alt="Psicologia dei soldi" style="width: 100%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                </div>
+                <div style="flex-grow: 1;">
+                  <h4 style="margin: 0 0 4px 0; font-size: 15px; color: #0f1111; line-height: 1.2;">La psicologia dei soldi</h4>
+                  <div style="font-size: 12px; color: #007185; margin-bottom: 4px;">di Morgan Housel</div>
+                  <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px; font-size: 12px;">
+                    <span style="color: #ffa41c;">⭐⭐⭐⭐⭐</span> <span style="color: #007185;">(21.104)</span>
+                  </div>
+                  <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <span style="font-size: 18px; font-weight: bold; color: #b12704;">16,15€</span>
+                  </div>
+                  <div style="font-size: 12px; color: #0f1111; margin-top: 4px;">Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span></div>
+                </div>
+              </div>
+              <a href="https://amzn.to/4b8OtJe" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 14px; padding: 10px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+            </div>
+
+            <!-- Book 4 -->
+            <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 15px; display: flex; flex-direction: column; gap: 10px; margin:0;" id="affiliate-amazon-4">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="background: #007185; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase;">🏆 Classico del Risparmio</span>
+                <span style="color: #007185; font-size: 11px; font-weight: bold;">Sponsorizzato</span>
+              </div>
+              <div style="display: flex; gap: 15px; align-items: center;">
+                <div style="flex-shrink: 0; width: 70px; text-align: center;">
+                  <img src="https://placehold.co/90x130/273c75/ffffff?text=Milionario" alt="Il milionario della porta accanto" style="width: 100%; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                </div>
+                <div style="flex-grow: 1;">
+                  <h4 style="margin: 0 0 4px 0; font-size: 15px; color: #0f1111; line-height: 1.2;">Il milionario della porta accanto</h4>
+                  <div style="font-size: 12px; color: #007185; margin-bottom: 4px;">di Thomas J. Stanley</div>
+                  <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 4px; font-size: 12px;">
+                    <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(8.992)</span>
+                  </div>
+                  <div style="display: flex; align-items: baseline; gap: 6px;">
+                    <span style="font-size: 18px; font-weight: bold; color: #b12704;">13,30€</span>
+                  </div>
+                  <div style="font-size: 12px; color: #0f1111; margin-top: 4px;">Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span></div>
+                </div>
+              </div>
+              <a href="https://amzn.to/4vJUnaY" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 14px; padding: 10px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+            </div>
+
           </div>
         </div>
       </div>
