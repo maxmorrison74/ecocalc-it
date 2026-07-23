@@ -3,39 +3,41 @@
    ========================================================================== */
 
 :root {
-  /* Apple Color Palette */
-  --bg-color: #f5f5f7; /* Classic Apple light gray background */
+  /* Segugio.it Color Palette & Theme */
+  --bg-color: #f4f6f9; /* Segugio light grayish canvas */
   --surface-color: #ffffff;
-  --surface-secondary: #f0f0f2;
+  --surface-secondary: #ebf0f7;
   
-  --text-primary: #1d1d1f;
-  --text-secondary: #86868b;
-  --text-muted: #a1a1a6;
+  --navy-primary: #0a3871; /* Segugio Deep Royal Navy */
+  --navy-dark: #062349;
+  --navy-light: #164f95;
   
-  --accent-blue: #0071e3;
-  --accent-blue-hover: #0077ed;
-  --accent-green: #34c759;
-  --accent-red: #ff3b30;
-  --accent-yellow: #ff9500;
-  --accent-cyan: #32ade6;
-  --accent-purple: #af52de;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  
+  --accent-green: #00a651; /* Segugio High-Converting Emerald CTA */
+  --accent-green-hover: #008e45;
+  --accent-orange: #ff6600; /* Segugio Accent Orange */
+  --accent-blue: #0284c7;
+  --accent-yellow: #f59e0b;
 
   /* Borders & Shadows */
-  --border-subtle: rgba(0, 0, 0, 0.06);
-  --border-strong: rgba(0, 0, 0, 0.12);
-  --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.04);
-  --shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --shadow-float: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --border-subtle: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --shadow-soft: 0 4px 16px rgba(10, 56, 113, 0.05);
+  --shadow-medium: 0 8px 24px rgba(10, 56, 113, 0.08);
+  --shadow-float: 0 16px 36px rgba(10, 56, 113, 0.12);
 
   /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
-  --radius-pill: 980px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
 
   /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* --------------------------------------------------------------------------
@@ -131,18 +133,17 @@ a:hover {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 16px 0;
+  background: var(--navy-primary);
+  border-bottom: 3px solid var(--accent-green);
+  padding: 14px 0;
+  box-shadow: 0 4px 20px rgba(10, 56, 113, 0.15);
 }
 
 .header-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .logo {
@@ -161,21 +162,21 @@ a:hover {
 }
 
 .logo-title {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 26px;
+  font-weight: 800;
   letter-spacing: -0.5px;
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .logo-title .highlight {
-  color: var(--accent-blue);
+  color: #38bdf8; /* Bright Cyan Highlight */
 }
 
 .logo-subtitle {
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  letter-spacing: 0.5px;
+  font-size: 11px;
+  color: #93c5fd;
+  font-weight: 600;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
 }
 
@@ -184,7 +185,7 @@ a:hover {
   gap: 8px;
   overflow-x: auto;
   width: 100%;
-  padding-bottom: 8px;
+  padding: 4px 0 8px 0;
   scrollbar-width: none; /* Firefox */
 }
 
@@ -193,29 +194,31 @@ a:hover {
 }
 
 .tab-btn {
-  background: var(--surface-color);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-primary);
-  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 9px 18px;
   border-radius: var(--radius-pill);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 8px;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .tab-btn:hover {
-  background: var(--surface-secondary);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .tab-btn.active {
-  background: var(--text-primary);
-  color: var(--bg-color);
+  background: var(--accent-green);
+  color: #ffffff;
+  border-color: var(--accent-green);
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.4);
+}
   border-color: var(--text-primary);
 }
 
@@ -1079,3 +1082,106 @@ input:checked + .slider:before {
     color: #ffffff; /* Make text white inside yellow badge for contrast */
   }
 }
+
+/* ==========================================================================
+   Segugio.it Comparator Component Styles
+   ========================================================================== */
+.btn-primary, .btn-segugio {
+  background: var(--accent-green) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 14px rgba(0, 166, 81, 0.3) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-primary:hover, .btn-segugio:hover {
+  background: var(--accent-green-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 166, 81, 0.4) !important;
+}
+
+.segugio-trust-bar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 12px 0;
+  font-size: 13px;
+  color: var(--navy-primary);
+  font-weight: 600;
+}
+
+.segugio-trust-inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.segugio-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.segugio-trust-item span {
+  color: var(--accent-green);
+  font-size: 16px;
+}
+
+/* Comparator Deal Card (Segugio Style) */
+.segugio-deal-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid var(--navy-primary);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 15px;
+  box-shadow: 0 2px 10px rgba(10, 56, 113, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  transition: all 0.2s ease;
+}
+
+.segugio-deal-card:hover {
+  border-left-color: var(--accent-green);
+  box-shadow: 0 6px 20px rgba(10, 56, 113, 0.1);
+}
+
+.segugio-deal-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-grow: 1;
+}
+
+.segugio-deal-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.segugio-deal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-primary);
+  margin-bottom: 4px;
+}
+
+.segugio-deal-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.segugio-deal-cta {
+  flex-shrink: 0;
+}
+
