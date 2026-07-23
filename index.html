@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EcoCalc.it | CAF Online, Calcolo Stipendio, Assicurazioni Casa, Vita, Animali, Auto & Moto</title>
-  <meta name="description" content="Il tuo CAF Online & Utility Hub 100% Gratuito: calcola lo Stipendio Netto, TFR, NASpI, Polizze Assicurative Casa, Vita, Pet, Auto & Moto, Auto Elettrica e Fotovoltaico.">
-  <meta name="keywords" content="ecocalc, caf online, calcolo assicurazione auto, assicurazione casa, polizza vita, assicurazione animali cane gatto, assicurazione moto, calcolo stipendio netto">
+  <title>EcoCalc.it | Calcolo Stipendio Netto 2026, Partita IVA, Mutui &amp; Assicurazioni</title>
+  <meta name="description" content="Comparatore &amp; Calcolatore Fiscale 100% Gratuito: Calcola lo Stipendio Netto 2026 dal Lordo, Tasse Partita IVA Forfettario, Rata Mutuo, Polizze Assicurative, TFR e Fotovoltaico.">
+  <meta name="keywords" content="calcolo stipendio netto 2026, calcolo partita iva forfettario, comparatore assicurazioni auto moto, calcolo rata mutuo, calcolo tfr netto, ecocalc, caf online">
   <link rel="canonical" href="https://ecocalc.it/">
   
   <!-- PWA & Mobile Web App Meta Tags -->
@@ -13,22 +13,98 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#0a3871">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="EcoCalc.it - CAF Online, Calcolatori Fiscali & Assicurazioni">
-  <meta property="og:description" content="Calcola subito lo Stipendio Netto, Polizze Assicurative (Casa, Vita, Pet, Auto, Moto), TFR, NASpI e Fotovoltaico su EcoCalc.it.">
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:site_name" content="EcoCalc.it">
+  <meta property="og:title" content="EcoCalc.it - Calcolatore Fiscale &amp; Comparatore Assicurazioni 2026">
+  <meta property="og:description" content="Calcola in 1 Clic lo Stipendio Netto dal Lordo, Tasse Forfettario, Rata del Mutuo e Preventivi Assicurazioni Auto/Moto. 100% Gratuito.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ecocalc.it/">
+  <meta property="og:image" content="https://ecocalc.it/logo_transparent.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EcoCalc.it | Calcolo Stipendio Netto 2026 &amp; Comparatore Fiscale">
+  <meta name="twitter:description" content="Strumento gratuito per il calcolo dello stipendio netto, tasse P.IVA, rate mutui e polizze assicurative.">
+  <meta name="twitter:image" content="https://ecocalc.it/logo_transparent.png">
+
+  <!-- Dati Strutturati Schema.org (JSON-LD per Google Rich Snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ecocalc.it/#website",
+        "url": "https://ecocalc.it/",
+        "name": "EcoCalc.it",
+        "description": "Comparatore & Calcolatore Fiscale, Finanziario ed Energetico Gratuito 2026",
+        "inLanguage": "it-IT"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://ecocalc.it/#organization",
+        "name": "EcoCalc.it",
+        "url": "https://ecocalc.it/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://ecocalc.it/logo.png"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://ecocalc.it/#stipendio-application",
+        "name": "Calcolatore Stipendio Netto 2026",
+        "operatingSystem": "All",
+        "applicationCategory": "FinanceApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "description": "Simulatore preciso per il calcolo dello stipendio netto mensile ed annuale dalla retribuzione annua lorda (RAL) secondo la Legge di Bilancio 2026."
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ecocalc.it/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Come si calcola lo stipendio netto dal lordo (RAL) nel 2026?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Il calcolo dello stipendio netto parte dalla RAL e sottrae i contributi previdenziali INPS (circa 9,19%), le aliquote IRPEF a scaglioni e applica le detrazioni per lavoro dipendente e carichi di famiglia."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quante tasse si pagano con il Regime Forfettario nel 2026?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nel Regime Forfettario si paga un'imposta sostitutiva del 5% per i primi 5 anni (poi 15%) calcolata sull'imponibile determinato dal codice ATECO, oltre ai contributi previdenziali alla Cassa di appartenenza o Gestione Separata INPS."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Qual è il limite di fatturato per il Regime Forfettario?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Il limite massimo di ricavi o compensi annui per accedere e rimanere nel Regime Forfettario è pari a 85.000 euro all'anno."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Google Fonts (Preloaded) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- CSS -->
   <link rel="stylesheet" href="style.css?v=20260723_segugio_v3">

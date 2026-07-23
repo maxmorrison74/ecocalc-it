@@ -72,12 +72,18 @@ function initTabs() {
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const targetTab = btn.getAttribute('data-tab');
-      switchTab(targetTab);
+      switchTab(targetTab, true);
     });
   });
+
+  // Check URL Hash for deep-linking (SEO & Direct Sharing)
+  const initialHash = window.location.hash.replace('#', '');
+  if (initialHash && document.getElementById(initialHash)) {
+    switchTab(initialHash, false);
+  }
 }
 
-function switchTab(tabId) {
+function switchTab(tabId, updateHash = true) {
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
 
@@ -90,6 +96,10 @@ function switchTab(tabId) {
   tabContents.forEach(content => {
     content.classList.toggle('active', content.id === tabId);
   });
+
+  if (updateHash && window.history && window.history.replaceState) {
+    window.history.replaceState(null, null, '#' + tabId);
+  }
 }
 
 /* --------------------------------------------------------------------------
