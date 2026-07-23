@@ -229,119 +229,84 @@
 
       <!-- Amazon Affiliate List Container -->
       <div style="margin-top: 40px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-          <h4 style="margin: 0; color: #0f1111; font-size: 22px;">📚 Letture Consigliate per la Finanza Personale</h4>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+          <h4 style="margin: 0; font-size: 20px; font-weight: 600; color: var(--text-color);">🔍 📚 Letture Consigliate per la Finanza Personale</h4>
         </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px;">In qualità di affiliato, potremmo ricevere una commissione se acquisti tramite questi link. Le risorse sono selezionate in modo indipendente.</p>
 
         <!-- 2-Column Grid for Books -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px;">
 
         <!-- Book 1 -->
-        <div class="card affiliate-card" style="border: 2px solid #ff9900; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;" id="affiliate-amazon-1">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #232f3e; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📚 Scelta Consigliata</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);" id="affiliate-amazon-1">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">📚 Scelta Consigliata</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
-              <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL._SY466_.jpg" alt="Padre Ricco Padre Povero" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              <img src="https://m.media-amazon.com/images/I/81bsw6fnUiL._SY466_.jpg" alt="Padre Ricco Padre Povero" style="width: 100%; max-width: 90px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Padre Ricco, Padre Povero</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">di Robert T. Kiyosaki</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐⭐</span> <span style="color: #007185;">(45.892)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">12,50€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Padre Ricco, Padre Povero</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">di Robert T. Kiyosaki</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐⭐</span> <span style="color: var(--text-muted);">(45.892)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://amzn.to/3RtDiUE" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://amzn.to/3RtDiUE" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Book 2 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;" id="affiliate-amazon-2">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">📖 Il più Pratico</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);" id="affiliate-amazon-2">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">📖 Il più Pratico</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
-              <img src="https://placehold.co/150x220/f3f3f3/007185?text=Kakebo..." alt="Kakebo" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              <img src="https://placehold.co/150x220/f3f3f3/007185?text=Kakebo..." alt="Kakebo" style="width: 100%; max-width: 90px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Kakebo: Il libro dei conti di casa</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Risparmia fino al 30%</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(12.430)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">15,20€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Kakebo: Il libro dei conti di casa</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Risparmia fino al 30%</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(12.430)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://amzn.to/4fhtV3J" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://amzn.to/4fhtV3J" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Book 3 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;" id="affiliate-amazon-3">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">🧠 Mindset Finanziario</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);" id="affiliate-amazon-3">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">🧠 Mindset Finanziario</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
-              <img src="https://placehold.co/150x220/f3f3f3/007185?text=La+psicologia+d..." alt="La psicologia dei soldi" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              <img src="https://placehold.co/150x220/f3f3f3/007185?text=La+psicologia+d..." alt="La psicologia dei soldi" style="width: 100%; max-width: 90px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">La psicologia dei soldi</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">di Morgan Housel</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐⭐</span> <span style="color: #007185;">(21.104)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">16,15€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">La psicologia dei soldi</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">di Morgan Housel</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐⭐</span> <span style="color: var(--text-muted);">(21.104)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://amzn.to/4b8OtJe" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://amzn.to/4b8OtJe" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Book 4 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;" id="affiliate-amazon-4">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">🏆 Classico del Risparmio</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);" id="affiliate-amazon-4">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">🏆 Classico del Risparmio</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
-              <img src="https://www.macrolibrarsi.it/data/cop/_big/i/il-milionario-della-porta-accanto_46086.jpg" alt="Il milionario della porta accanto" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              <img src="https://www.macrolibrarsi.it/data/cop/_big/i/il-milionario-della-porta-accanto_46086.jpg" alt="Il milionario della porta accanto" style="width: 100%; max-width: 90px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Il milionario della porta accanto</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">di Thomas J. Stanley</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(8.992)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">13,30€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Il milionario della porta accanto</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">di Thomas J. Stanley</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(8.992)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://amzn.to/4vJUnaY" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://amzn.to/4vJUnaY" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
       </div>
@@ -435,8 +400,8 @@
             </div>
           </div>
           
-          <div class="card affiliate-card" style="border: 2px solid var(--accent-blue); background: linear-gradient(145deg, var(--surface-color), rgba(0, 113, 227, 0.05));">
-            <span class="affiliate-badge" style="background: var(--accent-blue); color: white;">💎 Sconto Partner EcoCalc</span>
+          <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <span class="affiliate-badge" style="background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); font-weight: 600;">💎 Partner EcoCalc</span>
             <h4>Gestisci la tua P.IVA con FlexTax</h4>
             <p>Commercialista online, fatturazione elettronica e simulatore tasse gratis. Iscriviti con il nostro link per una <strong>Consulenza Gratuita</strong> e sconti sui servizi.</p>
             <a href="#" target="_blank" id="flextax-link" class="btn btn-primary btn-block" style="text-align: center; font-weight: bold; font-size: 16px; padding: 14px;">
@@ -449,119 +414,84 @@
 
       <!-- Amazon Affiliate List Container (piva-calc) -->
       <div style="margin-top: 40px;" class="amazon-affiliate-section">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-          <h4 style="margin: 0; color: #0f1111; font-size: 22px;">👨‍💻 Letture per Freelance e Professionisti</h4>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+          <h4 style="margin: 0; font-size: 20px; font-weight: 600; color: var(--text-color);">🔍 👨‍💻 Letture per Freelance e Professionisti</h4>
         </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px;">In qualità di affiliato, potremmo ricevere una commissione se acquisti tramite questi link. Le risorse sono selezionate in modo indipendente.</p>
 
         <!-- 2-Column Grid for Books -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px;">
 
         <!-- Product 1 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Il più venduto</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Il più venduto</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://covers.openlibrary.org/b/id/6679955-L.jpg" alt="Rework. Cambiamo le regole del lavoro" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Rework. Cambiamo le regole del lavoro</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Jason Fried</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(3.200)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">14,25€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Rework. Cambiamo le regole del lavoro</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Jason Fried</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(3.200)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8868962241?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8868962241?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Product 2 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Mindset</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Mindset</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://covers.openlibrary.org/b/id/8796506-L.jpg" alt="Company of One. Perché la singola persona è la nuova grande azienda" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Company of One. Perché la singola persona è la nuova grande azienda</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Paul Jarvis</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(1.100)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">18,05€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Company of One. Perché la singola persona è la nuova grande azienda</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Paul Jarvis</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(1.100)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8891786520?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8891786520?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Product 3 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Personal Branding</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Personal Branding</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://placehold.co/150x220/f3f3f3/007185?text=Fai+di+te+stess..." alt="Fai di te stesso un brand" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Fai di te stesso un brand</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Riccardo Scandellari</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(850)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">17,10€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Fai di te stesso un brand</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Riccardo Scandellari</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(850)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8828825102?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8828825102?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Product 4 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Marketing</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Marketing</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://placehold.co/150x220/f3f3f3/007185?text=La+mucca+viola..." alt="La mucca viola" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">La mucca viola</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Seth Godin</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(4.500)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">10,45€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">La mucca viola</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Seth Godin</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(4.500)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8820044890?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8820044890?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         </div>
@@ -657,119 +587,84 @@
 
       <!-- Amazon Affiliate List Container (mutui-calc) -->
       <div style="margin-top: 40px;" class="amazon-affiliate-section">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-          <h4 style="margin: 0; color: #0f1111; font-size: 22px;">🏠 Letture su Immobili, Trattative e Mutui</h4>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+          <h4 style="margin: 0; font-size: 20px; font-weight: 600; color: var(--text-color);">🔍 🏠 Letture su Immobili, Trattative e Mutui</h4>
         </div>
+        <p style="font-size: 12px; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px;">In qualità di affiliato, potremmo ricevere una commissione se acquisti tramite questi link. Le risorse sono selezionate in modo indipendente.</p>
 
         <!-- 2-Column Grid for Books -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px;">
 
         <!-- Product 1 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Guida Pratica</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Guida Pratica</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://placehold.co/150x220/f3f3f3/007185?text=Investire+in+im..." alt="Investire in immobili" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Investire in immobili</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Andrea Russo</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(850)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">18,00€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Investire in immobili</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Andrea Russo</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(850)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8820391450?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8820391450?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Product 2 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Strategia</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Strategia</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://placehold.co/150x220/f3f3f3/007185?text=Comprare+casa+s..." alt="Comprare casa senza soldi" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Comprare casa senza soldi</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Andrea Maurizio Gilardoni</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐½</span> <span style="color: #007185;">(600)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">19,00€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Comprare casa senza soldi</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Andrea Maurizio Gilardoni</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐½</span> <span style="color: var(--text-muted);">(600)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8868962004?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8868962004?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Product 3 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Negoziazione</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Negoziazione</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://covers.openlibrary.org/b/id/14845412-L.jpg" alt="Volere troppo e ottenerlo" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Volere troppo e ottenerlo</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Chris Voss</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐⭐</span> <span style="color: #007185;">(3.500)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">18,05€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Volere troppo e ottenerlo</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Chris Voss</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐⭐</span> <span style="color: var(--text-muted);">(3.500)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8891823906?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8891823906?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         <!-- Product 4 -->
-        <div class="card affiliate-card" style="border: 2px solid #ddd; background: #fff; padding: 25px; display: flex; flex-direction: column; gap: 15px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span style="background: #007185; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Conoscenza Base</span>
-            <span style="color: #007185; font-size: 13px; font-weight: bold;">Sponsorizzato</span>
-          </div>
+        <div class="card affiliate-card" style="border: 1px solid var(--border-color); background: var(--surface-color); padding: 20px; display: flex; flex-direction: column; gap: 15px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+          <span style="display: inline-block; background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; width: max-content;">Conoscenza Base</span>
           <div style="display: flex; gap: 30px; align-items: center; margin-top: 10px;">
             <div style="flex-shrink: 0; width: 120px; text-align: center;">
               <img src="https://placehold.co/150x220/f3f3f3/007185?text=Il+mercato+immo..." alt="Il mercato immobiliare per tutti" style="width: 100%; max-width: 110px; border-radius: 4px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: contain;">
             </div>
             <div style="flex-grow: 1;">
-              <h4 style="margin: 0 0 5px 0; font-size: 20px; color: #0f1111; line-height: 1.3;">Il mercato immobiliare per tutti</h4>
-              <div style="font-size: 15px; color: #007185; margin-bottom: 10px;">Vari</div>
-              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 10px; font-size: 15px;">
-                <span style="color: #ffa41c;">⭐⭐⭐⭐</span> <span style="color: #007185;">(200)</span>
-              </div>
-              <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                <span style="font-size: 28px; font-weight: bold; color: #b12704;">15,20€</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 5px; font-size: 14px; color: #0f1111; margin-bottom: 20px;">
-                Ricevilo <strong>Domani</strong> con <span style="color: #00a8e1; font-weight: bold; font-style: italic;">prime</span>
-              </div>
+              <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; line-height: 1.3;">Il mercato immobiliare per tutti</h4>
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">Vari</div>
+              <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 8px; font-size: 13px;"><span style="color: #ffb400;">⭐⭐⭐⭐</span> <span style="color: var(--text-muted);">(200)</span></div>
+              
+              
             </div>
           </div>
-          <a href="https://www.amazon.it/dp/8820399125?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" style="display: block; width: 100%; text-align: center; font-weight: bold; font-size: 16px; padding: 14px; background: #ffd814; color: #0f1111; border: 1px solid #fcd200; border-radius: 100px; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: background 0.2s;">Acquista su Amazon &rarr;</a>
+          <a href="https://www.amazon.it/dp/8820399125?tag=ecocalc-21" target="_blank" rel="nofollow sponsored" class="btn" style="display: block; width: 100%; text-align: center; font-size: 14px; padding: 10px; background: transparent; color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 8px; text-decoration: none; margin-top: auto; font-weight: 600;">Scopri su Amazon &rarr;</a>
         </div>
 
         </div>
