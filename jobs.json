@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-07-24 16:18 UTC",
-  "total_jobs": 10,
+  "updated_at": "2026-07-24 16:46 UTC",
+  "total_jobs": 12,
   "jobs": [
     {
       "id": "conc-mi-01",
@@ -16,7 +16,7 @@
       "salary": "22.500 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": true,
-      "summary": "Selezione pubblica per esami per la copertura di 30 posti nell'area degli istruttori amministrativi presso gli uffici comunali."
+      "summary": "Selezione pubblica per esami per la copertura di 30 posti nell'area degli istruttori amministrativi e contabili presso gli uffici comunali."
     },
     {
       "id": "conc-rm-02",
@@ -32,11 +32,11 @@
       "salary": "24.000 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": true,
-      "summary": "Concorso pubblico per titoli ed esami per l'assunzione a tempo indeterminato di 50 agenti di Polizia Locale."
+      "summary": "Concorso pubblico per titoli ed esami per l'assunzione a tempo indeterminato di 50 agenti di Polizia Locale per la sicurezza urbana."
     },
     {
       "id": "conc-to-03",
-      "title": "Bando 12 Ingegneri ed Architetti Tecnici",
+      "title": "Bando 12 Ingegneri ed Architetti Tecnici Urbanistici",
       "entity": "Comune di Torino",
       "region": "Piemonte",
       "city": "Torino",
@@ -48,11 +48,11 @@
       "salary": "28.500 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": true,
-      "summary": "Selezione riservata a laureati in Ingegneria o Architettura per l'area tecnica e pianificazione urbanistica."
+      "summary": "Selezione riservata a laureati in Ingegneria o Architettura per l'area tecnica, lavori pubblici e pianificazione urbanistica del Comune."
     },
     {
       "id": "conc-bo-04",
-      "title": "Bando 15 Specialisti Sistemi Informativi & IT",
+      "title": "Bando 15 Specialisti Sistemi Informativi & Transizione Digitale",
       "entity": "Comune di Bologna",
       "region": "Emilia-Romagna",
       "city": "Bologna",
@@ -64,11 +64,11 @@
       "salary": "30.000 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": false,
-      "summary": "Concorso per la transizione digitale e la gestione delle infrastrutture IT e servizi cloud del Comune."
+      "summary": "Concorso per l'area della transizione digitale, gestione infrastrutture IT, cybersecurity e servizi al cittadino."
     },
     {
       "id": "conc-na-05",
-      "title": "Concorso 40 Assistenti Sociali",
+      "title": "Concorso 40 Assistenti Sociali Territoriali",
       "entity": "Comune di Napoli",
       "region": "Campania",
       "city": "Napoli",
@@ -80,11 +80,11 @@
       "salary": "25.000 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": true,
-      "summary": "Assunzione di 40 assistenti sociali per il potenziamento dei servizi di welfare territoriale nei quartieri."
+      "summary": "Assunzione a tempo indeterminato di 40 assistenti sociali per il potenziamento dei servizi di welfare e inclusione sociale."
     },
     {
       "id": "conc-fi-06",
-      "title": "Bando 10 Istruttori Direttivi Amministrativi",
+      "title": "Bando 10 Istruttori Direttivi Amministrativo-Contabili",
       "entity": "Comune di Firenze",
       "region": "Toscana",
       "city": "Firenze",
@@ -96,11 +96,11 @@
       "salary": "26.500 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": false,
-      "summary": "Selezione pubblica per esami per laureati in Giurisprudenza, Economia o Scienze Politiche."
+      "summary": "Selezione pubblica per esami riservata a laureati in Giurisprudenza, Economia o Scienze Politiche."
     },
     {
       "id": "conc-pa-07",
-      "title": "Concorso 25 Operatori Tecnici e Manutentori",
+      "title": "Concorso 25 Operatori Tecnici e Manutentori del Verde",
       "entity": "Comune di Palermo",
       "region": "Sicilia",
       "city": "Palermo",
@@ -112,26 +112,58 @@
       "salary": "19.800 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": false,
-      "summary": "Bando aperto a posizioni operative per la manutenzione delle infrastrutture urbane e del verde pubblico."
+      "summary": "Bando aperto per la selezione di operatori manutentori delle infrastrutture urbane, strade e verde pubblico."
     },
     {
       "id": "conc-ba-08",
-      "title": "Bando 20 Esperti Comunicazione e Marketing",
+      "title": "Bando 20 Esperti Gestione Fondi Europei PNRR",
       "entity": "Regione Puglia",
       "region": "Puglia",
       "city": "Bari",
       "type": "Concorso Pubblico",
-      "contract": "Tempo Determinato",
+      "contract": "Tempo Determinato (3 Anni)",
       "education": "Laurea",
       "places": 20,
       "deadline": "2026-09-01",
-      "salary": "27.000 € / anno",
+      "salary": "32.000 € / anno",
       "url": "https://www.inpa.gov.it/",
       "featured": false,
-      "summary": "Selezione per la gestione della comunicazione istituzionale, promozione del territorio e fondi europei."
+      "summary": "Selezione pubblica per la gestione, rendicontazione e controllo dei programmi e progetti PNRR della Regione."
     },
     {
-      "id": "job-mi-09",
+      "id": "conc-ve-09",
+      "title": "Bando 8 Agenti di Polizia Locale e Servizi Marittimi",
+      "entity": "Comune di Venezia",
+      "region": "Veneto",
+      "city": "Venezia",
+      "type": "Concorso Pubblico",
+      "contract": "Tempo Indeterminato",
+      "education": "Diploma",
+      "places": 8,
+      "deadline": "2026-08-31",
+      "salary": "23.800 € / anno",
+      "url": "https://www.inpa.gov.it/",
+      "featured": false,
+      "summary": "Concorso per agenti di polizia locale con patente nautica per il presidio dei canali e del centro storico."
+    },
+    {
+      "id": "conc-ge-10",
+      "title": "Concorso 15 Geometri e Tecnici di Cantiere",
+      "entity": "Comune di Genova",
+      "region": "Liguria",
+      "city": "Genova",
+      "type": "Concorso Pubblico",
+      "contract": "Tempo Indeterminato",
+      "education": "Diploma",
+      "places": 15,
+      "deadline": "2026-09-12",
+      "salary": "22.800 € / anno",
+      "url": "https://www.inpa.gov.it/",
+      "featured": false,
+      "summary": "Selezione per diplomati geometri da inserire nel settore lavori pubblici, viabilità e protezione civile."
+    },
+    {
+      "id": "job-mi-11",
       "title": "Senior Financial Accountant & Tax Specialist",
       "entity": "Studio Tributario Partner Milano",
       "region": "Lombardia",
@@ -144,11 +176,11 @@
       "salary": "38.000 € - 45.000 €",
       "url": "https://www.linkedin.com/jobs/",
       "featured": true,
-      "summary": "Ricerca urgente per contabile senior esperto in gestione bilanci, adempimenti fiscali e contabilità d'impresa."
+      "summary": "Ricerca urgente per contabile senior esperto in gestione bilanci d'esercizio, adempimenti fiscali e consulenza d'impresa."
     },
     {
-      "id": "job-rem-10",
-      "title": "Full-Stack Developer & Software Engineer",
+      "id": "job-rem-12",
+      "title": "Full-Stack Developer & Software Engineer (Node/React/Python)",
       "entity": "Tech SaaS Solutions",
       "region": "Tutte le Regioni",
       "city": "Remote Working",
@@ -160,7 +192,7 @@
       "salary": "40.000 € - 55.000 €",
       "url": "https://www.linkedin.com/jobs/",
       "featured": true,
-      "summary": "Opportunità 100% da remoto per sviluppatori Node.js, Python e React con esperienza in piattaforme cloud."
+      "summary": "Opportunità 100% da remoto per sviluppatori software con esperienza in piattaforme SaaS ed architetture cloud API."
     }
   ]
 }
