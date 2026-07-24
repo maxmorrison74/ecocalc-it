@@ -1083,6 +1083,14 @@ input:checked + .slider:before {
   }
 }
 
+/* --------------------------------------------------------------------------
+   FlexTax Clickable Banner Hover Effects
+   -------------------------------------------------------------------------- */
+.flextax-clickable-banner:hover .segugio-deal-card {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(10, 56, 113, 0.15) !important;
+}
+
 /* ==========================================================================
    Segugio.it Comparator Component Styles
    ========================================================================== */
