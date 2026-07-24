@@ -140,6 +140,9 @@
         <button class="tab-btn" data-tab="piva-calc" role="tab" aria-selected="false">
           <span class="tab-icon">👨‍💻</span> Partita IVA
         </button>
+        <button class="tab-btn" data-tab="jobs-calc" role="tab" aria-selected="false">
+          <span class="tab-icon">🔍</span> Concorsi &amp; Lavoro
+        </button>
         <button class="tab-btn" data-tab="tfr-naspi-calc" role="tab" aria-selected="false">
           <span class="tab-icon">📑</span> TFR & NASpI
         </button>
@@ -404,6 +407,90 @@
         </div>
 
       </div>
+      </div>
+    </section>
+
+    <!-- ==================== JOBS & CONCORSI SECTION ==================== -->
+    <section id="jobs-calc" class="tab-content">
+      <div class="section-header">
+        <div class="section-tag" style="background: rgba(0, 166, 81, 0.1); color: var(--accent-green);">CARRIERA &amp; RECLUTAMENTO PA</div>
+        <h2>🔍 Motore di Ricerca Concorsi Pubblici &amp; Offerte di Lavoro</h2>
+        <p>Aggregatore ufficiale di bandi dei Comuni italiani, Regioni e Ministeri da inPA. Aggiornato quotidianamente.</p>
+      </div>
+
+      <!-- Job Search Filter Bar (Segugio Style) -->
+      <div class="card" style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 4px 16px rgba(10,56,113,0.05);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
+          
+          <div>
+            <label style="font-size: 13px; font-weight: 700; color: var(--navy-primary); display: block; margin-bottom: 6px;">🔍 Cerca Ruolo o Comune</label>
+            <input type="text" id="job-search-input" placeholder="Es. Milano, Polizia, Amministrativo..." class="form-input" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1;">
+          </div>
+
+          <div>
+            <label style="font-size: 13px; font-weight: 700; color: var(--navy-primary); display: block; margin-bottom: 6px;">📍 Regione / Comune</label>
+            <select id="job-region-select" class="form-select" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1;">
+              <option value="ALL">Tutte le Regioni</option>
+              <option value="Lombardia">Lombardia (Milano)</option>
+              <option value="Lazio">Lazio (Roma)</option>
+              <option value="Piemonte">Piemonte (Torino)</option>
+              <option value="Campania">Campania (Napoli)</option>
+              <option value="Emilia-Romagna">Emilia-Romagna (Bologna)</option>
+              <option value="Toscana">Toscana (Firenze)</option>
+              <option value="Sicilia">Sicilia (Palermo)</option>
+              <option value="Puglia">Puglia (Bari)</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size: 13px; font-weight: 700; color: var(--navy-primary); display: block; margin-bottom: 6px;">📋 Tipologia</label>
+            <select id="job-type-select" class="form-select" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1;">
+              <option value="ALL">Tutti gli Annunci</option>
+              <option value="Concorso Pubblico">🏛️ Concorso Pubblico Comunale</option>
+              <option value="Lavoro Privato">💼 Lavoro Privato</option>
+              <option value="Remote Working">💻 Smart Working / Remote</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size: 13px; font-weight: 700; color: var(--navy-primary); display: block; margin-bottom: 6px;">🎓 Titolo di Studio</label>
+            <select id="job-edu-select" class="form-select" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1;">
+              <option value="ALL">Tutti i Titoli</option>
+              <option value="Licenza Media">Licenza Media</option>
+              <option value="Diploma">Diploma</option>
+              <option value="Laurea">Laurea</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Results Count & Counter -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="margin: 0; font-size: 18px; color: var(--navy-primary); font-weight: 700;" id="jobs-count-text">Posizioni Aperte</h3>
+        <span style="font-size: 12px; color: var(--text-muted);">🔄 Aggiornato quotidianamente tramite inPA &amp; Albi Pretori</span>
+      </div>
+
+      <!-- Jobs Grid Container -->
+      <div id="jobs-results-container" style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Dynamic job cards rendered by JS -->
+      </div>
+
+      <!-- Partner Banner (Concorsi Prep / Jooble) -->
+      <div class="segugio-deal-card" style="margin-top: 30px;">
+        <div class="segugio-deal-left">
+          <div style="font-size: 36px;">📚</div>
+          <div>
+            <span class="segugio-deal-badge" style="background: #dcfce7; color: #15803d;">Preparazione Concorsi 2026</span>
+            <div class="segugio-deal-title">Preparati al meglio per i Concorsi Pubblici dei Comuni</div>
+            <div class="segugio-deal-desc">Simulatore quiz ufficiali, manuali sintetici e video-lezioni per superare le prove d'esame.</div>
+          </div>
+        </div>
+        <div class="segugio-deal-cta">
+          <a href="https://amzn.to/3RtDiUE" target="_blank" rel="nofollow sponsored" class="btn btn-segugio" style="padding: 12px 24px; text-decoration: none; display: inline-block;">
+            Scopri i Manuali Quiz &rarr;
+          </a>
+        </div>
       </div>
     </section>
 

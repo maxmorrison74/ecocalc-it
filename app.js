@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initStipendioCalc();
   initPartitaIvaCalc();
+  initJobsModule();
   initMutuoCalc();
   initTFRNASpICalc();
   initInsuranceCalc();
@@ -900,4 +901,106 @@ function initBolloCalc() {
   });
 
   calculateBollo();
+}
+
+/* --------------------------------------------------------------------------
+   Jobs & Concorsi Module (Segugio Style Filtering & Rendering)
+   -------------------------------------------------------------------------- */
+let allJobsData = [];
+
+function initJobsModule() {
+  const container = document.getElementById('jobs-results-container');
+  if (!container) return;
+
+  fetch('jobs.json')
+    .then(response => response.json())
+    .then(data => {
+      allJobsData = data.jobs || [];
+      renderJobs(allJobsData);
+
+      document.getElementById('job-search-input')?.addEventListener('input', filterJobs);
+      document.getElementById('job-region-select')?.addEventListener('change', filterJobs);
+      document.getElementById('job-type-select')?.addEventListener('change', filterJobs);
+      document.getElementById('job-edu-select')?.addEventListener('change', filterJobs);
+    })
+    .catch(err => {
+      console.error('Error loading jobs database:', err);
+      container.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--text-muted);">Errore nel caricamento delle posizioni aperte. Riprova più tardi.</div>`;
+    });
+}
+
+function filterJobs() {
+  const query = (document.getElementById('job-search-input')?.value || '').toLowerCase().trim();
+  const region = document.getElementById('job-region-select')?.value || 'ALL';
+  const type = document.getElementById('job-type-select')?.value || 'ALL';
+  const edu = document.getElementById('job-edu-select')?.value || 'ALL';
+
+  const filtered = allJobsData.filter(job => {
+    const matchQuery = !query || 
+      job.title.toLowerCase().includes(query) || 
+      job.entity.toLowerCase().includes(query) || 
+      job.city.toLowerCase().includes(query) ||
+      (job.summary && job.summary.toLowerCase().includes(query));
+
+    const matchRegion = region === 'ALL' || job.region === region || job.region === 'Tutte le Regioni';
+    const matchType = type === 'ALL' || job.type === type;
+    const matchEdu = edu === 'ALL' || job.education === edu || job.education.includes(edu);
+
+    return matchQuery && matchRegion && matchType && matchEdu;
+  });
+
+  renderJobs(filtered);
+}
+
+function renderJobs(jobsList) {
+  const container = document.getElementById('jobs-results-container');
+  const countText = document.getElementById('jobs-count-text');
+  if (!container) return;
+
+  if (countText) {
+    countText.textContent = `Trovate ${jobsList.length} posizioni aperte`;
+  }
+
+  if (jobsList.length === 0) {
+    container.innerHTML = `
+      <div style="background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 40px; text-align: center; box-shadow: 0 4px 16px rgba(10,56,113,0.05);">
+        <div style="font-size: 40px; margin-bottom: 10px;">🔍</div>
+        <h4 style="margin: 0 0 8px 0; color: var(--navy-primary); font-size: 18px;">Nessun concorso o lavoro trovato</h4>
+        <p style="color: var(--text-muted); font-size: 14px; margin: 0;">Prova a modificare i filtri di ricerca o la parola chiave inserita.</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = jobsList.map(job => {
+    const isConcorso = job.type === 'Concorso Pubblico';
+    const badgeBg = isConcorso ? '#e0f2fe' : '#dcfce7';
+    const badgeColor = isConcorso ? '#0369a1' : '#15803d';
+
+    return `
+      <div class="segugio-deal-card">
+        <div class="segugio-deal-left">
+          <div style="font-size: 32px; flex-shrink: 0;">${isConcorso ? '🏛️' : '💼'}</div>
+          <div>
+            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+              <span class="segugio-deal-badge" style="background: ${badgeBg}; color: ${badgeColor};">${job.type}</span>
+              <span style="font-size: 12px; font-weight: 600; color: var(--navy-primary);">📍 ${job.entity} (${job.city})</span>
+              ${job.places ? `<span style="font-size: 11px; background: #fef3c7; color: #b45309; padding: 2px 6px; border-radius: 4px; font-weight: 700;">👥 ${job.places} Posti</span>` : ''}
+            </div>
+            <div class="segugio-deal-title">${job.title}</div>
+            <div class="segugio-deal-desc">${job.summary || ''}</div>
+            <div style="display: flex; gap: 15px; margin-top: 8px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap;">
+              <span>🎓 <strong>Titolo:</strong> ${job.education}</span>
+              <span>💰 <strong>Inquadramento:</strong> ${job.salary}</span>
+              <span>⏰ <strong>Scadenza:</strong> ${job.deadline}</span>
+            </div>
+          </div>
+        </div>
+        <div class="segugio-deal-cta">
+          <a href="${job.url}" target="_blank" rel="noopener" class="btn btn-segugio" style="padding: 10px 18px; text-decoration: none; display: inline-block; font-size: 13px;">
+            ${isConcorso ? 'Visualizza Bando Ufficiale &rarr;' : 'Candidati Ora &rarr;'}
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
