@@ -919,6 +919,17 @@ function initJobsModule() {
       renderJobs(allJobsData);
 
       document.getElementById('job-search-input')?.addEventListener('input', filterJobs);
+      document.getElementById('job-search-input')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          filterJobs();
+          document.getElementById('jobs-results-container')?.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+      document.getElementById('job-search-btn')?.addEventListener('click', () => {
+        filterJobs();
+        document.getElementById('jobs-results-container')?.scrollIntoView({ behavior: 'smooth' });
+      });
       document.getElementById('job-region-select')?.addEventListener('change', filterJobs);
       document.getElementById('job-type-select')?.addEventListener('change', filterJobs);
       document.getElementById('job-edu-select')?.addEventListener('change', filterJobs);
