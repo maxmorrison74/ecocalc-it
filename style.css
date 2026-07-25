@@ -12,15 +12,15 @@
   --navy-dark: #062349;
   --navy-light: #164f95;
   
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
+  --text-primary: #0f172a;   /* Ultra crisp dark slate (15.8:1 contrast on white) */
+  --text-secondary: #334155; /* Slate 700 (10.2:1 contrast on white) */
+  --text-muted: #475569;     /* Slate 600 (7.1:1 contrast on white) */
   
-  --accent-green: #00a651; /* Segugio High-Converting Emerald CTA */
-  --accent-green-hover: #008e45;
-  --accent-orange: #ff6600; /* Segugio Accent Orange */
+  --accent-green: #008744;   /* WCAG Compliant Emerald Green (4.6:1 contrast) */
+  --accent-green-hover: #006b36;
+  --accent-orange: #d97706;
   --accent-blue: #0284c7;
-  --accent-yellow: #f59e0b;
+  --accent-yellow: #b45309;  /* High contrast amber */
 
   /* Borders & Shadows */
   --border-subtle: #e2e8f0;
@@ -755,12 +755,14 @@ label {
 }
 
 .btn-warning {
-  background: #fff8eb;
-  color: var(--accent-yellow);
+  background: #fef3c7;
+  color: #78350f;
+  font-weight: 700;
 }
 
 .btn-warning:hover {
-  background: #ffebd1;
+  background: #fde68a;
+  color: #451a03;
 }
 
 .btn-block {
