@@ -1195,3 +1195,138 @@ input:checked + .slider:before {
   flex-shrink: 0;
 }
 
+/* ==========================================================================
+   High-End Executive PDF Print Stylesheet (@media print)
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 1.2cm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide Web UI & Unnecessary Elements */
+  header.site-header,
+  .live-ticker-bar,
+  .segugio-trust-bar,
+  .nav-tabs,
+  .presets-wrapper,
+  .card:not(.glow-card):not(#bollo-hero-box),
+  .form-group,
+  .custom-range,
+  .share-actions,
+  .ad-wrapper,
+  .flextax-clickable-banner,
+  .site-footer,
+  .floating-cookie-card,
+  .floating-cookie-trigger,
+  .affiliate-card,
+  button,
+  .preset-btn {
+    display: none !important;
+  }
+
+  .container, .main-content {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .tab-content {
+    display: none !important;
+  }
+
+  .tab-content.active {
+    display: block !important;
+  }
+
+  .grid-layout {
+    display: block !important;
+  }
+
+  .results-column {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .results-column .card {
+    border: 2px solid #0a3871 !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  /* Executive Print Header */
+  .results-column .card::before {
+    content: "EcoCalc.it — Prospetto Fiscale & Report Ufficiale 2026";
+    display: block;
+    font-size: 16pt;
+    font-weight: bold;
+    color: #0a3871;
+    border-bottom: 2px solid #0a3871;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Executive Print Footer */
+  .results-column .card::after {
+    content: "Documento informativo calcolato gratuitamente su EcoCalc.it (https://ecocalc.it) • Conforme alla Legge di Bilancio 2026";
+    display: block;
+    font-size: 9pt;
+    color: #475569;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 10px;
+    margin-top: 24px;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .hero-stat-box {
+    background: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    padding: 16px !important;
+    text-align: center !important;
+    margin-bottom: 20px !important;
+  }
+
+  .stat-value {
+    font-size: 24pt !important;
+    color: #008744 !important;
+    font-weight: bold !important;
+  }
+
+  .stats-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 15px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .stat-item {
+    border: 1px solid #e2e8f0 !important;
+    padding: 12px !important;
+    border-radius: 6px !important;
+  }
+
+  .comparison-visual-box {
+    display: flex !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    border: 1px dashed #0a3871 !important;
+    padding: 14px !important;
+    border-radius: 8px !important;
+  }
+}
+
