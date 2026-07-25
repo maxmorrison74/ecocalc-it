@@ -201,163 +201,181 @@ function copyStipendioReport() {
 }
 
 function downloadPDFReport() {
-  const ral = document.getElementById('val-ral') ? document.getElementById('val-ral').textContent : '30.000 €';
-  const mensilita = document.getElementById('ral-mensilita') ? document.getElementById('ral-mensilita').value : '13';
-  const regioneSelect = document.getElementById('ral-regione');
-  const regioneText = regioneSelect ? regioneSelect.options[regioneSelect.selectedIndex].text : 'Standard';
-  const figli = document.getElementById('ral-figli') ? document.getElementById('ral-figli').value : '0';
-  
-  const nettoMensile = document.getElementById('res-netto-mensile').textContent;
-  const nettoAnnuo = document.getElementById('res-netto-annuo').textContent;
-  const lordoMensile = document.getElementById('res-lordo-mensile').textContent;
-  const inpsAnnuo = document.getElementById('res-inps-annuo').textContent;
-  const irpefAnnua = document.getElementById('res-irpef-annua').textContent;
-  const aliquotaMedia = document.getElementById('res-aliquota-media').textContent;
-  const quotaNettaPct = document.getElementById('res-quota-netta-pct').textContent;
+  try {
+    const ral = document.getElementById('val-ral') ? document.getElementById('val-ral').textContent : '30.000 €';
+    const mensilita = document.getElementById('ral-mensilita') ? document.getElementById('ral-mensilita').value : '13';
+    const regioneSelect = document.getElementById('ral-regione');
+    const regioneText = regioneSelect ? regioneSelect.options[regioneSelect.selectedIndex].text : 'Standard';
+    const figli = document.getElementById('ral-figli') ? document.getElementById('ral-figli').value : '0';
+    
+    const nettoMensile = document.getElementById('res-netto-mensile')?.textContent || '1.664 €';
+    const nettoAnnuo = document.getElementById('res-netto-annuo')?.textContent || '21.632 €';
+    const inpsAnnuo = document.getElementById('res-inps-annuo')?.textContent || '2.573 €';
+    const irpefAnnua = document.getElementById('res-irpef-annua')?.textContent || '3.795 €';
+    const aliquotaMedia = document.getElementById('res-aliquota-media')?.textContent || 'Aliquota Media ~13,5%';
+    const quotaNettaPct = document.getElementById('res-quota-netta-pct')?.textContent || '77,2%';
 
-  const today = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  const reportId = 'EC-' + Math.floor(100000 + Math.random() * 900000);
+    const ralNum = parseFloat(ral.replace(/\./g, '').replace('€', '').trim()) || 30000;
+    const mensilitaNum = parseInt(mensilita) || 13;
+    const lordoMensile = Math.round(ralNum / mensilitaNum).toLocaleString('it-IT') + ' €';
 
-  const printWindow = window.open('', '_blank', 'width=850,height=950');
-  if (!printWindow) {
+    const today = new Date().toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const reportId = 'EC-' + Math.floor(100000 + Math.random() * 900000);
+
+    const htmlContent = `
+    <!DOCTYPE html>
+    <html lang="it">
+    <head>
+      <meta charset="UTF-8">
+      <title>Prospetto Stipendio Netto - EcoCalc.it</title>
+      <style>
+        @page { size: A4; margin: 1.5cm; }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #0f172a; margin: 0; padding: 25px; font-size: 13px; line-height: 1.5; background: #fff; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0a3871; padding-bottom: 15px; margin-bottom: 20px; }
+        .logo { font-size: 26px; font-weight: 800; color: #0a3871; }
+        .logo span { color: #0284c7; }
+        .subtitle { font-size: 11px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; font-weight: 600; }
+        .meta { text-align: right; font-size: 11px; color: #475569; }
+        .title-box { text-align: center; margin-bottom: 25px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .title-box h1 { margin: 0; font-size: 18px; color: #0a3871; text-transform: uppercase; letter-spacing: 0.5px; }
+        .title-box p { margin: 4px 0 0 0; font-size: 12px; color: #475569; }
+        .section-title { font-size: 13px; font-weight: 700; color: #0a3871; border-left: 4px solid #00a651; padding-left: 8px; margin: 20px 0 10px 0; text-transform: uppercase; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f1f5f9; color: #0a3871; font-weight: 700; font-size: 12px; }
+        .total-card { background: #f0fdf4; border: 2px solid #00a651; border-radius: 10px; padding: 22px; text-align: center; margin: 25px 0; }
+        .total-label { font-size: 13px; color: #166534; font-weight: 700; text-transform: uppercase; }
+        .total-val { font-size: 34px; color: #15803d; font-weight: 800; margin: 6px 0; }
+        .total-sub { font-size: 13px; color: #166534; font-weight: 600; }
+        .footer { border-top: 1px solid #cbd5e1; padding-top: 15px; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #64748b; }
+        .badge { background: #dcfce7; color: #15803d; padding: 4px 8px; border-radius: 4px; font-weight: 700; }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <div>
+          <div class="logo">EcoCalc<span>.it</span></div>
+          <div class="subtitle">CAF ONLINE &amp; HUB FISCALE 2026</div>
+        </div>
+        <div class="meta">
+          <div><strong>Report N°:</strong> ${reportId}</div>
+          <div><strong>Data Elaborazione:</strong> ${today}</div>
+          <div><strong>Normativa:</strong> Legge di Bilancio 2026</div>
+        </div>
+      </div>
+
+      <div class="title-box">
+        <h1>Prospetto Sintetico Calcolo Stipendio Netto</h1>
+        <p>Documento ufficiale di simulazione retributiva per lavoro dipendente</p>
+      </div>
+
+      <div class="section-title">1. Parametri di Ingresso</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Parametro</th>
+            <th>Valore Inserito</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Retribuzione Annua Lorda (RAL)</strong></td>
+            <td><strong>${ral}</strong></td>
+          </tr>
+          <tr>
+            <td>Numero di Mensilità</td>
+            <td>${mensilita} Mensilità</td>
+          </tr>
+          <tr>
+            <td>Regione di Residenza (Addizionali IRPEF)</td>
+            <td>${regioneText}</td>
+          </tr>
+          <tr>
+            <td>Familiari a Carico (Figli &lt; 21 anni)</td>
+            <td>${figli} figli</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-title">2. Dettaglio Trattenute &amp; Imposte</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Voce Fiscale</th>
+            <th>Importo Annuo</th>
+            <th>Incidenza / Dettagli</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Stipendio Lordo Mensile</td>
+            <td>${lordoMensile} / mese</td>
+            <td>Lordità mensile teorica</td>
+          </tr>
+          <tr>
+            <td>Contributi Previdenziali INPS</td>
+            <td><strong>${inpsAnnuo}</strong></td>
+            <td>Aliquota dipendente 9,19%</td>
+          </tr>
+          <tr>
+            <td>IRPEF Netta Stimata (inclusa detrazione lavoro)</td>
+            <td><strong>${irpefAnnua}</strong></td>
+            <td>${aliquotaMedia}</td>
+          </tr>
+          <tr>
+            <td>Quota Netta Trattenuta su RAL</td>
+            <td><strong>${quotaNettaPct}</strong></td>
+            <td>Percentuale del lordo accreditata</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="total-card">
+        <div class="total-label">Stipendio Netto Reale In Tasca</div>
+        <div class="total-val">${nettoMensile} / mese</div>
+        <div class="total-sub">Equivalente a ${nettoAnnuo} netti all'anno su ${mensilita} mensilità</div>
+      </div>
+
+      <div class="footer">
+        <div>
+          <span class="badge">✓ VERIFICATO 2026</span> &nbsp;
+          Elaborato gratuitamente da <strong>EcoCalc.it</strong> (https://ecocalc.it)
+        </div>
+        <div>Documento sintetico ad uso informativo ed estimativo</div>
+      </div>
+
+    </body>
+    </html>
+    `;
+
+    // Use hidden iframe to prevent popup blockers on Safari/Chrome Mobile
+    let iframe = document.getElementById('pdf-print-iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'pdf-print-iframe';
+      iframe.style.position = 'fixed';
+      iframe.style.right = '0';
+      iframe.style.bottom = '0';
+      iframe.style.width = '0';
+      iframe.style.height = '0';
+      iframe.style.border = '0';
+      document.body.appendChild(iframe);
+    }
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(htmlContent);
+    doc.close();
+
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+    }, 250);
+
+  } catch (err) {
+    console.error('Error generating PDF:', err);
     window.print();
-    return;
   }
-  
-  const htmlContent = `
-  <!DOCTYPE html>
-  <html lang="it">
-  <head>
-    <meta charset="UTF-8">
-    <title>Prospetto Stipendio Netto - EcoCalc.it</title>
-    <style>
-      @page { size: A4; margin: 1.5cm; }
-      body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #0f172a; margin: 0; padding: 20px; font-size: 13px; line-height: 1.5; background: #fff; }
-      .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #0a3871; padding-bottom: 15px; margin-bottom: 20px; }
-      .logo { font-size: 24px; font-weight: 800; color: #0a3871; }
-      .logo span { color: #0284c7; }
-      .subtitle { font-size: 11px; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; font-weight: 600; }
-      .meta { text-align: right; font-size: 11px; color: #475569; }
-      .title-box { text-align: center; margin-bottom: 25px; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; }
-      .title-box h1 { margin: 0; font-size: 18px; color: #0a3871; text-transform: uppercase; letter-spacing: 0.5px; }
-      .title-box p { margin: 4px 0 0 0; font-size: 12px; color: #475569; }
-      .section-title { font-size: 13px; font-weight: 700; color: #0a3871; border-left: 4px solid #00a651; padding-left: 8px; margin: 20px 0 10px 0; text-transform: uppercase; }
-      table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-      th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-      th { background: #f1f5f9; color: #0a3871; font-weight: 700; font-size: 12px; }
-      .total-card { background: #f0fdf4; border: 2px solid #00a651; border-radius: 10px; padding: 20px; text-align: center; margin: 25px 0; }
-      .total-label { font-size: 13px; color: #166534; font-weight: 700; text-transform: uppercase; }
-      .total-val { font-size: 32px; color: #15803d; font-weight: 800; margin: 6px 0; }
-      .total-sub { font-size: 13px; color: #166534; font-weight: 600; }
-      .footer { border-top: 1px solid #cbd5e1; padding-top: 15px; margin-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; color: #64748b; }
-      .badge { background: #dcfce7; color: #15803d; padding: 4px 8px; border-radius: 4px; font-weight: 700; }
-    </style>
-  </head>
-  <body>
-    <div class="header">
-      <div>
-        <div class="logo">EcoCalc<span>.it</span></div>
-        <div class="subtitle">CAF ONLINE &amp; HUB FISCALE 2026</div>
-      </div>
-      <div class="meta">
-        <div><strong>Report N°:</strong> ${reportId}</div>
-        <div><strong>Data Elaborazione:</strong> ${today}</div>
-        <div><strong>Normativa:</strong> Legge di Bilancio 2026</div>
-      </div>
-    </div>
-
-    <div class="title-box">
-      <h1>Prospetto Sintetico Calcolo Stipendio Netto</h1>
-      <p>Documento ufficiale di simulazione retributiva per lavoro dipendente</p>
-    </div>
-
-    <div class="section-title">1. Parametri di Ingresso</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Parametro</th>
-          <th>Valore Inserito</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Retribuzione Annua Lorda (RAL)</strong></td>
-          <td><strong>${ral}</strong></td>
-        </tr>
-        <tr>
-          <td>Numero di Mensilità</td>
-          <td>${mensilita} Mensilità</td>
-        </tr>
-        <tr>
-          <td>Regione di Residenza (Addizionali IRPEF)</td>
-          <td>${regioneText}</td>
-        </tr>
-        <tr>
-          <td>Familiari a Carico (Figli &lt; 21 anni)</td>
-          <td>${figli} figli</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="section-title">2. Dettaglio Trattenute &amp; Imposte</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Voce Fiscale</th>
-          <th>Importo Annuo</th>
-          <th>Incidenza / Dettagli</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Stipendio Lordo Mensile</td>
-          <td>${lordoMensile} / mese</td>
-          <td>Lordità mensile teorica</td>
-        </tr>
-        <tr>
-          <td>Contributi Previdenziali INPS</td>
-          <td><strong>${inpsAnnuo}</strong></td>
-          <td>Aliquota dipendente 9,19%</td>
-        </tr>
-        <tr>
-          <td>IRPEF Netta Stimata (inclusa detrazione lavoro)</td>
-          <td><strong>${irpefAnnua}</strong></td>
-          <td>${aliquotaMedia}</td>
-        </tr>
-        <tr>
-          <td>Quota Netta Trattenuta su RAL</td>
-          <td><strong>${quotaNettaPct}</strong></td>
-          <td>Percentuale del lordo accreditata</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="total-card">
-      <div class="total-label">Stipendio Netto Reale In Tasca</div>
-      <div class="total-val">${nettoMensile} / mese</div>
-      <div class="total-sub">Equivalente a ${nettoAnnuo} netti all'anno su ${mensilita} mensilità</div>
-    </div>
-
-    <div class="footer">
-      <div>
-        <span class="badge">✓ VERIFICATO 2026</span> &nbsp;
-        Elaborato gratuitamente da <strong>EcoCalc.it</strong> (https://ecocalc.it)
-      </div>
-      <div>Documento sintetico ad uso informativo ed estimativo</div>
-    </div>
-
-    <script>
-      window.onload = function() {
-        window.print();
-        setTimeout(function() { window.close(); }, 500);
-      };
-    </script>
-  </body>
-  </html>
-  `;
-
-  printWindow.document.write(htmlContent);
-  printWindow.document.close();
 }
 
 /* --------------------------------------------------------------------------
