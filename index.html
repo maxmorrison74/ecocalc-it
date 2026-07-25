@@ -427,8 +427,8 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;">
           
           <div>
-            <label style="font-size: 13px; font-weight: 700; color: var(--navy-primary); display: block; margin-bottom: 6px;">🔍 Cerca Ruolo o Comune</label>
-            <input type="text" id="job-search-input" placeholder="Es. Milano, Polizia, Amministrativo..." class="form-input" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1;">
+            <label for="job-search-input" style="font-size: 13px; font-weight: 700; color: var(--navy-primary); display: block; margin-bottom: 6px;">🔍 Cerca Ruolo o Comune</label>
+            <input type="text" id="job-search-input" placeholder="Es. Milano, Polizia, Amministrativo..." aria-label="Cerca Ruolo o Comune per concorsi pubblici" class="form-input" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid #cbd5e1;">
           </div>
 
           <div>
@@ -1564,11 +1564,11 @@
 
         <div class="toggle-item">
           <div class="toggle-info">
-            <strong>Cookie Analitici & Pubblicitari</strong>
+            <strong id="cookie-analytics-label">Cookie Analitici &amp; Pubblicitari</strong>
             <small>Misurazione traffico e annunci AdSense</small>
           </div>
-          <label class="switch">
-            <input type="checkbox" id="cookie-analytics-toggle" checked>
+          <label class="switch" for="cookie-analytics-toggle">
+            <input type="checkbox" id="cookie-analytics-toggle" checked aria-label="Attiva o disattiva Cookie Analitici e Pubblicitari" aria-labelledby="cookie-analytics-label">
             <span class="slider"></span>
           </label>
         </div>
