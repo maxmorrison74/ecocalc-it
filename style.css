@@ -1,33 +1,35 @@
 /* ==========================================================================
-   EcoCalc Hub - Apple Style Design System (Light Theme)
+   EcoCalc Hub - Institutional Fintech Design System 2026
    ========================================================================== */
 
 :root {
-  /* Segugio.it Color Palette & Theme */
-  --bg-color: #f4f6f9; /* Segugio light grayish canvas */
+  /* Institutional Palette (Slate, Emerald & Sapphire) */
+  --bg-color: #f8fafc;        /* Slate 50 ultra clean canvas */
   --surface-color: #ffffff;
-  --surface-secondary: #ebf0f7;
+  --surface-secondary: #f1f5f9;/* Slate 100 */
+  --surface-tertiary: #e2e8f0; /* Slate 200 */
   
-  --navy-primary: #0a3871; /* Segugio Deep Royal Navy */
-  --navy-dark: #062349;
-  --navy-light: #164f95;
+  --navy-primary: #0f172a;    /* Deep Slate 900 */
+  --navy-dark: #020617;       /* Slate 950 */
+  --navy-light: #1e293b;      /* Slate 800 */
   
-  --text-primary: #0f172a;   /* Ultra crisp dark slate (15.8:1 contrast on white) */
-  --text-secondary: #334155; /* Slate 700 (10.2:1 contrast on white) */
-  --text-muted: #475569;     /* Slate 600 (7.1:1 contrast on white) */
+  --text-primary: #0f172a;    /* Slate 900 (15.8:1 contrast on white) */
+  --text-secondary: #334155;  /* Slate 700 (10.2:1 contrast on white) */
+  --text-muted: #64748b;      /* Slate 500 */
   
-  --accent-green: #008744;   /* WCAG Compliant Emerald Green (4.6:1 contrast) */
-  --accent-green-hover: #006b36;
+  --accent-green: #059669;    /* Institutional Emerald Green (4.8:1 contrast) */
+  --accent-green-hover: #047857;
+  --accent-blue: #2563eb;     /* Royal Sapphire Blue */
+  --accent-blue-hover: #1d4ed8;
   --accent-orange: #d97706;
-  --accent-blue: #0284c7;
-  --accent-yellow: #b45309;  /* High contrast amber */
+  --accent-yellow: #b45309;   /* High contrast amber */
 
   /* Borders & Shadows */
   --border-subtle: #e2e8f0;
   --border-strong: #cbd5e1;
-  --shadow-soft: 0 4px 16px rgba(10, 56, 113, 0.05);
-  --shadow-medium: 0 8px 24px rgba(10, 56, 113, 0.08);
-  --shadow-float: 0 16px 36px rgba(10, 56, 113, 0.12);
+  --shadow-soft: 0 1px 3px rgba(15, 23, 42, 0.05), 0 4px 12px rgba(15, 23, 42, 0.03);
+  --shadow-medium: 0 4px 6px -1px rgba(15, 23, 42, 0.05), 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+  --shadow-float: 0 20px 35px -10px rgba(15, 23, 42, 0.12), 0 10px 15px -5px rgba(15, 23, 42, 0.06);
 
   /* Radius */
   --radius-sm: 6px;
@@ -36,8 +38,9 @@
   --radius-xl: 20px;
   --radius-pill: 999px;
 
-  /* Typography */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Typography System */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: 'Outfit', 'Inter', -apple-system, sans-serif;
 }
 
 /* --------------------------------------------------------------------------
@@ -303,11 +306,16 @@ a:hover {
 }
 
 .section-header h2 {
-  font-size: 36px;
+  font-family: var(--font-heading);
+  font-size: 38px;
   font-weight: 700;
-  letter-spacing: -1px;
+  letter-spacing: -0.03em;
   margin-bottom: 16px;
-  color: var(--text-primary);
+  color: var(--navy-primary);
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: var(--font-heading);
 }
 
 .section-header p {
@@ -377,15 +385,22 @@ a:hover {
   background: var(--surface-color);
   border-radius: var(--radius-xl);
   padding: 32px;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-medium);
   border: 1px solid var(--border-subtle);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-float);
 }
 
 .card-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-family: var(--font-heading);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--navy-primary);
   margin-bottom: 24px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.02em;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -474,25 +489,26 @@ label {
   cursor: pointer;
 }
 
-/* Select & Number Inputs */
 .select-input, .num-input {
   width: 100%;
   padding: 12px 16px;
-  background: var(--surface-secondary);
-  border: 1px solid transparent;
+  background: var(--surface-color);
+  border: 1px solid var(--border-strong);
   color: var(--text-primary);
   border-radius: var(--radius-md);
   font-family: inherit;
   font-size: 15px;
-  transition: all 0.2s;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
   appearance: none;
 }
 
 .select-input:focus, .num-input:focus {
   outline: none;
   border-color: var(--accent-blue);
-  background: var(--surface-color);
-  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .select-input {
@@ -520,21 +536,30 @@ label {
 .hero-stat-box {
   text-align: center;
   margin: 16px 0 32px;
+  padding: 24px 20px;
+  background: linear-gradient(180deg, var(--surface-secondary) 0%, #ffffff 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .stat-label {
   display: block;
-  font-size: 15px;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
 }
 
 .stat-value {
   display: block;
-  font-size: 48px;
-  font-weight: 700;
-  letter-spacing: -1.5px;
-  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--navy-primary);
   line-height: 1;
   margin-bottom: 12px;
 }
