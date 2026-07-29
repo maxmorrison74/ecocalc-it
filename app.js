@@ -1281,6 +1281,12 @@ function initJobsModule() {
   fetch('jobs.json')
     .then(response => response.json())
     .then(data => {
+      if (data && data.updated_at) {
+        const updateText = document.getElementById('jobs-last-updated-text');
+        const updateBadge = document.getElementById('jobs-last-updated-badge');
+        if (updateText) updateText.textContent = `Ultimo aggiornamento: ${data.updated_at}`;
+        if (updateBadge) updateBadge.textContent = data.updated_at;
+      }
       if (data && data.jobs && data.jobs.length > 0) {
         allJobsData = data.jobs;
         filterJobs();
