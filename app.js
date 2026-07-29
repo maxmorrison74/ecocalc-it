@@ -101,6 +101,11 @@ function switchTab(tabId, updateHash = true) {
   if (updateHash && window.history && window.history.replaceState) {
     window.history.replaceState(null, null, '#' + tabId);
   }
+
+  // GA4 Event Tracking
+  if (typeof gtag === 'function') {
+    gtag('event', 'tab_view', { 'tab_id': tabId });
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -130,6 +135,11 @@ function initStipendioCalc() {
     const regione = regioneSelect.value;
     const figli = parseInt(figliInput.value) || 0;
     const tipoContratto = contrattoSelect.value;
+
+    // GA4 Event Tracking
+    if (ral > 0 && typeof gtag === 'function') {
+      gtag('event', 'calculate_net_salary', { 'ral_value': ral });
+    }
 
     valRalSpan.textContent = `${ral.toLocaleString('it-IT')} €`;
 
@@ -201,6 +211,11 @@ function copyStipendioReport() {
 }
 
 function downloadPDFReport() {
+  // GA4 Event Tracking
+  if (typeof gtag === 'function') {
+    gtag('event', 'download_pdf', { 'report_type': 'stipendio' });
+  }
+
   try {
     const ral = document.getElementById('val-ral') ? document.getElementById('val-ral').textContent : '30.000 €';
     const mensilita = document.getElementById('ral-mensilita') ? document.getElementById('ral-mensilita').value : '13';
