@@ -47,6 +47,14 @@
   <meta name="twitter:description" content="Strumento gratuito per il calcolo dello stipendio netto, tasse P.IVA, rate mutui e polizze assicurative.">
   <meta name="twitter:image" content="https://ecocalc.it/logo_transparent.png">
 
+  <!-- Resource Hints & Preconnect for maximum Lighthouse performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com">
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
   <!-- Dati Strutturati Schema.org (JSON-LD per Google Rich Snippets) -->
   <script type="application/ld+json">
   {
@@ -82,6 +90,45 @@
           "priceCurrency": "EUR"
         },
         "description": "Simulatore preciso per il calcolo dello stipendio netto mensile ed annuale dalla retribuzione annua lorda (RAL) secondo la Legge di Bilancio 2026."
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://ecocalc.it/#forfettario-application",
+        "name": "Calcolatore Partita IVA Forfettario 2026",
+        "operatingSystem": "All",
+        "applicationCategory": "FinanceApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "description": "Calcola le tasse e i contributi INPS per il regime forfettario 2026 in base al codice ATECO e al fatturato."
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://ecocalc.it/#mutui-application",
+        "name": "Simulatore Rata Mutuo 2026",
+        "operatingSystem": "All",
+        "applicationCategory": "FinanceApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "description": "Simula la rata del mutuo a tasso fisso o variabile con piano di ammortamento alla francese."
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://ecocalc.it/#concorsi-application",
+        "name": "Cerca Concorsi Pubblici Comunali 2026",
+        "operatingSystem": "All",
+        "applicationCategory": "BusinessApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "description": "Aggregatore automatico di bandi di concorso e posizioni aperte nella Pubblica Amministrazione aggiornato quotidianamente."
       },
       {
         "@type": "FAQPage",
@@ -288,13 +335,14 @@
 
         <!-- Results Column Card -->
         <div class="results-column">
-          <div class="card glass-card accent-card glow-card" id="stipendio-hero-box">
+          <div class="card glass-card accent-card glow-card" id="stipendio-hero-box" aria-live="polite">
             <h3 class="card-title">💵 Il Tuo Stipendio Netto</h3>
 
             <div class="hero-stat-box">
               <span class="stat-label">Netto Mensile Stimato in Busta Paga</span>
               <span class="stat-value highlight-green pulse-text" id="res-netto-mensile">1.664 €</span>
               <span class="stat-badge" id="res-mensilita-badge">Su 13 mensilità ordinarie</span>
+              <button class="copy-btn" onclick="copyResultText('res-netto-mensile', this)" aria-label="Copia valore netto mensile">📋 Copia Risultato</button>
             </div>
 
             <div class="stats-grid">
@@ -579,13 +627,14 @@
         </div>
 
         <div class="results-column">
-          <div class="card glass-card accent-card glow-card">
+          <div class="card glass-card accent-card glow-card" aria-live="polite">
             <h3 class="card-title">💵 Netto Reale In Tasca</h3>
 
             <div class="hero-stat-box">
               <span class="stat-label">Utile Netto Annuo</span>
               <span class="stat-value highlight-green pulse-text" id="res-piva-netto-annuo">23.250 €</span>
               <span class="stat-badge" id="res-piva-netto-mensile">≈ 1.937 € / mese netti</span>
+              <button class="copy-btn" onclick="copyResultText('res-piva-netto-annuo', this)" aria-label="Copia valore utile netto annuo">📋 Copia Risultato</button>
             </div>
 
             <div class="stats-grid">

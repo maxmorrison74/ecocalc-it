@@ -1330,3 +1330,46 @@ input:checked + .slider:before {
   }
 }
 
+/* --------------------------------------------------------------------------
+   Accessibility & Keyboard Navigation (WCAG 2.1 AA)
+   -------------------------------------------------------------------------- */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+.tab-btn:focus-visible {
+  outline: 3px solid var(--accent-blue) !important;
+  outline-offset: 2px !important;
+}
+
+/* --------------------------------------------------------------------------
+   Copy-to-Clipboard Button
+   -------------------------------------------------------------------------- */
+.copy-btn {
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.copy-btn:hover {
+  background: var(--border-subtle);
+  color: var(--accent-blue);
+}
+
+.copy-btn.copied {
+  background: #10b981;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+

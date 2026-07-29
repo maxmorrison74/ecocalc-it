@@ -98,6 +98,42 @@ function switchTab(tabId, updateHash = true) {
     content.classList.toggle('active', content.id === tabId);
   });
 
+  // Dynamic SEO Title & Meta Description update per Tab
+  const tabMetaMap = {
+    'stipendio-tab': {
+      title: 'Calcolo Stipendio Netto 2026 dal Lordo (RAL) | EcoCalc.it',
+      desc: 'Calcola in 1 clic lo stipendio netto mensile e annuale dal lordo con aliquote IRPEF 2026 aggiornate.'
+    },
+    'partita-iva-tab': {
+      title: 'Calcolo Tasse Partita IVA Forfettario 2026 | EcoCalc.it',
+      desc: 'Simulatore per il calcolo delle tasse e dei contributi INPS in Regime Forfettario 2026 per tutti i codici ATECO.'
+    },
+    'mutui-tab': {
+      title: 'Simulatore Rata Mutuo 2026 Tasso Fisso e Variabile | EcoCalc.it',
+      desc: 'Calcola la rata mensile del mutuo prima casa ed esplora il piano di ammortamento alla francese.'
+    },
+    'jobs-tab': {
+      title: 'Concorsi Pubblici Comunali 2026 Aggiornati | EcoCalc.it',
+      desc: 'Trova i concorsi pubblici aperti oggi nei comuni e regioni d\'Italia con aggiornamento quotidiano.'
+    },
+    'tfr-naspi-tab': {
+      title: 'Calcolo TFR Netto e Calcolo NASpI 2026 | EcoCalc.it',
+      desc: 'Simulatore per il calcolo del TFR netto spettante e dell\'assegno di disoccupazione NASpI.'
+    },
+    'insurance-tab': {
+      title: 'Comparatore Polizze Assicurazione Auto & Moto | EcoCalc.it',
+      desc: 'Confronta i preventivi migliori per la tua assicurazione auto, moto e casa in modo 100% gratuito.'
+    }
+  };
+
+  if (tabMetaMap[tabId]) {
+    document.title = tabMetaMap[tabId].title;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', tabMetaMap[tabId].desc);
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', tabMetaMap[tabId].title);
+  }
+
   if (updateHash && window.history && window.history.replaceState) {
     window.history.replaceState(null, null, '#' + tabId);
   }
@@ -107,6 +143,34 @@ function switchTab(tabId, updateHash = true) {
     gtag('event', 'tab_view', { 'tab_id': tabId });
   }
 }
+
+/**
+ * Copy text from element to clipboard with user feedback
+ */
+function copyResultText(elementId, btnElement) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  const textToCopy = el.textContent || el.innerText;
+  
+  navigator.clipboard.writeText(textToCopy).then(() => {
+    const originalText = btnElement.innerHTML;
+    btnElement.classList.add('copied');
+    btnElement.innerHTML = '✓ Copiato!';
+    
+    if (typeof gtag === 'function') {
+      gtag('event', 'copy_result', { 'element_id': elementId, 'copied_value': textToCopy });
+    }
+    
+    setTimeout(() => {
+      btnElement.classList.remove('copied');
+      btnElement.innerHTML = originalText;
+    }, 2000);
+  }).catch(err => {
+    console.error('Clipboard copy failed:', err);
+  });
+}
+window.copyResultText = copyResultText;
+
 
 /* --------------------------------------------------------------------------
    CAF Calculator 1: Stipendio Netto RAL (IRPEF 2026)
@@ -130,10 +194,11 @@ function initStipendioCalc() {
   const valRalSpan = document.getElementById('val-ral-display');
 
   function calculateStipendio() {
-    const ral = parseFloat(ralInput.value) || 28000;
+    const rawRal = parseFloat(ralInput.value) || 28000;
+    const ral = Math.max(0, Math.min(rawRal, 5000000));
     const mensilita = parseInt(mensilitaSelect.value) || 13;
     const regione = regioneSelect.value;
-    const figli = parseInt(figliInput.value) || 0;
+    const figli = Math.max(0, Math.min(parseInt(figliInput.value) || 0, 20));
     const tipoContratto = contrattoSelect.value;
 
     // GA4 Event Tracking
