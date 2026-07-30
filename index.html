@@ -342,7 +342,10 @@
               <span class="stat-label">Netto Mensile Stimato in Busta Paga</span>
               <span class="stat-value highlight-green pulse-text" id="res-netto-mensile">1.664 €</span>
               <span class="stat-badge" id="res-mensilita-badge">Su 13 mensilità ordinarie</span>
-              <button class="copy-btn" onclick="copyResultText('res-netto-mensile', this)" aria-label="Copia valore netto mensile">📋 Copia Risultato</button>
+              <div style="display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap;">
+                <button class="copy-btn" onclick="copyResultText('res-netto-mensile', this)" aria-label="Copia valore netto mensile">📋 Copia Risultato</button>
+                <button class="copy-btn" onclick="shareResultWhatsApp('stipendio')" style="background: #25d366; color: #ffffff; border-color: #25d366;" aria-label="Condividi su WhatsApp">💬 Condividi su WhatsApp</button>
+              </div>
             </div>
 
             <div class="stats-grid">
@@ -634,7 +637,10 @@
               <span class="stat-label">Utile Netto Annuo</span>
               <span class="stat-value highlight-green pulse-text" id="res-piva-netto-annuo">23.250 €</span>
               <span class="stat-badge" id="res-piva-netto-mensile">≈ 1.937 € / mese netti</span>
-              <button class="copy-btn" onclick="copyResultText('res-piva-netto-annuo', this)" aria-label="Copia valore utile netto annuo">📋 Copia Risultato</button>
+              <div style="display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap;">
+                <button class="copy-btn" onclick="copyResultText('res-piva-netto-annuo', this)" aria-label="Copia valore utile netto annuo">📋 Copia Risultato</button>
+                <button class="copy-btn" onclick="shareResultWhatsApp('piva')" style="background: #25d366; color: #ffffff; border-color: #25d366;" aria-label="Condividi su WhatsApp">💬 Condividi su WhatsApp</button>
+              </div>
             </div>
 
             <div class="stats-grid">

@@ -171,6 +171,34 @@ function copyResultText(elementId, btnElement) {
 }
 window.copyResultText = copyResultText;
 
+/**
+ * Share calculation result directly to WhatsApp (Viral Growth)
+ */
+function shareResultWhatsApp(type) {
+  let text = '';
+  if (type === 'stipendio') {
+    const net = document.getElementById('res-netto-mensile')?.textContent || '';
+    text = `Ho appena calcolato il mio Stipendio Netto su EcoCalc.it: circa ${net}/mese! Provalo gratis anche tu: https://ecocalc.it/#stipendio-calc`;
+  } else if (type === 'piva') {
+    const net = document.getElementById('res-piva-netto-annuo')?.textContent || '';
+    text = `Ho simulato le mie tasse in Regime Forfettario su EcoCalc.it: Utile Netto ${net}! Fai il tuo calcolo gratis: https://ecocalc.it/#piva-calc`;
+  } else if (type === 'mutuo') {
+    const rata = document.getElementById('res-mutuo-rata')?.textContent || '';
+    text = `Ho calcolato la mia Rata del Mutuo su EcoCalc.it: ${rata}/mese. Calcola gratis la tua rata: https://ecocalc.it/#mutui-calc`;
+  } else {
+    text = `Calcola Stipendio Netto, Tasse Partita IVA e Concorsi su EcoCalc.it: https://ecocalc.it`;
+  }
+  
+  if (typeof gtag === 'function') {
+    gtag('event', 'share_whatsapp', { 'share_type': type });
+  }
+
+  const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
+}
+window.shareResultWhatsApp = shareResultWhatsApp;
+
+
 
 /* --------------------------------------------------------------------------
    CAF Calculator 1: Stipendio Netto RAL (IRPEF 2026)
